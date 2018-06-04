@@ -1,5 +1,0 @@
-/home/arissetyawan/anaconda3/bin/conda create -n tensorflow pip python=3.6;
-source ~/tensorflow/bin/activate
-echo "deactivate to exit TF" 
-#pip3 install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.5.0-cp36-cp36m-linux_x86_64.whl
-
