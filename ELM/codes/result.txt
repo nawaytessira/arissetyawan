@@ -1,0 +1,2459 @@
+Loading the dataset...
+Loading test file...
+Loading label file...
+Loading train file...
+### Data Class ###
+Number of samples = (3786)
+Number of classes = (3)
+trainIn = ((2000, 180))
+trainOut = ((2000, 3))
+valIn = ((600, 180))
+valOut = ((600, 3))
+testIn = ((1186, 180))
+testOut = ((1186, 3))
+Normalization: max
+Starting training RBM  0  ...
+Starting the training...
+Reconstruction error:  0.7996966324178967 Iter:  0   Diff:  0.016333632
+Reconstruction error:  0.35125158562387027 Iter:  10   Diff:  0.0022591087
+Starting training RBM-ELM  0  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.4780110e-03 -1.8364345e-04 -3.6926541e-04 ...  6.7509897e-04
+   3.8795971e-04 -9.2298316e-04]
+ [ 8.2792185e-04  3.1115874e-04  2.9297527e-03 ...  1.1326747e-03
+   8.2843867e-04  1.7538503e-03]
+ [ 8.2246854e-04  1.4145402e-03  1.4451747e-03 ...  9.1097242e-04
+   1.3825188e-03  8.9382425e-05]
+ ...
+ [ 6.4578227e-04  4.7201960e-05  2.8138727e-04 ...  1.9604564e-04
+   2.3148934e-04  1.3220428e-03]
+ [ 1.6141757e-03  2.4095399e-03  2.0866022e-03 ...  1.3228904e-03
+   1.9477329e-03  1.3923064e-03]
+ [-2.2034697e-01 -2.1822640e-01 -2.2556007e-01 ... -2.1833825e-01
+  -1.7747298e-01 -1.9814856e-01]] None uniform None
+Miss classification on the training:  57.0  of  2000.0  - Accuracy:  97.15 %
+
+Miss classification on the test:  77.0  of  1186.0  - Accuracy:  93.50758853288364 %
+The norm of W:  3.3133304
+The norm of beta:  598700.4264442693
+
+
+
+Starting training ELM  0  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  103.0  of  2000.0  - Accuracy:  94.85 %
+
+Miss classification on the test:  126.0  of  1186.0  - Accuracy:  89.3760539629005 %
+The norm of W:  122.73013467712249
+The norm of beta:  1.546049726454001
+
+
+
+Starting training ELM-RO  0  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  52.0  of  2000.0  - Accuracy:  97.39999999999999 %
+
+Miss classification on the test:  66.0  of  1186.0  - Accuracy:  94.43507588532883 %
+The norm of W:  13.453624047073712
+The norm of beta:  31.641402304072912
+
+Iteration time:  2.859405517578125  sec Predict to end:  1.4297027587890625  min
+Starting training RBM  1  ...
+Starting the training...
+Reconstruction error:  0.767139791522902 Iter:  0   Diff:  0.016472152
+Reconstruction error:  0.36506815343333615 Iter:  10   Diff:  0.00223079
+Starting training RBM-ELM  1  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.0355127e-04 -5.6196022e-04  1.9239928e-03 ...  1.0204272e-03
+   9.0475840e-04  7.1945181e-04]
+ [ 2.6195222e-03  2.3846352e-03  1.3823472e-03 ...  2.7005875e-04
+   1.6427184e-03  1.0482860e-03]
+ [ 2.8246881e-03  1.7414849e-03  2.0609447e-03 ...  2.1088489e-03
+   1.4829347e-03  1.8480197e-03]
+ ...
+ [ 9.1891433e-04  1.4375939e-03  2.2625108e-03 ...  1.6949999e-03
+   1.1845530e-03  5.9612293e-04]
+ [ 1.5196580e-03  6.8653340e-04  1.9668546e-03 ...  1.6117989e-03
+   1.4987163e-03  1.9487680e-03]
+ [-2.0812866e-01 -1.9289681e-01 -1.9783133e-01 ... -1.9466276e-01
+  -2.0426428e-01 -1.9363162e-01]] None uniform None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  3.0858433
+The norm of beta:  717788.0326595531
+
+
+
+Starting training ELM  1  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  103.0  of  2000.0  - Accuracy:  94.85 %
+
+Miss classification on the test:  131.0  of  1186.0  - Accuracy:  88.95446880269814 %
+The norm of W:  122.75173968162129
+The norm of beta:  1.5658104259599617
+
+
+
+Starting training ELM-RO  1  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  71.0  of  1186.0  - Accuracy:  94.01349072512647 %
+The norm of W:  13.453624047073706
+The norm of beta:  34.53753601421811
+
+Iteration time:  2.6942646503448486  sec Predict to end:  1.3022279143333435  min
+Starting training RBM  2  ...
+Starting the training...
+Reconstruction error:  0.8002266397746175 Iter:  0   Diff:  0.01682949
+Reconstruction error:  0.3704270986850063 Iter:  10   Diff:  0.0022140455
+Starting training RBM-ELM  2  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.7910864e-03  3.1223064e-04  1.1447103e-03 ...  1.1000705e-03
+   2.5126149e-03  8.9497643e-04]
+ [ 2.0298816e-03  1.0720638e-03  7.3588896e-04 ...  8.9730235e-04
+   1.5758552e-03  2.3064062e-03]
+ [ 1.7097197e-03  1.6178297e-03  1.8505534e-03 ...  1.9893842e-03
+   1.8570515e-03  1.5972025e-03]
+ ...
+ [ 2.2756131e-03  1.6992751e-03  1.8504347e-03 ...  1.9987307e-03
+   1.3274682e-03  1.9202587e-03]
+ [ 2.5245657e-03  1.0686128e-03  2.1682112e-03 ...  1.9553756e-04
+   1.6402331e-03  1.0523974e-03]
+ [-1.8561515e-01 -2.1337715e-01 -2.0581999e-01 ... -2.0683645e-01
+  -2.0619141e-01 -2.0213582e-01]] None uniform None
+Miss classification on the training:  60.0  of  2000.0  - Accuracy:  97.0 %
+
+Miss classification on the test:  71.0  of  1186.0  - Accuracy:  94.01349072512647 %
+The norm of W:  3.2614262
+The norm of beta:  610120.3036432046
+
+
+
+Starting training ELM  2  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  105.0  of  2000.0  - Accuracy:  94.75 %
+
+Miss classification on the test:  127.0  of  1186.0  - Accuracy:  89.29173693086003 %
+The norm of W:  123.12931552504787
+The norm of beta:  1.5536985357058082
+
+
+
+Starting training ELM-RO  2  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  67.0  of  1186.0  - Accuracy:  94.35075885328837 %
+The norm of W:  13.453624047073708
+The norm of beta:  33.7843469463915
+
+Iteration time:  2.924910068511963  sec Predict to end:  1.3649580319722494  min
+Starting training RBM  3  ...
+Starting the training...
+Reconstruction error:  0.7589875971446746 Iter:  0   Diff:  0.016085383
+Reconstruction error:  0.3955140687542657 Iter:  10   Diff:  0.0022547292
+Starting training RBM-ELM  3  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.9523514e-03  1.3856706e-03  1.3898683e-03 ...  1.4454689e-03
+   2.0844196e-03  2.4693820e-03]
+ [ 2.8705108e-05  4.8154226e-04 -4.3184543e-04 ...  2.5350240e-04
+   6.4422027e-04 -5.9891026e-05]
+ [ 1.4350270e-03  1.9579839e-03  1.9786835e-03 ...  3.7279297e-04
+   1.7395299e-03  1.4054609e-03]
+ ...
+ [ 2.5480712e-04  3.3685606e-04  2.0705843e-03 ...  7.0401619e-04
+   1.0463006e-03  8.6738478e-04]
+ [ 1.1992792e-04  7.1077736e-04  2.0896387e-04 ...  5.1051087e-05
+   4.6235413e-04 -9.8623568e-05]
+ [-2.0909348e-01 -2.1930309e-01 -2.1458554e-01 ... -2.1625009e-01
+  -2.1983798e-01 -2.0875694e-01]] None uniform None
+Miss classification on the training:  53.0  of  2000.0  - Accuracy:  97.35000000000001 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  3.360333
+The norm of beta:  591726.8474446568
+
+
+
+Starting training ELM  3  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  119.0  of  2000.0  - Accuracy:  94.05 %
+
+Miss classification on the test:  124.0  of  1186.0  - Accuracy:  89.54468802698146 %
+The norm of W:  122.78953062278406
+The norm of beta:  1.6218340793183645
+
+
+
+Starting training ELM-RO  3  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  61.0  of  2000.0  - Accuracy:  96.95 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  13.453624047073712
+The norm of beta:  33.49739003760099
+
+Iteration time:  2.860175371170044  sec Predict to end:  1.2870789170265198  min
+Starting training RBM  4  ...
+Starting the training...
+Reconstruction error:  0.7852156539162466 Iter:  0   Diff:  0.017747631
+Reconstruction error:  0.3684900076611174 Iter:  10   Diff:  0.0023195443
+Starting training RBM-ELM  4  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.5962347e-03  1.5106681e-03  9.8777504e-04 ...  1.3498148e-03
+   1.7019968e-03  1.8137213e-03]
+ [ 1.0065596e-03  3.1254589e-04 -1.2259060e-04 ...  2.6531511e-03
+   3.8615573e-04  1.2877411e-03]
+ [ 1.5084317e-03  1.9429319e-03  2.6255341e-03 ...  1.5453331e-03
+   2.4488668e-03  9.0334134e-04]
+ ...
+ [ 1.0759260e-03  1.0423937e-03  1.4118825e-03 ...  1.4144367e-03
+   2.0096274e-04  2.1119278e-03]
+ [ 1.0632846e-03  1.3486714e-03  1.1519630e-03 ...  2.0651992e-03
+   2.0601447e-03  1.5723656e-03]
+ [-2.0778646e-01 -2.2025268e-01 -2.2388482e-01 ... -2.2331192e-01
+  -2.0871183e-01 -2.0138082e-01]] None uniform None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  69.0  of  1186.0  - Accuracy:  94.18212478920742 %
+The norm of W:  3.3976994
+The norm of beta:  574328.1330869267
+
+
+
+Starting training ELM  4  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  107.0  of  2000.0  - Accuracy:  94.65 %
+
+Miss classification on the test:  114.0  of  1186.0  - Accuracy:  90.38785834738617 %
+The norm of W:  122.45077569959615
+The norm of beta:  1.4881918999772434
+
+
+
+Starting training ELM-RO  4  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  72.0  of  1186.0  - Accuracy:  93.929173693086 %
+The norm of W:  13.453624047073713
+The norm of beta:  36.0632751467363
+
+Iteration time:  2.747281551361084  sec Predict to end:  1.1904886722564698  min
+Starting training RBM  5  ...
+Starting the training...
+Reconstruction error:  0.7568938602412327 Iter:  0   Diff:  0.017436208
+Reconstruction error:  0.37557049050819546 Iter:  10   Diff:  0.0022592559
+Starting training RBM-ELM  5  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.5824158e-03  1.5492984e-03  2.8499400e-03 ...  1.6193781e-03
+   1.5238657e-03  1.1618602e-03]
+ [ 2.5554028e-04  1.5745957e-03  1.0379453e-03 ...  6.3280218e-05
+   2.6707807e-05  1.1393001e-03]
+ [ 4.6115587e-04  7.3408644e-04  8.1586908e-04 ...  4.1952875e-04
+   9.4740011e-04  3.6303545e-04]
+ ...
+ [ 1.5647908e-03  4.1041945e-04  1.0119426e-03 ...  4.7815085e-04
+   4.1183262e-04  1.7649666e-03]
+ [-1.1260051e-04  1.2696004e-03  1.2398181e-03 ...  1.8529241e-03
+   1.7265765e-03  1.9620019e-03]
+ [-1.9187111e-01 -1.9372626e-01 -1.9456063e-01 ... -2.0057166e-01
+  -2.0832159e-01 -2.1257734e-01]] None uniform None
+Miss classification on the training:  61.0  of  2000.0  - Accuracy:  96.95 %
+
+Miss classification on the test:  65.0  of  1186.0  - Accuracy:  94.5193929173693 %
+The norm of W:  3.2148306
+The norm of beta:  581753.2858001611
+
+
+
+Starting training ELM  5  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  125.0  of  2000.0  - Accuracy:  93.75 %
+
+Miss classification on the test:  154.0  of  1186.0  - Accuracy:  87.01517706576729 %
+The norm of W:  122.35716359414994
+The norm of beta:  1.5802641481088018
+
+
+
+Starting training ELM-RO  5  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  60.0  of  2000.0  - Accuracy:  97.0 %
+
+Miss classification on the test:  71.0  of  1186.0  - Accuracy:  94.01349072512647 %
+The norm of W:  13.45362404707371
+The norm of beta:  30.60199370070954
+
+Iteration time:  2.7401256561279297  sec Predict to end:  1.1417190233866374  min
+Starting training RBM  6  ...
+Starting the training...
+Reconstruction error:  0.7260169577862551 Iter:  0   Diff:  0.01619889
+Reconstruction error:  0.37963068586621024 Iter:  10   Diff:  0.0022712904
+Starting training RBM-ELM  6  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 0.00148373  0.00114486  0.00031835 ...  0.0022558   0.00145746
+   0.0012644 ]
+ [ 0.00061523  0.00065306  0.00171186 ...  0.00114     0.00185161
+   0.00231617]
+ [ 0.00057785  0.00136665  0.00075395 ...  0.00147928  0.00106021
+   0.00222459]
+ ...
+ [ 0.00157655  0.00231627  0.00202556 ...  0.00169289  0.00151222
+   0.00259176]
+ [ 0.00133767  0.00245839  0.00075771 ...  0.00066223  0.00129646
+   0.0010772 ]
+ [-0.24732195 -0.20505124 -0.23696977 ... -0.233081   -0.23393144
+  -0.2354818 ]] None uniform None
+Miss classification on the training:  62.0  of  2000.0  - Accuracy:  96.89999999999999 %
+
+Miss classification on the test:  75.0  of  1186.0  - Accuracy:  93.67622259696459 %
+The norm of W:  3.6876998
+The norm of beta:  505597.75407492137
+
+
+
+Starting training ELM  6  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  121.0  of  2000.0  - Accuracy:  93.95 %
+
+Miss classification on the test:  132.0  of  1186.0  - Accuracy:  88.87015177065767 %
+The norm of W:  122.57928914584049
+The norm of beta:  1.5054264517356573
+
+
+
+Starting training ELM-RO  6  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  55.0  of  2000.0  - Accuracy:  97.25 %
+
+Miss classification on the test:  71.0  of  1186.0  - Accuracy:  94.01349072512647 %
+The norm of W:  13.453624047073712
+The norm of beta:  34.44217760920799
+
+Iteration time:  2.8151299953460693  sec Predict to end:  1.1260519981384278  min
+Starting training RBM  7  ...
+Starting the training...
+Reconstruction error:  0.7388156126737387 Iter:  0   Diff:  0.016681325
+Reconstruction error:  0.37082888325071994 Iter:  10   Diff:  0.002339123
+Starting training RBM-ELM  7  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.1721469e-04  9.0903998e-04  7.8557513e-04 ...  3.2760674e-04
+   7.9335819e-04  3.0370284e-05]
+ [ 2.5005804e-03  1.6271707e-03  1.5091614e-03 ...  2.9090957e-03
+   2.0862492e-03  1.6913994e-03]
+ [ 2.4081627e-03  2.7356164e-03  2.0877251e-03 ...  1.1737975e-03
+   2.0810238e-03  2.9155973e-03]
+ ...
+ [ 5.3404528e-04 -1.0630490e-04  1.3830587e-03 ...  8.5076247e-04
+  -8.8859262e-05  8.3635532e-04]
+ [ 8.9685828e-04  1.7695441e-03  7.0346519e-04 ...  1.6961698e-03
+   5.8899820e-04  1.2481150e-04]
+ [-2.2437081e-01 -2.2036271e-01 -2.0914106e-01 ... -2.2478697e-01
+  -2.2845051e-01 -2.3788360e-01]] None uniform None
+Miss classification on the training:  62.0  of  2000.0  - Accuracy:  96.89999999999999 %
+
+Miss classification on the test:  69.0  of  1186.0  - Accuracy:  94.18212478920742 %
+The norm of W:  3.5044577
+The norm of beta:  460571.72653030936
+
+
+
+Starting training ELM  7  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  119.0  of  2000.0  - Accuracy:  94.05 %
+
+Miss classification on the test:  126.0  of  1186.0  - Accuracy:  89.3760539629005 %
+The norm of W:  122.63875133346546
+The norm of beta:  1.5761560512238595
+
+
+
+Starting training ELM-RO  7  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  13.45362404707371
+The norm of beta:  32.08939749242378
+
+Iteration time:  3.1028785705566406  sec Predict to end:  1.1894367853800456  min
+Starting training RBM  8  ...
+Starting the training...
+Reconstruction error:  0.8058424108449886 Iter:  0   Diff:  0.016687907
+Reconstruction error:  0.34810551448472676 Iter:  10   Diff:  0.0022591574
+Starting training RBM-ELM  8  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 7.9189386e-04  1.2348234e-03  9.5568801e-04 ...  1.4572638e-03
+   2.0038448e-03  1.2612173e-03]
+ [ 1.6431260e-03  2.2958779e-04  2.6086980e-04 ...  2.0492778e-03
+   1.7373676e-03  1.1231174e-03]
+ [ 1.1575056e-03  8.4042951e-04  4.2383684e-04 ...  9.8641613e-06
+   1.8817962e-04  2.0712386e-03]
+ ...
+ [ 2.4269721e-03  1.8270251e-03  2.5521610e-03 ...  1.8512661e-03
+   1.5347997e-03  3.2424123e-03]
+ [ 1.2922089e-03  3.2222329e-04  1.1548661e-03 ...  2.9085448e-04
+   7.6485507e-05  1.2265977e-03]
+ [-1.8957563e-01 -1.5907611e-01 -2.0798691e-01 ... -1.7697695e-01
+  -1.9761784e-01 -1.9534335e-01]] None uniform None
+Miss classification on the training:  55.0  of  2000.0  - Accuracy:  97.25 %
+
+Miss classification on the test:  73.0  of  1186.0  - Accuracy:  93.84485666104553 %
+The norm of W:  3.1152582
+The norm of beta:  598367.8718374401
+
+
+
+Starting training ELM  8  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  129.0  of  2000.0  - Accuracy:  93.55 %
+
+Miss classification on the test:  148.0  of  1186.0  - Accuracy:  87.52107925801012 %
+The norm of W:  122.77905721381465
+The norm of beta:  1.6076999804812035
+
+
+
+Starting training ELM-RO  8  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  65.0  of  1186.0  - Accuracy:  94.5193929173693 %
+The norm of W:  13.453624047073706
+The norm of beta:  34.44918646367376
+
+Iteration time:  2.8199167251586914  sec Predict to end:  1.0339694658915202  min
+Starting training RBM  9  ...
+Starting the training...
+Reconstruction error:  0.8014329352758878 Iter:  0   Diff:  0.016694713
+Reconstruction error:  0.3658317316761448 Iter:  10   Diff:  0.0022583068
+Starting training RBM-ELM  9  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 3.2006513e-04  1.1243942e-03  6.2661746e-04 ...  2.0601809e-04
+   1.4942172e-03  1.1073817e-03]
+ [ 2.3157138e-03  1.2337235e-03  1.0040988e-03 ...  1.4259336e-03
+   1.8103068e-03  2.6452341e-03]
+ [ 9.1730559e-04  8.1257307e-04  1.7612668e-03 ...  1.4310254e-03
+   1.0919649e-03  1.1675155e-03]
+ ...
+ [ 8.8854897e-04  9.4338879e-04  4.8101161e-04 ...  6.6908286e-04
+  -6.9995446e-04  3.4174047e-04]
+ [ 2.5910309e-03  2.4616343e-03  1.8412385e-03 ...  2.1242928e-03
+   3.2110743e-03  2.4913335e-03]
+ [-2.1459623e-01 -2.0540714e-01 -1.9707920e-01 ... -2.1917550e-01
+  -2.0135027e-01 -2.1286722e-01]] None uniform None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  79.0  of  1186.0  - Accuracy:  93.3389544688027 %
+The norm of W:  3.2581272
+The norm of beta:  612059.5045287767
+
+
+
+Starting training ELM  9  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  116.0  of  2000.0  - Accuracy:  94.19999999999999 %
+
+Miss classification on the test:  125.0  of  1186.0  - Accuracy:  89.46037099494097 %
+The norm of W:  123.05362616005317
+The norm of beta:  1.5235368482188023
+
+
+
+Starting training ELM-RO  9  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  62.0  of  2000.0  - Accuracy:  96.89999999999999 %
+
+Miss classification on the test:  66.0  of  1186.0  - Accuracy:  94.43507588532883 %
+The norm of W:  13.453624047073708
+The norm of beta:  31.04131162324174
+
+Iteration time:  2.798811674118042  sec Predict to end:  0.9795840859413147  min
+Starting training RBM  10  ...
+Starting the training...
+Reconstruction error:  0.7725318421387372 Iter:  0   Diff:  0.01645041
+Reconstruction error:  0.3642569035106235 Iter:  10   Diff:  0.0022626992
+Starting training RBM-ELM  10  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 2.6245243e-04 -2.8265180e-04  6.5104337e-05 ...  1.0381218e-03
+  -2.1281128e-05  7.7926781e-04]
+ [ 9.2382287e-04  1.1797395e-03  1.2688421e-03 ...  2.6838384e-03
+   1.8227716e-03  1.8995556e-03]
+ [ 7.3438755e-04  4.8746515e-04  9.9582621e-04 ...  3.6136279e-04
+   6.9606944e-04  6.5551687e-04]
+ ...
+ [-1.1928540e-03 -6.8390486e-04  3.4491275e-04 ...  3.8685073e-04
+  -6.3559430e-04 -7.6731591e-04]
+ [ 1.3839890e-04  1.3437753e-03 -4.0525454e-05 ...  1.3475859e-05
+   2.0772399e-04  1.1091137e-03]
+ [-1.8106562e-01 -2.1719915e-01 -2.1889079e-01 ... -2.1192713e-01
+  -2.2244304e-01 -2.0794635e-01]] None uniform None
+Miss classification on the training:  64.0  of  2000.0  - Accuracy:  96.8 %
+
+Miss classification on the test:  75.0  of  1186.0  - Accuracy:  93.67622259696459 %
+The norm of W:  3.4058638
+The norm of beta:  475353.2110877765
+
+
+
+Starting training ELM  10  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  116.0  of  2000.0  - Accuracy:  94.19999999999999 %
+
+Miss classification on the test:  130.0  of  1186.0  - Accuracy:  89.03878583473862 %
+The norm of W:  122.8573995843926
+The norm of beta:  1.4760732572512398
+
+
+
+Starting training ELM-RO  10  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  52.0  of  2000.0  - Accuracy:  97.39999999999999 %
+
+Miss classification on the test:  64.0  of  1186.0  - Accuracy:  94.60370994940979 %
+The norm of W:  13.453624047073708
+The norm of beta:  30.504333656974836
+
+Iteration time:  2.880326509475708  sec Predict to end:  0.9601088364919027  min
+Starting training RBM  11  ...
+Starting the training...
+Reconstruction error:  0.7380967554935927 Iter:  0   Diff:  0.016475057
+Reconstruction error:  0.3652000660427743 Iter:  10   Diff:  0.0022402059
+Starting training RBM-ELM  11  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 9.7293872e-04  5.5823423e-04  1.5651693e-03 ...  5.3964776e-04
+  -2.4210970e-04  3.1309208e-04]
+ [ 2.4462170e-03  2.1817200e-03  1.9277683e-03 ...  2.2594142e-03
+   2.3713720e-03  1.4929653e-03]
+ [-1.9490311e-04 -8.8378147e-05 -6.6594721e-04 ... -2.5207634e-04
+   7.2778517e-04  5.9584092e-04]
+ ...
+ [-4.6964319e-04  1.1210623e-03  4.3754023e-04 ... -4.7443435e-04
+   1.3726801e-03  1.0653354e-04]
+ [ 3.1735515e-03  1.9106760e-03  2.1722717e-03 ...  2.3429689e-03
+   2.1816620e-03  1.9478917e-03]
+ [-1.9316839e-01 -2.0641017e-01 -2.1192594e-01 ... -2.2419973e-01
+  -2.2737144e-01 -2.0129505e-01]] None uniform None
+Miss classification on the training:  62.0  of  2000.0  - Accuracy:  96.89999999999999 %
+
+Miss classification on the test:  67.0  of  1186.0  - Accuracy:  94.35075885328837 %
+The norm of W:  3.371596
+The norm of beta:  576607.4826194074
+
+
+
+Starting training ELM  11  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  108.0  of  2000.0  - Accuracy:  94.6 %
+
+Miss classification on the test:  129.0  of  1186.0  - Accuracy:  89.12310286677909 %
+The norm of W:  122.7528614978777
+The norm of beta:  1.5923958954454034
+
+
+
+Starting training ELM-RO  11  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  62.0  of  2000.0  - Accuracy:  96.89999999999999 %
+
+Miss classification on the test:  71.0  of  1186.0  - Accuracy:  94.01349072512647 %
+The norm of W:  13.45362404707371
+The norm of beta:  31.489023464801278
+
+Iteration time:  2.7069859504699707  sec Predict to end:  0.857212217648824  min
+Starting training RBM  12  ...
+Starting the training...
+Reconstruction error:  0.7266090789573423 Iter:  0   Diff:  0.017390404
+Reconstruction error:  0.37611604031357493 Iter:  10   Diff:  0.0023388378
+Starting training RBM-ELM  12  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[-9.0235575e-05 -8.4856607e-04  7.3984050e-04 ... -1.0210061e-03
+   1.0901763e-03  4.5296457e-04]
+ [ 1.9182562e-03  1.2797485e-03  1.4943250e-03 ...  2.9262495e-03
+   9.5154333e-04  1.7356750e-03]
+ [ 2.3307633e-03  2.1982393e-03  2.0537777e-03 ...  1.1378517e-03
+   2.8437008e-03  3.0378073e-03]
+ ...
+ [ 1.0910737e-03  1.7638972e-03  2.3122695e-03 ...  1.2695325e-03
+  -1.0397448e-04  8.8005082e-04]
+ [ 1.9251837e-03  1.3190032e-03  1.8395063e-03 ...  7.2702725e-04
+   6.0755509e-04  5.0779199e-04]
+ [-2.0226409e-01 -2.1255332e-01 -2.1208225e-01 ... -2.2014453e-01
+  -2.2563015e-01 -2.1503259e-01]] None uniform None
+Miss classification on the training:  60.0  of  2000.0  - Accuracy:  97.0 %
+
+Miss classification on the test:  74.0  of  1186.0  - Accuracy:  93.76053962900505 %
+The norm of W:  3.5172844
+The norm of beta:  541113.049675798
+
+
+
+Starting training ELM  12  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  112.0  of  2000.0  - Accuracy:  94.39999999999999 %
+
+Miss classification on the test:  126.0  of  1186.0  - Accuracy:  89.3760539629005 %
+The norm of W:  122.88849773301278
+The norm of beta:  1.5586160691615816
+
+
+
+Starting training ELM-RO  12  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  60.0  of  2000.0  - Accuracy:  97.0 %
+
+Miss classification on the test:  71.0  of  1186.0  - Accuracy:  94.01349072512647 %
+The norm of W:  13.453624047073712
+The norm of beta:  34.81265267935562
+
+Iteration time:  2.8380203247070312  sec Predict to end:  0.8514060974121094  min
+Starting training RBM  13  ...
+Starting the training...
+Reconstruction error:  0.766376216545732 Iter:  0   Diff:  0.017106853
+Reconstruction error:  0.3838022206859456 Iter:  10   Diff:  0.0023173813
+Starting training RBM-ELM  13  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.5168565e-03 -2.8888203e-04 -3.6848377e-04 ... -2.4137046e-04
+   1.0865533e-03  2.1465932e-04]
+ [ 6.3530757e-04  8.8577654e-05  1.5826882e-03 ...  9.9855335e-04
+   5.8100035e-04  1.1217867e-03]
+ [ 1.2370733e-03 -3.4198332e-05  1.8442874e-03 ...  9.9642540e-04
+   1.1339781e-03  1.0383999e-03]
+ ...
+ [ 5.2761449e-04 -1.1956082e-03  1.3004865e-03 ...  9.8734541e-05
+   9.0850412e-04 -4.4534859e-04]
+ [ 1.3457300e-03  2.3268245e-04  1.7372239e-03 ...  1.0724415e-03
+   2.3118909e-03  1.7389178e-03]
+ [-2.1321194e-01 -2.1865727e-01 -2.2366938e-01 ... -2.2445782e-01
+  -2.2270945e-01 -2.3048243e-01]] None uniform None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  74.0  of  1186.0  - Accuracy:  93.76053962900505 %
+The norm of W:  3.378706
+The norm of beta:  540029.5497409749
+
+
+
+Starting training ELM  13  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  108.0  of  2000.0  - Accuracy:  94.6 %
+
+Miss classification on the test:  130.0  of  1186.0  - Accuracy:  89.03878583473862 %
+The norm of W:  122.81050045909859
+The norm of beta:  1.5465097733720279
+
+
+
+Starting training ELM-RO  13  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  54.0  of  2000.0  - Accuracy:  97.3 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  13.453624047073705
+The norm of beta:  31.961046680871327
+
+Iteration time:  2.5511975288391113  sec Predict to end:  0.7228392998377482  min
+Starting training RBM  14  ...
+Starting the training...
+Reconstruction error:  0.7660196469404734 Iter:  0   Diff:  0.01684889
+Reconstruction error:  0.37973477497241565 Iter:  10   Diff:  0.0022651104
+Starting training RBM-ELM  14  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.4352996e-03  1.7903993e-03  1.3499227e-03 ...  4.0292941e-04
+  -4.3835549e-04  1.4267163e-04]
+ [ 1.9287256e-03  1.1221766e-03  2.4362509e-03 ...  1.9837972e-03
+   1.3561505e-03  1.6534179e-03]
+ [ 1.8880164e-03  2.0254869e-03  1.6515838e-03 ...  2.4018651e-03
+   1.2543940e-03  2.2744320e-03]
+ ...
+ [ 1.1131204e-03  5.4402015e-05  1.0206125e-03 ...  1.0267618e-03
+   1.9642290e-04  3.7191942e-04]
+ [ 2.0736104e-03  1.6507143e-03  5.3698762e-04 ...  1.2793449e-03
+   1.8826952e-03  1.3856790e-03]
+ [-2.0373793e-01 -2.2136335e-01 -2.1685633e-01 ... -2.3337533e-01
+  -2.1492578e-01 -1.9986387e-01]] None uniform None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  72.0  of  1186.0  - Accuracy:  93.929173693086 %
+The norm of W:  3.4428926
+The norm of beta:  619869.6267891518
+
+
+
+Starting training ELM  14  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  118.0  of  2000.0  - Accuracy:  94.10000000000001 %
+
+Miss classification on the test:  143.0  of  1186.0  - Accuracy:  87.94266441821247 %
+The norm of W:  123.23217667074675
+The norm of beta:  1.5415224410321908
+
+
+
+Starting training ELM-RO  14  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  73.0  of  1186.0  - Accuracy:  93.84485666104553 %
+The norm of W:  13.453624047073706
+The norm of beta:  36.06232940908554
+
+Iteration time:  2.8616204261779785  sec Predict to end:  0.7630987803141276  min
+Starting training RBM  15  ...
+Starting the training...
+Reconstruction error:  0.7392910743547241 Iter:  0   Diff:  0.016880376
+Reconstruction error:  0.364240787960175 Iter:  10   Diff:  0.0022751158
+Starting training RBM-ELM  15  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 0.00124     0.00055121  0.00303599 ...  0.00093641  0.00113895
+   0.00040481]
+ [-0.00047891  0.00119516 -0.00036615 ...  0.00039094  0.00138685
+   0.00044918]
+ [ 0.00300338  0.00233667  0.00077465 ...  0.00309289  0.0022502
+   0.00253669]
+ ...
+ [ 0.00118868  0.00082897  0.00150687 ...  0.00102281  0.00216278
+   0.00215063]
+ [ 0.00165834  0.00181868  0.00216812 ...  0.00108034  0.00273543
+   0.00305826]
+ [-0.20554201 -0.20054987 -0.21089923 ... -0.2154847  -0.20544213
+  -0.20984857]] None uniform None
+Miss classification on the training:  62.0  of  2000.0  - Accuracy:  96.89999999999999 %
+
+Miss classification on the test:  68.0  of  1186.0  - Accuracy:  94.2664418212479 %
+The norm of W:  3.2957757
+The norm of beta:  561648.3001807816
+
+
+
+Starting training ELM  15  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  108.0  of  2000.0  - Accuracy:  94.6 %
+
+Miss classification on the test:  128.0  of  1186.0  - Accuracy:  89.20741989881957 %
+The norm of W:  122.76674170498984
+The norm of beta:  1.5107586806867812
+
+
+
+Starting training ELM-RO  15  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  60.0  of  2000.0  - Accuracy:  97.0 %
+
+Miss classification on the test:  64.0  of  1186.0  - Accuracy:  94.60370994940979 %
+The norm of W:  13.453624047073712
+The norm of beta:  33.45778867409047
+
+Iteration time:  2.744295835494995  sec Predict to end:  0.6860739588737488  min
+Starting training RBM  16  ...
+Starting the training...
+Reconstruction error:  0.7965394033844971 Iter:  0   Diff:  0.017197765
+Reconstruction error:  0.35751792261973026 Iter:  10   Diff:  0.0022912922
+Starting training RBM-ELM  16  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 6.8098638e-04  8.9444750e-04  1.1361199e-03 ...  4.9560185e-04
+   1.6483590e-03  9.0969069e-04]
+ [ 1.6182166e-03  1.3137036e-03  6.2270195e-04 ...  1.5523181e-03
+   1.6953428e-03  1.2136282e-03]
+ [ 1.6420418e-03  1.5204133e-03  2.3173473e-03 ...  1.7099095e-03
+   1.9120252e-03  1.4310658e-03]
+ ...
+ [ 1.7805534e-03  6.2350120e-04  1.9844864e-03 ...  2.4158710e-03
+   1.5997549e-03  1.6308555e-03]
+ [ 1.7264809e-03  1.0348412e-03  1.6436916e-03 ...  1.3331611e-03
+  -7.7956531e-05  6.8508054e-04]
+ [-2.1498071e-01 -2.1496809e-01 -2.2123903e-01 ... -2.2053388e-01
+  -2.1583214e-01 -2.1695550e-01]] None uniform None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  75.0  of  1186.0  - Accuracy:  93.67622259696459 %
+The norm of W:  3.3663714
+The norm of beta:  558107.1517420328
+
+
+
+Starting training ELM  16  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  112.0  of  2000.0  - Accuracy:  94.39999999999999 %
+
+Miss classification on the test:  139.0  of  1186.0  - Accuracy:  88.27993254637437 %
+The norm of W:  122.95404550581152
+The norm of beta:  1.5513078822993287
+
+
+
+Starting training ELM-RO  16  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  54.0  of  2000.0  - Accuracy:  97.3 %
+
+Miss classification on the test:  80.0  of  1186.0  - Accuracy:  93.25463743676222 %
+The norm of W:  13.453624047073713
+The norm of beta:  36.070327704025964
+
+Iteration time:  2.8946189880371094  sec Predict to end:  0.6754110972086589  min
+Starting training RBM  17  ...
+Starting the training...
+Reconstruction error:  0.748320666087931 Iter:  0   Diff:  0.016577026
+Reconstruction error:  0.3637758331167201 Iter:  10   Diff:  0.0022513068
+Starting training RBM-ELM  17  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.1669986e-03  1.4681808e-03  5.5850751e-04 ...  5.3352915e-04
+   7.6980609e-04 -1.4410992e-04]
+ [ 1.5147487e-03  2.5444175e-03  1.6745396e-03 ...  2.4393199e-03
+   2.4469385e-03  2.2635059e-03]
+ [ 6.0673966e-04  6.3054694e-04  4.6829769e-04 ...  3.5684722e-04
+   1.2340024e-08 -6.9259747e-04]
+ ...
+ [ 6.3272740e-04  7.8003376e-04  1.0961036e-03 ...  2.2075084e-04
+   1.5010231e-03  1.1706764e-03]
+ [ 7.1711693e-04 -1.3002814e-04  1.3431078e-03 ...  1.0089744e-03
+  -2.1724685e-04  1.0260848e-03]
+ [-2.1231003e-01 -2.1826915e-01 -2.2913833e-01 ... -1.9926615e-01
+  -2.1978818e-01 -2.3006308e-01]] None uniform None
+Miss classification on the training:  61.0  of  2000.0  - Accuracy:  96.95 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  3.4289234
+The norm of beta:  546020.596999484
+
+
+
+Starting training ELM  17  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  113.0  of  2000.0  - Accuracy:  94.35 %
+
+Miss classification on the test:  117.0  of  1186.0  - Accuracy:  90.13490725126475 %
+The norm of W:  122.728525692845
+The norm of beta:  1.4999586047790927
+
+
+
+Starting training ELM-RO  17  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  45.0  of  2000.0  - Accuracy:  97.75 %
+
+Miss classification on the test:  72.0  of  1186.0  - Accuracy:  93.929173693086 %
+The norm of W:  13.453624047073706
+The norm of beta:  36.90717483846373
+
+Iteration time:  2.833367347717285  sec Predict to end:  0.6138962586720784  min
+Starting training RBM  18  ...
+Starting the training...
+Reconstruction error:  0.7494199620357249 Iter:  0   Diff:  0.01662153
+Reconstruction error:  0.37636032809846937 Iter:  10   Diff:  0.0022462797
+Starting training RBM-ELM  18  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[-3.9142591e-04  1.6247842e-03  1.9541944e-04 ...  1.4754805e-03
+  -2.0056905e-05 -2.4375750e-04]
+ [ 1.7940886e-03  2.2151915e-03  1.7107220e-03 ...  1.9341893e-03
+   2.0546671e-03  2.1404983e-03]
+ [ 6.5858720e-04  1.9024534e-03  1.2256565e-03 ...  1.1423401e-03
+   1.1655275e-03  8.6469366e-04]
+ ...
+ [ 1.8658193e-03  2.3295465e-03  1.3920072e-03 ...  2.4936392e-03
+   1.5251399e-03  1.3414300e-03]
+ [ 1.8394709e-03  4.9277837e-04  1.2188547e-03 ...  1.3179171e-03
+   1.3416697e-03  1.2052747e-03]
+ [-1.8628702e-01 -1.9858459e-01 -1.9863741e-01 ... -1.9644524e-01
+  -2.0188688e-01 -2.0275587e-01]] None uniform None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  68.0  of  1186.0  - Accuracy:  94.2664418212479 %
+The norm of W:  3.0736458
+The norm of beta:  593154.9466501283
+
+
+
+Starting training ELM  18  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  87.0  of  2000.0  - Accuracy:  95.65 %
+
+Miss classification on the test:  119.0  of  1186.0  - Accuracy:  89.96627318718382 %
+The norm of W:  122.47446529027448
+The norm of beta:  1.5226902327969987
+
+
+
+Starting training ELM-RO  18  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  64.0  of  2000.0  - Accuracy:  96.8 %
+
+Miss classification on the test:  67.0  of  1186.0  - Accuracy:  94.35075885328837 %
+The norm of W:  13.453624047073713
+The norm of beta:  32.13365034715704
+
+Iteration time:  3.144805669784546  sec Predict to end:  0.6289611339569092  min
+Starting training RBM  19  ...
+Starting the training...
+Reconstruction error:  0.7817487424333269 Iter:  0   Diff:  0.016575985
+Reconstruction error:  0.3922026800644895 Iter:  10   Diff:  0.002326824
+Starting training RBM-ELM  19  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 0.0005574   0.00042884  0.0008482  ...  0.00111068  0.00039391
+   0.0009029 ]
+ [ 0.00208134  0.00248337  0.00233161 ...  0.00206083  0.00170043
+   0.00306761]
+ [ 0.00120725  0.00145542  0.00088443 ...  0.00122707  0.0006162
+   0.00046386]
+ ...
+ [ 0.00191297  0.00112117  0.00144258 ...  0.00165346  0.00184464
+   0.00115315]
+ [ 0.00211967  0.00225462  0.00202965 ...  0.00100722  0.00073096
+   0.00120533]
+ [-0.18566565 -0.18451163 -0.2070927  ... -0.21107572 -0.22415994
+  -0.20870471]] None uniform None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  71.0  of  1186.0  - Accuracy:  94.01349072512647 %
+The norm of W:  3.3419995
+The norm of beta:  647255.9953045689
+
+
+
+Starting training ELM  19  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  109.0  of  2000.0  - Accuracy:  94.55 %
+
+Miss classification on the test:  139.0  of  1186.0  - Accuracy:  88.27993254637437 %
+The norm of W:  122.75895398843096
+The norm of beta:  1.4895159081746019
+
+
+
+Starting training ELM-RO  19  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  62.0  of  2000.0  - Accuracy:  96.89999999999999 %
+
+Miss classification on the test:  67.0  of  1186.0  - Accuracy:  94.35075885328837 %
+The norm of W:  13.453624047073715
+The norm of beta:  34.27114039177768
+
+Iteration time:  2.6971826553344727  sec Predict to end:  0.49448348681132  min
+Starting training RBM  20  ...
+Starting the training...
+Reconstruction error:  0.7130172327379075 Iter:  0   Diff:  0.016779535
+Reconstruction error:  0.3545982311825785 Iter:  10   Diff:  0.002267118
+Starting training RBM-ELM  20  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 9.7435585e-04  4.4743245e-04  1.7817462e-03 ...  1.3711257e-03
+   6.2771264e-04  1.2323015e-03]
+ [ 9.8455173e-04  9.3260710e-04 -2.8901940e-04 ...  7.5049885e-04
+  -3.5534613e-04  1.0042556e-03]
+ [ 1.7789725e-03  1.0884993e-03  2.6256298e-03 ...  2.4618902e-03
+   2.8427204e-03  1.1532202e-03]
+ ...
+ [ 8.8761409e-04  2.4217702e-03  8.0512837e-07 ...  5.1262579e-04
+   1.7741823e-04  1.3602211e-03]
+ [ 8.5541210e-04  2.0353007e-03  2.1972335e-03 ...  2.2320817e-03
+   1.1138074e-03  2.6327365e-03]
+ [-2.2052707e-01 -2.2319339e-01 -2.2274756e-01 ... -2.0967138e-01
+  -2.1925353e-01 -2.0783153e-01]] None uniform None
+Miss classification on the training:  53.0  of  2000.0  - Accuracy:  97.35000000000001 %
+
+Miss classification on the test:  79.0  of  1186.0  - Accuracy:  93.3389544688027 %
+The norm of W:  3.367466
+The norm of beta:  625461.9661734389
+
+
+
+Starting training ELM  20  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  115.0  of  2000.0  - Accuracy:  94.25 %
+
+Miss classification on the test:  128.0  of  1186.0  - Accuracy:  89.20741989881957 %
+The norm of W:  122.60416482980743
+The norm of beta:  1.5374391308949498
+
+
+
+Starting training ELM-RO  20  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  72.0  of  1186.0  - Accuracy:  93.929173693086 %
+The norm of W:  13.45362404707371
+The norm of beta:  33.56067295926137
+
+Iteration time:  2.9748075008392334  sec Predict to end:  0.49580125013987225  min
+Starting training RBM  21  ...
+Starting the training...
+Reconstruction error:  0.7687072526000078 Iter:  0   Diff:  0.017476168
+Reconstruction error:  0.35794870046459965 Iter:  10   Diff:  0.0022689693
+Starting training RBM-ELM  21  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.3014345e-03  6.5695721e-04 -1.9017834e-04 ...  8.2575640e-04
+   1.5164060e-03  7.7375828e-04]
+ [ 5.9997785e-04  1.5425500e-03  1.2826129e-03 ... -5.3120859e-04
+   1.0854816e-03  1.3267426e-03]
+ [ 9.4712013e-04  1.4113272e-03  1.0863524e-03 ...  8.9349982e-04
+   6.2089250e-04  9.7502884e-04]
+ ...
+ [ 1.5479804e-04 -2.3564725e-04  1.5859883e-03 ...  2.4251221e-03
+   5.9540098e-04  1.6353867e-04]
+ [ 1.0657037e-03  2.6529103e-03  4.7196663e-04 ...  6.9770357e-04
+   5.8909558e-04  1.7328522e-03]
+ [-1.9122453e-01 -2.0977286e-01 -1.8498197e-01 ... -2.2796139e-01
+  -2.1328036e-01 -2.1140002e-01]] None uniform None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  63.0  of  1186.0  - Accuracy:  94.68802698145026 %
+The norm of W:  3.250623
+The norm of beta:  573203.81398213
+
+
+
+Starting training ELM  21  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  124.0  of  2000.0  - Accuracy:  93.8 %
+
+Miss classification on the test:  114.0  of  1186.0  - Accuracy:  90.38785834738617 %
+The norm of W:  122.73073389348443
+The norm of beta:  1.5487771897156488
+
+
+
+Starting training ELM-RO  21  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  69.0  of  1186.0  - Accuracy:  94.18212478920742 %
+The norm of W:  13.453624047073715
+The norm of beta:  35.43063440505845
+
+Iteration time:  3.019458055496216  sec Predict to end:  0.4529187083244324  min
+Starting training RBM  22  ...
+Starting the training...
+Reconstruction error:  0.7901571152870647 Iter:  0   Diff:  0.016695093
+Reconstruction error:  0.37445693547609776 Iter:  10   Diff:  0.0022636156
+Starting training RBM-ELM  22  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 0.00059612  0.00189315  0.0012058  ...  0.00078406  0.00079804
+   0.00075541]
+ [ 0.00145868  0.00172376  0.00167235 ...  0.00140433  0.00119594
+   0.00192114]
+ [ 0.0014519   0.00158625  0.00031058 ...  0.00206529  0.0021064
+   0.0023818 ]
+ ...
+ [ 0.00114858  0.00164935  0.00023836 ...  0.00157217  0.00057277
+   0.0015229 ]
+ [ 0.00074528  0.0013581   0.00028173 ...  0.00037855  0.00168635
+   0.00079552]
+ [-0.2314665  -0.21046475 -0.22916727 ... -0.22160606 -0.22767967
+  -0.20364769]] None uniform None
+Miss classification on the training:  55.0  of  2000.0  - Accuracy:  97.25 %
+
+Miss classification on the test:  64.0  of  1186.0  - Accuracy:  94.60370994940979 %
+The norm of W:  3.4621794
+The norm of beta:  513545.6995775789
+
+
+
+Starting training ELM  22  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  114.0  of  2000.0  - Accuracy:  94.3 %
+
+Miss classification on the test:  125.0  of  1186.0  - Accuracy:  89.46037099494097 %
+The norm of W:  122.78465031302316
+The norm of beta:  1.5614818427964627
+
+
+
+Starting training ELM-RO  22  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  55.0  of  2000.0  - Accuracy:  97.25 %
+
+Miss classification on the test:  76.0  of  1186.0  - Accuracy:  93.59190556492412 %
+The norm of W:  13.453624047073708
+The norm of beta:  33.698900888239486
+
+Iteration time:  2.725487470626831  sec Predict to end:  0.3633983294169108  min
+Starting training RBM  23  ...
+Starting the training...
+Reconstruction error:  0.7344347188369811 Iter:  0   Diff:  0.017073054
+Reconstruction error:  0.37433081151230463 Iter:  10   Diff:  0.0022699353
+Starting training RBM-ELM  23  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 3.6094955e-04  1.7894607e-05  1.6938106e-03 ...  5.8064773e-04
+   3.1755865e-04  7.3081075e-04]
+ [ 8.0784387e-04  1.0495890e-03  2.0113539e-04 ...  8.1962347e-04
+   1.2717611e-03  1.1893352e-03]
+ [ 7.1080273e-04  1.3442282e-03  1.3212785e-04 ...  1.0171330e-03
+   3.0118908e-04  1.1872923e-03]
+ ...
+ [ 2.2688643e-03  1.4291567e-03  2.0758696e-03 ...  2.5729751e-03
+   7.6905731e-04  8.7877072e-04]
+ [ 1.8061211e-04 -2.3423817e-03 -1.2614126e-03 ... -1.2925930e-03
+  -1.1530570e-03 -7.3940726e-05]
+ [-2.1131457e-01 -2.1309394e-01 -2.0878553e-01 ... -1.9876868e-01
+  -2.0013919e-01 -1.9245976e-01]] None uniform None
+Miss classification on the training:  53.0  of  2000.0  - Accuracy:  97.35000000000001 %
+
+Miss classification on the test:  72.0  of  1186.0  - Accuracy:  93.929173693086 %
+The norm of W:  3.284956
+The norm of beta:  594339.0838001793
+
+
+
+Starting training ELM  23  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  111.0  of  2000.0  - Accuracy:  94.45 %
+
+Miss classification on the test:  136.0  of  1186.0  - Accuracy:  88.53288364249579 %
+The norm of W:  122.38627630966785
+The norm of beta:  1.5160110064011996
+
+
+
+Starting training ELM-RO  23  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  55.0  of  2000.0  - Accuracy:  97.25 %
+
+Miss classification on the test:  74.0  of  1186.0  - Accuracy:  93.76053962900505 %
+The norm of W:  13.453624047073713
+The norm of beta:  35.486479188177356
+
+Iteration time:  2.7380011081695557  sec Predict to end:  0.3194334626197815  min
+Starting training RBM  24  ...
+Starting the training...
+Reconstruction error:  0.7889425022667015 Iter:  0   Diff:  0.017339423
+Reconstruction error:  0.38588129584151837 Iter:  10   Diff:  0.0022521825
+Starting training RBM-ELM  24  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 0.00164056  0.00209577  0.00218353 ...  0.00191529  0.00227893
+   0.00091999]
+ [ 0.00149864  0.00065342  0.00210618 ... -0.00029763  0.00044059
+   0.00134666]
+ [ 0.00036116  0.0020549   0.00095773 ...  0.00185165  0.00044627
+   0.00202424]
+ ...
+ [ 0.00179096  0.00085263  0.00188425 ...  0.00117444  0.00206534
+  -0.00033953]
+ [ 0.00118673  0.00211244  0.00142813 ...  0.00097824  0.00131637
+   0.00262884]
+ [-0.21166408 -0.15419464 -0.22160499 ... -0.20696719 -0.22869907
+  -0.2077317 ]] None uniform None
+Miss classification on the training:  61.0  of  2000.0  - Accuracy:  96.95 %
+
+Miss classification on the test:  63.0  of  1186.0  - Accuracy:  94.68802698145026 %
+The norm of W:  3.4051313
+The norm of beta:  510172.7437986817
+
+
+
+Starting training ELM  24  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  106.0  of  2000.0  - Accuracy:  94.69999999999999 %
+
+Miss classification on the test:  141.0  of  1186.0  - Accuracy:  88.11129848229342 %
+The norm of W:  123.08128894374595
+The norm of beta:  1.5618086659882378
+
+
+
+Starting training ELM-RO  24  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  51.0  of  2000.0  - Accuracy:  97.45 %
+
+Miss classification on the test:  77.0  of  1186.0  - Accuracy:  93.50758853288364 %
+The norm of W:  13.453624047073712
+The norm of beta:  36.95450764544272
+
+Iteration time:  2.8582162857055664  sec Predict to end:  0.28582162857055665  min
+Starting training RBM  25  ...
+Starting the training...
+Reconstruction error:  0.7602328759966753 Iter:  0   Diff:  0.016510729
+Reconstruction error:  0.35462286367333595 Iter:  10   Diff:  0.0022679232
+Starting training RBM-ELM  25  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 7.0158811e-04 -4.1024818e-04  1.5162461e-03 ...  7.6920594e-05
+  -8.1247790e-04  6.4396998e-04]
+ [ 6.8657781e-04  7.1126147e-04  9.3805289e-04 ...  1.8613833e-03
+   1.2400305e-03  1.4716893e-03]
+ [ 7.3460449e-04  1.3914008e-03  3.1812262e-04 ...  8.8001427e-04
+   1.6442947e-03  1.1477401e-03]
+ ...
+ [ 1.3400251e-03  8.4850658e-04  4.2798201e-04 ...  8.9750130e-04
+   6.7767699e-04  1.7652914e-03]
+ [ 1.4113123e-04 -9.7579544e-04 -3.5990437e-04 ... -1.0126301e-03
+   5.2888645e-06 -5.8466324e-04]
+ [-2.2025241e-01 -2.2165246e-01 -2.2626130e-01 ... -2.0055695e-01
+  -2.3039876e-01 -2.1827209e-01]] None uniform None
+Miss classification on the training:  51.0  of  2000.0  - Accuracy:  97.45 %
+
+Miss classification on the test:  79.0  of  1186.0  - Accuracy:  93.3389544688027 %
+The norm of W:  3.393793
+The norm of beta:  550225.3166222597
+
+
+
+Starting training ELM  25  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  105.0  of  2000.0  - Accuracy:  94.75 %
+
+Miss classification on the test:  133.0  of  1186.0  - Accuracy:  88.7858347386172 %
+The norm of W:  123.13707854658412
+The norm of beta:  1.557312639372388
+
+
+
+Starting training ELM-RO  25  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  52.0  of  2000.0  - Accuracy:  97.39999999999999 %
+
+Miss classification on the test:  76.0  of  1186.0  - Accuracy:  93.59190556492412 %
+The norm of W:  13.453624047073708
+The norm of beta:  37.2522808859822
+
+Iteration time:  2.653153896331787  sec Predict to end:  0.22109615802764893  min
+Starting training RBM  26  ...
+Starting the training...
+Reconstruction error:  0.8358862209104805 Iter:  0   Diff:  0.017194165
+Reconstruction error:  0.3598052772646149 Iter:  10   Diff:  0.0022910275
+Starting training RBM-ELM  26  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 8.7515975e-04  1.3393700e-03  1.4043197e-03 ... -2.3694339e-04
+  -3.1020821e-04  6.0563197e-04]
+ [ 6.7612773e-04  1.0770891e-03  1.0381092e-03 ...  1.1197226e-03
+  -1.9066763e-04  4.2190865e-04]
+ [ 1.6969242e-03  1.9557446e-03  1.8231020e-03 ...  2.3582303e-03
+   2.4458109e-03  2.2673644e-03]
+ ...
+ [ 2.2073439e-03  1.6419104e-03  2.6892402e-04 ...  1.7209650e-03
+   1.5512649e-03  2.3424590e-03]
+ [-9.8817691e-05 -5.8822596e-05  1.2808242e-03 ...  2.3191378e-03
+   5.8120990e-04  1.3171727e-03]
+ [-2.2031759e-01 -2.2426702e-01 -2.0940690e-01 ... -2.1051294e-01
+  -2.1617220e-01 -1.9718398e-01]] None uniform None
+Miss classification on the training:  54.0  of  2000.0  - Accuracy:  97.3 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  3.4204204
+The norm of beta:  553175.8898121162
+
+
+
+Starting training ELM  26  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  100.0  of  2000.0  - Accuracy:  95.0 %
+
+Miss classification on the test:  122.0  of  1186.0  - Accuracy:  89.7133220910624 %
+The norm of W:  123.01599411807247
+The norm of beta:  1.5425450136957455
+
+
+
+Starting training ELM-RO  26  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  61.0  of  2000.0  - Accuracy:  96.95 %
+
+Miss classification on the test:  72.0  of  1186.0  - Accuracy:  93.929173693086 %
+The norm of W:  13.45362404707371
+The norm of beta:  31.839158838704048
+
+Iteration time:  2.67744517326355  sec Predict to end:  0.17849634488423666  min
+Starting training RBM  27  ...
+Starting the training...
+Reconstruction error:  0.8390606846402762 Iter:  0   Diff:  0.01680326
+Reconstruction error:  0.3492903778086106 Iter:  10   Diff:  0.0022992895
+Starting training RBM-ELM  27  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.91447162e-03  1.52262452e-04  1.95642957e-03 ...  1.00255106e-03
+   5.49706747e-05  1.15975505e-03]
+ [ 1.56474009e-03  1.64283556e-03  1.87514001e-03 ...  1.15834107e-03
+   1.70773419e-03  2.50766473e-03]
+ [-7.32988236e-04  3.77502874e-04  3.30386683e-05 ...  4.43120371e-04
+  -3.63837171e-04 -3.40387691e-04]
+ ...
+ [ 1.20172510e-03  9.10427189e-04  1.34553586e-03 ...  8.55651917e-04
+   9.66522377e-04  8.99356557e-04]
+ [ 1.07437416e-04 -2.84947309e-05  1.35435234e-03 ... -2.24305259e-05
+   2.47313408e-03  7.14478083e-04]
+ [-2.24094942e-01 -2.22750172e-01 -2.19430029e-01 ... -2.19154462e-01
+  -1.93111852e-01 -2.13892356e-01]] None uniform None
+Miss classification on the training:  55.0  of  2000.0  - Accuracy:  97.25 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  3.457043
+The norm of beta:  518894.52231065533
+
+
+
+Starting training ELM  27  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  114.0  of  2000.0  - Accuracy:  94.3 %
+
+Miss classification on the test:  146.0  of  1186.0  - Accuracy:  87.68971332209105 %
+The norm of W:  122.1974186735764
+The norm of beta:  1.5972645852900968
+
+
+
+Starting training ELM-RO  27  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  13.453624047073706
+The norm of beta:  32.93629418929869
+
+Iteration time:  2.8080286979675293  sec Predict to end:  0.14040143489837648  min
+Starting training RBM  28  ...
+Starting the training...
+Reconstruction error:  0.6941084620332656 Iter:  0   Diff:  0.016472973
+Reconstruction error:  0.3958844997057484 Iter:  10   Diff:  0.0023081512
+Starting training RBM-ELM  28  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 0.00218959  0.00189569  0.00070341 ...  0.00149411  0.00162045
+   0.00210255]
+ [ 0.00140939  0.00133122  0.00089931 ...  0.00093848 -0.00025383
+   0.00155602]
+ [ 0.00115147  0.00120766  0.00087775 ...  0.00028974  0.00198252
+   0.0008516 ]
+ ...
+ [ 0.00121612  0.00052768 -0.00056383 ...  0.00098255  0.0009618
+   0.00097584]
+ [ 0.00080762  0.00196144  0.00167013 ...  0.00089942  0.00218565
+   0.00206856]
+ [-0.19039862 -0.20291123 -0.2157398  ... -0.21907118 -0.21217364
+  -0.21092293]] None uniform None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  80.0  of  1186.0  - Accuracy:  93.25463743676222 %
+The norm of W:  3.335266
+The norm of beta:  531387.5170990763
+
+
+
+Starting training ELM  28  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  113.0  of  2000.0  - Accuracy:  94.35 %
+
+Miss classification on the test:  138.0  of  1186.0  - Accuracy:  88.36424957841484 %
+The norm of W:  122.88175357944016
+The norm of beta:  1.5362638977300418
+
+
+
+Starting training ELM-RO  28  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  56.0  of  2000.0  - Accuracy:  97.2 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  13.453624047073708
+The norm of beta:  34.81782120767123
+
+Iteration time:  2.7695729732513428  sec Predict to end:  0.09231909910837809  min
+Starting training RBM  29  ...
+Starting the training...
+Reconstruction error:  0.7450629242220893 Iter:  0   Diff:  0.01681836
+Reconstruction error:  0.36725174981024533 Iter:  10   Diff:  0.0022750003
+Starting training RBM-ELM  29  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] [[ 1.6652960e-03  1.8018509e-03  1.2195719e-03 ...  1.9548964e-03
+   9.3449478e-04  1.2601877e-03]
+ [ 1.9978275e-04 -7.3951052e-04  1.0347536e-03 ...  1.2960822e-03
+   1.9374766e-04  9.7980641e-04]
+ [ 1.2979552e-03  8.0000737e-04  1.5768958e-03 ...  1.3267336e-03
+   1.2143427e-03  1.6065792e-03]
+ ...
+ [-4.5642885e-04 -1.3537024e-03 -1.3190389e-03 ...  2.8468785e-04
+  -4.6175651e-04 -5.7483709e-04]
+ [ 1.9249759e-03  2.7455743e-03  2.3467443e-03 ...  2.1002057e-03
+   9.4048725e-04  1.4549268e-03]
+ [-2.0440607e-01 -1.9863081e-01 -1.9598931e-01 ... -1.9228896e-01
+  -2.1740785e-01 -2.0251383e-01]] None uniform None
+Miss classification on the training:  50.0  of  2000.0  - Accuracy:  97.5 %
+
+Miss classification on the test:  73.0  of  1186.0  - Accuracy:  93.84485666104553 %
+The norm of W:  3.30512
+The norm of beta:  618866.7695904962
+
+
+
+Starting training ELM  29  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None uniform None
+Miss classification on the training:  98.0  of  2000.0  - Accuracy:  95.1 %
+
+Miss classification on the test:  129.0  of  1186.0  - Accuracy:  89.12310286677909 %
+The norm of W:  122.84682708342802
+The norm of beta:  1.479121970880236
+
+
+
+Starting training ELM-RO  29  ...
+Initialize parameters: 250 [[0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 0. 1.]
+ [0. 0. 0. ... 0. 1. 0.]
+ ...
+ [0. 0. 1. ... 1. 0. 0.]
+ [0. 0. 1. ... 0. 1. 0.]
+ [0. 0. 1. ... 0. 0. 1.]] [[0 0 1]
+ [0 1 0]
+ [0 1 0]
+ ...
+ [1 0 0]
+ [0 0 1]
+ [0 1 0]] None None RO None
+Miss classification on the training:  58.0  of  2000.0  - Accuracy:  97.1 %
+
+Miss classification on the test:  70.0  of  1186.0  - Accuracy:  94.09780775716695 %
+The norm of W:  13.453624047073717
+The norm of beta:  32.99773173897037
+
+Iteration time:  2.864903211593628  sec Predict to end:  0.0477483868598938  min
+######### DNA  15  ############
+Both RBM-ELM:
+Accuracy - Mean:  93.97133220910624  | Std:  0.388682312702063
+Time - Mean  2.225843334197998  | Std:  0.10907852370338293
+Norm - Mean  3.3501356  | Std:  0.12630153
+
+Only ELM:
+Accuracy -  mean:  88.98538504777963 | Std:  0.8041809834618364
+Time - mean:  0.25380611419677734  | Std:  0.024814204495710118
+Norm - Mean  122.77165793572685  | Std:  0.2389547261538967
+
+Only ELM-RO:
+Accuracy -  mean:  94.05845980888141 | Std:  0.3145325426315417
+Time - mean:  0.25913823445638023  | Std:  0.024189392742473028
+Norm - Mean  13.453624047073715  | Std:  5.900428906762117e-15
