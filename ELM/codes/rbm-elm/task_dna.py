@@ -32,7 +32,7 @@ from plotly.tools import FigureFactory as FF
 
 DATA_PATH= '/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/ELM/codes/datasets/'
 
-it = 10
+it = 100
 hidNeurons = 300
 maxIterRbm = 100
  
@@ -92,15 +92,14 @@ for i in range(it):
     print ( 'Starting training RBM ', i , ' ...')  
     
     init = time.time() # getting the start time
-    rbmNet = RBM_TF (dataIn=dna.trainIn, numHid=hidNeurons, rbmType='GBRBM')
+    rbmNet = RBM_TF (dataIn=dna.trainIn, numHid=400, rbmType='GBRBM')
     #rbmNet.train (maxIter=maxIterRbm, lr=0.001, wc=0.0002, iMom=0.5, fMom=0.9, cdIter=1, batchSize=150, freqPrint=10)
-    rbmNet.train (maxIter=maxIterRbm, lr=0.01, wc=0.01, iMom=0.5, fMom=0.9, cdIter=1, batchSize=250, freqPrint=10)
+    rbmNet.train (maxIter=maxIterRbm, lr=0.01, wc=0.01, iMom=0.5, fMom=0.9, cdIter=1, batchSize=150, freqPrint=10)
     W = np.concatenate ((rbmNet.getWeights(), rbmNet.getHidBias()), axis = 0)        
     del(rbmNet)    
     
-    print ( 'Starting training RBM-ELM ', i , ' ...' )
     elmNet = ELM (hidNeurons, dna.trainIn, dna.trainOut, W)
-    elmNet.train(aval=True)    
+    elmNet.train(aval=False)    
     end = time.time() # getting the end time     
     res, a = elmNet.getResult (dna.testIn,dna.testOut,True)
     
@@ -115,7 +114,7 @@ for i in range(it):
     print ('Starting training ELM ', i , ' ...' )
     init2 = time.time()
     elmNet = ELM (hidNeurons, dna.trainIn, dna.trainOut)
-    elmNet.train(aval=True)    
+    elmNet.train(aval=False)    
     end2 = time.time() # getting the end time     
     res, a = elmNet.getResult (dna.testIn,dna.testOut,True)   
     
@@ -128,9 +127,9 @@ for i in range(it):
     ###########################################################################
     print ('\n\n')
     print ('Starting training ELM-RO ', i , ' ...' )
-    init3 = time.time()    
+    init3 = time.time()
     elmNet = ELM (hidNeurons, dna.trainIn, dna.trainOut, init='RO')
-    elmNet.train(aval=True)     
+    elmNet.train(aval=False)
     end3 = time.time()    
     res, a = elmNet.getResult (dna.testIn,dna.testOut,True) 
     
@@ -146,15 +145,7 @@ for i in range(it):
     #del(dna)   
     gc.collect()
 	
-print ('######### DNA ',maxIterRbm, ' ############' )
-print ('Both RBM-ELM:')
-acc = np.asarray(acc)
-tim = np.asarray(tim)
-normRBMELM = np.asarray(normRBMELM)
-print ('Accuracy - Mean: ', acc.mean(), ' | Std: ', acc.std())
-print ('Time - Mean ', tim.mean(), ' | Std: ', tim.std())
-print ('Norm - Mean ', normRBMELM.mean(), ' | Std: ', normRBMELM.std())
-
+print ('######### DNA ############' )
 print ('\nOnly ELM:')
 acc2 = np.asarray(acc2)
 tim2 = np.asarray(tim2)
@@ -170,6 +161,15 @@ normELMRO = np.asarray(normELMRO)
 print ('Accuracy -  mean: ', acc3.mean(), '| Std: ', acc3.std())
 print ('Time - mean: ', tim3.mean(), ' | Std: ', tim3.std())
 print ('Norm - Mean ', normELMRO.mean(), ' | Std: ', normELMRO.std())
+
+print ('Both RBM-ELM:')
+acc = np.asarray(acc)
+tim = np.asarray(tim)
+normRBMELM = np.asarray(normRBMELM)
+print ('Accuracy - Mean: ', acc.mean(), ' | Std: ', acc.std())
+print ('Time - Mean ', tim.mean(), ' | Std: ', tim.std())
+print ('Norm - Mean ', normRBMELM.mean(), ' | Std: ', normRBMELM.std())
+
 
 data = [acc, acc2, acc3]
 plt.boxplot(data, labels=['RBM-ELM','ELM', 'ELM-RO'])

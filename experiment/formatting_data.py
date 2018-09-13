@@ -43,6 +43,19 @@ def write_csv(data, file_name, columns=None):
 	print('Out: ', file_name)
 	return file_name
 
+def csv_to_ssv(file_name):
+	df= pd.io.parsers.read_csv(file_name, header=None)
+	file_name=  file_name.replace('.csv','.ssv')
+	df.to_csv(file_name, sep=' ', encoding='utf-8', header=None, index=False)
+	print('Out', file_name)
+	return file_name
+
+def ssv_to_csv(file_name):
+	df= pd.io.parsers.read_csv(file_name, sep=' ', header=None)
+	file_name=  file_name.replace('.csv','.ssv')
+	df.to_csv(file_name, sep=',', encoding='utf-8', header=None, index=False)
+	print('Out', file_name)
+	return file_name
 
 # arissetyawan, sep 9
 # move column to front
@@ -144,3 +157,7 @@ columns= build_columns(data, 14)
 
 file_name= file_with_first_label + '.min_max_scaler'
 write_ssv(data, file_name, columns)
+
+###############################################
+DATA_AUSTRALIAN= DATA_DIR + 'isolet5.csv'
+csv_to_ssv(DATA_AUSTRALIAN)

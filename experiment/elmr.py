@@ -123,7 +123,7 @@ class ELMRandom(MLTools):
         self.default_param_l = 500
         self.default_param_opt = False
 
-        self.input_weight = []
+        self.input_weight = params[4]
         self.output_weight = []
         self.bias_of_hidden_neurons = []
 
@@ -156,11 +156,16 @@ class ELMRandom(MLTools):
         if self.input_weight == []:
             """  defauit is random
             """
+            print("Input Weigth: Default Random")
             self.input_weight = np.random.rand(number_of_hidden_nodes,
                                            number_of_attributes) * 2 - 1
-            # as is set on initializing instance of class
-        
-        self.bias_of_hidden_neurons = 1 #np.random.rand(number_of_hidden_nodes, 1)
+        else:
+            print("Input Weigth: Custom Weighting")
+
+        print(self.input_weight.shape[0])
+
+        self.bias_of_hidden_neurons = np.random.rand(number_of_hidden_nodes, 1)
+
 
     def __map_hidden_layer(self, function_type, number_hidden_nodes, data):
         """
@@ -179,58 +184,37 @@ class ELMRandom(MLTools):
 
         number_of_data = data.shape[0]
 
-        if function_type == "sigmoid" or function_type == "sig" or \
-            function_type == "sin" or function_type == "sine" or \
-            function_type == "hardlim" or \
-                function_type == "tribas":
-
+        if function_type in ["sigmoid","sig","sin","sine","hardlim","tribas"]:
             temp = np.dot(self.input_weight, data.conj().T)
-            bias_matrix = np.tile(self.bias_of_hidden_neurons,
-                                  number_of_data)
+            bias_matrix = np.tile(self.bias_of_hidden_neurons, number_of_data)
             temp = temp + bias_matrix
 
-        elif function_type == "mtquadric" or function_type == "multiquadric":
+        elif function_type in ["mtquadric","multiquadric"]:
             temph1 = np.tile(np.sum(data ** 2, axis=1).reshape(-1, 1),
                              number_hidden_nodes)
+            temph2 = np.tile(np.sum(self.input_weight ** 2, axis=1).reshape(-1, 1),number_of_data)
+            temp = temph1 + temph2.conj().T - 2 * np.dot(data, self.input_weight.conj().T)
+            temp = temp.conj().T + np.tile(self.bias_of_hidden_neurons ** 2, number_of_data)
 
-            temph2 = \
-                np.tile(np.sum(self.input_weight ** 2, axis=1).reshape(-1, 1),
-                        number_of_data)
-
-            temp = temph1 + temph2.conj().T \
-                   - 2 * np.dot(data, self.input_weight.conj().T)
-
-            temp = temp.conj().T + \
-                   np.tile(self.bias_of_hidden_neurons ** 2, number_of_data)
-
-        elif function_type == "gaussian" or function_type == "rbf":
-            temph1 = np.tile(np.sum(data ** 2, axis=1).reshape(-1, 1),
-                             number_hidden_nodes)
-
-            temph2 = \
-                np.tile(np.sum(self.input_weight ** 2, axis=1).reshape(-1, 1),
-                        number_of_data)
-
-            temp = temph1 + temph2.conj().T \
-                - 2 * np.dot(data, self.input_weight.conj().T)
-
-            temp = \
-                np.multiply(temp.conj().T, np.tile(self.bias_of_hidden_neurons,
-                                                   number_of_data))
+        elif function_type in ["gaussian", "rbf"]:
+            temph1 = np.tile(np.sum(data ** 2, axis=1).reshape(-1, 1), number_hidden_nodes)
+            temph2 = np.tile(np.sum(self.input_weight ** 2, axis=1).reshape(-1, 1), number_of_data)
+            temp = temph1 + temph2.conj().T - 2 * np.dot(data, self.input_weight.conj().T)
+            temp = np.multiply(temp.conj().T, np.tile(self.bias_of_hidden_neurons, umber_of_data))
         else:
             print("Error: Invalid function type")
             return
 
-        if function_type == "sigmoid" or function_type == "sig":
+        if function_type in ["sigmoid","sig"]:
             if _SCIPY:
                 h_matrix = expit(temp)
             else:
                 h_matrix = 1 / (1 + np.exp(-temp))
-        elif function_type == "sine" or function_type == "sin":
+        elif function_type in ["sine", "sin"]:
             h_matrix = np.sin(temp)
-        elif function_type == "mtquadric" or function_type == "multiquadric":
+        elif function_type in ["mtquadric", "multiquadric"]:
             h_matrix = np.sqrt(temp)
-        elif function_type == "gaussian" or function_type == "rbf":
+        elif function_type in ["gaussian", "rbf"]:
             h_matrix = np.exp(temp)
         else:
             print("Error: Invalid function type")

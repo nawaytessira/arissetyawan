@@ -16,12 +16,9 @@ def significant_check(pvalue):
 	else:
 		print('Significant < ', alpha, pvalue)
 
-
-def rbm(training_array, neurons):
-	maxIterRbm= 100
-	RBMneurons= 300
-	rbmNet = RBM(dataIn=training_array, numHid=RBMneurons)
-	rbmNet.train (maxIter=maxIterRbm, lr=0.0001, wc=0.01, iMom=0.5, fMom=0.9, cdIter=1, batchSize=250, freqPrint=10)
+def rbm(training_array, neurons, maxIter=100, lr=0.0001, wc=0.01, iMom=0.5, fMom=0.9, cdIter=1, batchSize=250, freqPrint=10):
+	rbmNet = RBM(dataIn=training_array, numHid=neurons)
+	rbmNet.train (maxIter=maxIter, lr=lr, wc=wc, iMom=iMom, fMom=fMom, cdIter=cdIter, batchSize=batchSize, freqPrint=freqPrint)
 	W = np.concatenate ((rbmNet.getWeights(), rbmNet.getHidBias()), axis = 0)
 	return W
 
@@ -56,7 +53,7 @@ data = np.loadtxt(DIR + "dna_train.csv")
 #data= np.loadtxt(DIR + "iris.txt.label_first.min_max_scaler")
 #data = np.loadtxt(DIR + "australian.txt")
 
-neurons= 1000
+neurons= 35
 # search for best parameter for this dataset
 # define "kfold" cross-validation method, "accuracy" as a objective function
 # to be optimized and perform 10 searching steps.
@@ -67,7 +64,7 @@ neurons= 1000
 # elmr.print_parameters()
 # split data in training and testing sets
 # use 80% of dataset to training and shuffle data before splitting
-tr_set= data #, te_set = split_sets(data, training_percent=.7, perm=True)
+tr_set, te_set = split_sets(data, training_percent=.7, perm=True)
 
 # train and test
 # results are Error objects
@@ -81,7 +78,7 @@ tim_ortho = list()
 acc_rbm = list()
 tim_rbm = list()
 
-trial= 10
+trial= 25
 
 
 for i in range(trial):
