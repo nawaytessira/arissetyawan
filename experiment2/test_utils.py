@@ -7,10 +7,7 @@
 from utilsClassification import *
 
 
-line()
-
-log("test")
-
 log_iter("test", 1, [[22,33],[3,2]], "halo log")
 
 log_iter("test", 3, [], "halo log")
+

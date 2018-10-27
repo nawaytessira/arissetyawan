@@ -13,44 +13,6 @@ If you find some bug, please, e-mail me
 
 import numpy as np
 import matplotlib.pyplot as plt
-from time import gmtime, strftime
-
-'''
-This method to write file as logger
-eg. use it to log inside looping
-
-'''
-
-def br():
-    return "\n"
-
-def log(filename, string=""):
-    filename= filename + ".log"
-    f= open(filename, "a+")
-    f.write(str(string))
-    f.close
-    print(" > > > LOGGED AS: " + filename)
-
-def line(length=50):
-    return br() + ("-" * length) + br()
-
-def line2(length=50):
-    return br() + ("=" * length) + br()
-
-def time_string():
-    return strftime("%Y-%m-%d_%H%M%S", gmtime())
-
-def log_iter(filename, iter, params_setting, string=""):
-    filename= filename + "." + time_string()
-    params_setting= str(params_setting)
-    params_setting=  line2() + params_setting + br()
-    string= line() +  "Iter: " + str(iter) + br() + str(string) + br()
-
-    text= string
-    if iter==1:
-        text= params_setting + string
-    log(filename, text)
-
 
 ''' This function convert mnist ubyte format to csv
 author: Aris Setyawan
