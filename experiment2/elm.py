@@ -1,219 +1,308 @@
-#@mfunction("TrainingTime, TestingTime, TrainingAccuracy, TestingAccuracy")
-def elm(TrainingData_File=None, TestingData_File=None, Elm_Type=None, NumberofHiddenNeurons=None, ActivationFunction=None):
+# -*- coding: utf-8 -*-
+'''
+Author: Andre Pacheco
+E-mail: pacheco.comp@gmail.com
+This class implements the Extreme Learning Machine (ELM) according to:
 
-    # Usage: elm(TrainingData_File, TestingData_File, Elm_Type, NumberofHiddenNeurons, ActivationFunction)
-    # OR:    [TrainingTime, TestingTime, TrainingAccuracy, TestingAccuracy] = elm(TrainingData_File, TestingData_File, Elm_Type, NumberofHiddenNeurons, ActivationFunction)
-    #
-    # Input:
-    # TrainingData_File     - Filename of training data set
-    # TestingData_File      - Filename of testing data set
-    # Elm_Type              - 0 for regression; 1 for (both binary and multi-classes) classification
-    # NumberofHiddenNeurons - Number of hidden neurons assigned to the ELM
-    # ActivationFunction    - Type of activation function:
-    #                           'sig' for Sigmoidal function
-    #                           'sin' for Sine function
-    #                           'hardlim' for Hardlim function
-    #                           'tribas' for Triangular basis function
-    #                           'radbas' for Radial basis function (for additive type of SLFNs instead of RBF type of SLFNs)
-    #
-    # Output: 
-    # TrainingTime          - Time (seconds) spent on training ELM
-    # TestingTime           - Time (seconds) spent on predicting ALL testing data
-    # TrainingAccuracy      - Training accuracy: 
-    #                           RMSE for regression or correct classification rate for classification
-    # TestingAccuracy       - Testing accuracy: 
-    #                           RMSE for regression or correct classification rate for classification
-    #
-    # MULTI-CLASSE CLASSIFICATION: NUMBER OF OUTPUT NEURONS WILL BE AUTOMATICALLY SET EQUAL TO NUMBER OF CLASSES
-    # FOR EXAMPLE, if there are 7 classes in all, there will have 7 output
-    # neurons; neuron 5 has the highest output means input belongs to 5-th class
-    #
-    # Sample1 regression: [TrainingTime, TestingTime, TrainingAccuracy, TestingAccuracy] = elm('sinc_train', 'sinc_test', 0, 20, 'sig')
-    # Sample2 classification: elm('diabetes_train', 'diabetes_test', 1, 20, 'sig')
-    #
-    #%%%    Authors:    MR QIN-YU ZHU AND DR GUANG-BIN HUANG
-    #%%%    NANYANG TECHNOLOGICAL UNIVERSITY, SINGAPORE
-    #%%%    EMAIL:      EGBHUANG@NTU.EDU.SG; GBHUANG@IEEE.ORG
-    #%%%    WEBSITE:    http://www.ntu.edu.sg/eee/icis/cv/egbhuang.htm
-    #%%%    DATE:       APRIL 2004
+[1] Huang, G.B.; Zhu, Q.Y.; Siew, C.-K. Extreme learning machine: theory and applications.
+Neurocomputing, v. 70, n. 1, p. 489 - 501, 2006.
 
-    #%%%%%%%%%% Macro definition
-    REGRESSION = 0
-    CLASSIFIER = 1
+You can choose initialize the input weights with uniform distribution or using random orthogonal projection
+proposed by:
 
-    #%%%%%%%%%% Load training dataset
-    train_data = load(TrainingData_File)
-    T = train_data(mslice[:], 1).cT
-    P = train_data(mslice[:], mslice[2:size(train_data, 2)]).cT
-    clear(mstring('train_data'))#   Release raw training data array
+[2] Wenhui W. and Xueyi L. ; The selection of input weights of extreme learning machine: A sample
+structure preserving point of view, Neurocomputing, 2017, in press
 
-    #%%%%%%%%%% Load testing dataset
-    test_data = load(TestingData_File)
-    TV.T = test_data(mslice[:], 1).cT
-    TV.P = test_data(mslice[:], mslice[2:size(test_data, 2)]).cT
-    clear(mstring('test_data'))#   Release raw testing data array
+Using this class you can either train the net or just execute if you already know the ELM's weight.
+All the code is very commented to ease the undertanding.
 
-    NumberofTrainingData = size(P, 2)
-    NumberofTestingData = size(TV.P, 2)
-    NumberofInputNeurons = size(P, 1)
+Revised: Aris Setyawan
+E-mail: arissetyawan.email@gmail.com
 
-    if Elm_Type != REGRESSION:
-        #%%%%%%%%%%% Preprocessing the data of classification
-        sorted_target = sort(cat(2, T, TV.T), 2)
-        label = zeros(1, 1)    #   Find and save in 'label' class label from training and testing data sets
-        label(1, 1).lvalue = sorted_target(1, 1)
-        j = 1
-        for i in mslice[2:(NumberofTrainingData + NumberofTestingData)]:
-            if sorted_target(1, i) != label(1, j):
-                j = j + 1
-                label(1, j).lvalue = sorted_target(1, i)
-            end
-        end
-        number_class = j
-        NumberofOutputNeurons = number_class
+If you find some bug, please e-mail me =)
 
-        #%%%%%%%%% Processing the targets of training
-        temp_T = zeros(NumberofOutputNeurons, NumberofTrainingData)
-        for i in mslice[1:NumberofTrainingData]:
-            for j in mslice[1:number_class]:
-                if label(1, j) == T(1, i):
+'''
+
+import numpy as np
+import sys
+
+# Insert the paths
+MAIN_DIR= '/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/__THESIS___/experiment2/'
+sys.path.insert (0, MAIN_DIR)
+
+from utilsClassification import sigmoid, cont_error
+from sklearn.decomposition import PCA
+from rbm import RBM
+
+
+class ELM:
+    neurons = None
+    inTrain = None
+    outTrain = None
+    W = None
+    beta = None
+    P = None
+    batchSize = None
+    
+    # The constructor method. If you intend to train de ELM, you must fill all parameters.
+    # If you already have the weights and wanna only execute the net, just fill W and beta.
+    def __init__ (self, neurons=20, inTrain=None, outTrain=None, W=None, beta=None, init='uniform', batchSize=None):
+        print("Initialize parameters:", neurons, inTrain, outTrain, W, beta, init, batchSize)
+        # Setting the neuron's number on the hidden layer        
+        self.neurons = neurons
+        
+        # Here we add 1 into the input's matrices to vectorize the bias computation
+        self.inTrain = np.concatenate ((inTrain, np.ones([inTrain.shape[0],1])), axis = 1)
+        self.outTrain = outTrain
+        self.batchSize = batchSize
+        
+        if inTrain is not None and outTrain is not None:          
+            # If you wanna initialize the weights W, you just set it up as a parameter. If don't,
+            # let the W=None and the code will initialize it here with random values
+            if W is not None:
+                self.W = W
+            else:
+                # The last row is the hidden layer's bias. Because this we added 1 in the training
+                # data above.               
+                if init == 'uniform':
+                    self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])             
+                elif init == 'RO':                    
+                    if neurons >= inTrain.shape[1]:
+                        self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])
+                        self.W,_ = np.linalg.qr(self.W.T)
+                        self.W = self.W.T
+                    else:   
+                        print('Starting PCA...')
+                        A = np.random.uniform(-1,1,[neurons,neurons])
+                        A,_ = np.linalg.qr(A.T)
+                        A = A.T
+                        pca = PCA(n_components=neurons)                    
+                        wpca = pca.fit_transform(inTrain.T).T
+                        print(wpca.shape)
+                        self.W = np.dot(A,wpca).T                        
+                        # including the bias
+                        b = np.random.uniform(-1,1,[1,self.W.shape[1]])                        
+                        self.W = np.vstack((self.W,b))   
+                      
+#                        self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])
+#                        self.W,_ = np.linalg.qr(self.W)
+#                        self.W = self.W    
+#                        print 'W: ', self.W.shape
+        else:            
+            # In this case, there is no traning. So, you just to fill the weights W and beta
+            if beta is not None and W is not None:
+                self.beta = beta
+                self.W = W
+            else:
+                print('ERROR: you set up the input training as None, but you did no initialize the weights')
+                raise Exception('ELM initialize error')   
+                
+
+            
+    # This method just trains the ELM. If you wanna check the training error, set aval=True
+    def train (self, aval=False):
+        # Computing the matrix H
+        H = sigmoid(np.dot(self.inTrain,self.W))
+                      
+        # Computing the weights beta
+        self.beta = np.dot(np.linalg.pinv(H),self.outTrain)    
+        
+        #print '\nCONDITION NUMBER:', np.linalg.cond(self.beta), '\n'
+        
+        if aval == True:            
+            H = sigmoid (np.dot(self.inTrain, self.W))
+            outNet = np.dot (H,self.beta)
+            miss = float(cont_error (self.outTrain, outNet))
+            si = float(self.outTrain.shape[0])
+            print('Miss classification on the training: ', miss, ' of ', si, ' - Accuracy: ', (1-miss/si)*100, '%')
+            
+    def ostrain (self, nInit=5, epc=1, reg=None, aval=False):
+        nSam = self.inTrain.shape[0]
+        I = np.identity(self.batchSize)
+        Ix = np.identity(self.neurons)
+        
+        # Initialization phase        
+        X0 = self.inTrain[0:self.batchSize*nInit]
+        Y0 = self.outTrain[0:self.batchSize*nInit]
+        H = sigmoid (np.dot(X0, self.W))
+        
+        if reg is not None:
+            P_prev = np.linalg.inv(np.dot(H.T,H) - Ix*reg)
+        else:
+            P_prev = np.linalg.inv(np.dot(H.T,H))
+            
+        beta_prev = np.dot(np.dot(P_prev,H.T),Y0)        
+               
+        for e in range(epc): 
+            print('\n### epc {} of {} ####'.format(e,epc))
+            # Sequential phase
+            for offset in xrange(0,nSam,self.batchSize):
+                end = offset + self.batchSize
+                
+                if end > nSam:
                     break
-                end
-            end
-            temp_T(j, i).lvalue = 1
-        end
-        T = temp_T * 2 - 1
-
-        #%%%%%%%%% Processing the targets of testing
-        temp_TV_T = zeros(NumberofOutputNeurons, NumberofTestingData)
-        for i in mslice[1:NumberofTestingData]:
-            for j in mslice[1:number_class]:
-                if label(1, j) == TV.T(1, i):
+                
+                xBatch, yBatch = self.inTrain[offset:end], self.outTrain[offset:end] 
+                
+                H = sigmoid (np.dot(xBatch, self.W))
+                
+                paux1 = np.linalg.inv ((I + np.dot(np.dot(H,P_prev),H.T)))
+                paux2 = np.dot(np.dot(P_prev,H.T), paux1) 
+                P = P_prev - np.dot(np.dot(paux2,H),P_prev)           
+    #            P = P_prev - np.dot (np.dot( np.dot(P_prev,H.T), np.linalg.inv ( (I + np.dot(np.dot(H,P_prev),H.T)) ) ), np.dot(H,P_prev))
+                
+                beta = beta_prev + np.dot (np.dot(P, H.T), (yBatch - np.dot(H,beta_prev) ))
+                
+                P_prev = P
+                beta_prev = beta
+                
+                if aval:                
+                    outNet = np.dot (H,beta)
+                    miss = float(cont_error (yBatch, outNet))
+                    si = float(yBatch.shape[0])
+                    print('Miss classification on batch {}/{}: {} of {} - Accuracy: {} %'.format(end,nSam, miss, si, (1-miss/si)*100))          
+            
+        self.beta = beta
+        
+        
+    def os_rbm_train (self, nInit=5, epc=1, reg=None, aval=False, rbmType='GBRBM',lr=0.001, wc=0.0002, momInit=0.5, momFinal=0.9, cdIter=1, rbmVerbose=True):
+        
+        rbmNet = RBM (numVis=self.inTrain.shape[1]-1, numHid=self.neurons, rbmType=rbmType)          
+        
+        nSam = self.inTrain.shape[0]
+        I = np.identity(self.batchSize)
+        Ix = np.identity(self.neurons)
+        
+        # Initialization phase        
+        X0 = self.inTrain[0:self.batchSize*nInit]
+        Y0 = self.outTrain[0:self.batchSize*nInit]        
+                
+        rbmNet.train_batch (X0[:,0:-1], lr=lr, wc=wc, mom=momInit, cdIter=cdIter, batchSize=self.batchSize, verbose=rbmVerbose, tol=10e-5)        
+        self.W = rbmNet.getInputWeights ()        
+        
+        H = sigmoid (np.dot(X0, self.W))
+        if reg is not None:
+            P_prev = np.linalg.inv(np.dot(H.T,H) - Ix*reg)
+        else:
+            P_prev = np.linalg.inv(np.dot(H.T,H))
+            
+        beta_prev = np.dot(np.dot(P_prev,H.T),Y0)
+        
+        for e in range(epc):
+            print('\n### epc {} of {} ####'.format(e,epc))
+            # Sequential phase
+            for offset in xrange(0,nSam,self.batchSize):
+                end = offset + self.batchSize            
+                if end > nSam:
                     break
-                end
-            end
-            temp_TV_T(j, i).lvalue = 1
-        end
-        TV.T = temp_TV_T * 2 - 1
+                
+                xBatch, yBatch = self.inTrain[offset:end], self.outTrain[offset:end]
+                
+                rbmNet.train_batch (xBatch[:,0:-1], lr=lr, wc=wc, mom=momFinal, cdIter=cdIter, batchSize=self.batchSize, verbose=rbmVerbose, tol=10e-5)        
+                self.W = rbmNet.getInputWeights () 
+                
+                H = sigmoid (np.dot(xBatch, self.W))            
+                
+                paux1 = np.linalg.inv ((I + np.dot(np.dot(H,P_prev),H.T)))
+                paux2 = np.dot(np.dot(P_prev,H.T), paux1) 
+                P = P_prev - np.dot(np.dot(paux2,H),P_prev)           
+                
+                beta = beta_prev + np.dot (np.dot(P, H.T), (yBatch - np.dot(H,beta_prev) ))
+                
+                P_prev = P
+                beta_prev = beta
+                
+                if aval:                
+                    outNet = np.dot (H,beta)
+                    miss = float(cont_error (yBatch, outNet))
+                    si = float(yBatch.shape[0])
+                    print('Miss classification on batch {}/{}: {} of {} - Accuracy: {} %'.format(end,nSam, miss, si, (1-miss/si)*100))
+                    
+            
+        self.beta = beta        
+            
+            
 
-    end#   end if of Elm_Type
+    # This method executes the ELM, according to the weights and the data passed as parameter
+    def getResultByBatch (self, data, batchSize=100, realOutput=None, aval=False, verbose=False):
+        # including 1 because the bias
+        dataTest = np.concatenate ((data, np.ones([data.shape[0],1])), axis = 1)       
+        nSam = dataTest.shape[0]
+        allNetOut = list()
+        allAcc = list()
+        
+        for offset in xrange(0,nSam,batchSize):
+            if verbose:
+                print('Testing batch {} of {}'.format(offset,nSam/batchSize))
+                
+            end = offset + batchSize            
+            if end > nSam:
+                end = nSam         
+            
+            if aval:
+                xBatch, yBatch = dataTest[offset:end], realOutput[offset:end]        
+            else:
+                xBatch = dataTest[offset:end]       
+        
+            # Getting the H matrix
+            H = sigmoid (np.dot(xBatch, self.W))            
+            netOutput = np.dot (H,self.beta)
 
-    #%%%%%%%%%% Calculate weights & biases
-    start_time_train = cputime
+            if aval:        
+                miss = float(cont_error (yBatch, netOutput))
+                si = float(netOutput.shape[0])
+                acc = (1-miss/si)*100
+                if verbose:
+                    print('\nMiss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')      
+                #return netOutput, acc
+                allNetOut.append(netOutput)
+                allAcc.append(acc)
+        
+        allAcc = np.asarray(allAcc)
+        return netOutput, allAcc.mean()        
+            
+    # This method executes the ELM, according to the weights and the data passed as parameter
+    def getResult (self, data, realOutput=None, aval=False):
+        # including 1 because the bias
+        dataTest = np.concatenate ((data, np.ones([data.shape[0],1])), axis = 1)       
+        
+        # Getting the H matrix
+        H = sigmoid (np.dot(dataTest, self.W))
+        netOutput = np.dot (H,self.beta)
 
-    #%%%%%%%%%% Random generate input weights InputWeight (w_i) and biases BiasofHiddenNeurons (b_i) of hidden neurons
-    InputWeight = rand(NumberofHiddenNeurons, NumberofInputNeurons) * 2 - 1
-    BiasofHiddenNeurons = rand(NumberofHiddenNeurons, 1)
-    tempH = InputWeight * P
-    clear(mstring('P'))#   Release input of training data
-    ind = ones(1, NumberofTrainingData)
-    BiasMatrix = BiasofHiddenNeurons(mslice[:], ind)#   Extend the bias matrix BiasofHiddenNeurons to match the demention of H
-    tempH = tempH + BiasMatrix
+        if aval:        
+            miss = float(cont_error (realOutput, netOutput))
+            si = float(netOutput.shape[0])
+            acc = (1-miss/si)*100
+            print('\nMiss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')       
+            return netOutput, acc
+            
+        return netOutput, None
+        
+    # This method saves the trained weights as a .csv file
+    def saveELM (self, nameFile='T1'):
+        np.savetxt('weightW'+nameFile+'.csv', self.W)
+        np.savetxt('weightBeta'+nameFile+'.csv', self.beta)
+        
+    # This method computes the norm for input and output weights
+    def getNorm (self, verbose=True):
+        wNorm = np.linalg.norm(self.W)
+        betaNorm = np.linalg.norm(self.beta)
+        if verbose:
+            print('The norm of W: ', wNorm)
+            print('The norm of beta: ', betaNorm)
+        return wNorm, betaNorm
+        
 
-    #%%%%%%%%%% Calculate hidden neuron output matrix H
-    __switch_0__ = lower(ActivationFunction)
-    if 0:
-        pass
-    elif __switch_0__ == mcellarray([mstring('sig'), mstring('sigmoid')]):
-        #%%%%%%% Sigmoid 
-        H = 1 /eldiv/ (1 + exp(-tempH))
-    elif __switch_0__ == mcellarray([mstring('sin'), mstring('sine')]):
-        #%%%%%%% Sine
-        H = sin(tempH)
-    elif __switch_0__ == mcellarray([mstring('hardlim')]):
-        #%%%%%%% Hard Limit
-        H = double(hardlim(tempH))
-    elif __switch_0__ == mcellarray([mstring('tribas')]):
-        #%%%%%%% Triangular basis function
-        H = tribas(tempH)
-    elif __switch_0__ == mcellarray([mstring('radbas')]):
-        #%%%%%%% Radial basis function
-        H = radbas(tempH)
-        #%%%%%%% More activation functions can be added here                
-    end
-    clear(mstring('tempH'))#   Release the temparary array for calculation of hidden neuron output matrix H
 
-    #%%%%%%%%%% Calculate output weights OutputWeight (beta_i)
-    OutputWeight = pinv(H.cT) * T.cT# implementation without regularization factor //refer to 2006 Neurocomputing paper
-    #OutputWeight=inv(eye(size(H,1))/C+H * H') * H * T';   % faster method 1 //refer to 2012 IEEE TSMC-B paper
-    #implementation; one can set regularizaiton factor C properly in classification applications 
-    #OutputWeight=(eye(size(H,1))/C+H * H') \ H * T';      % faster method 2 //refer to 2012 IEEE TSMC-B paper
-    #implementation; one can set regularizaiton factor C properly in classification applications
 
-    #If you use faster methods or kernel method, PLEASE CITE in your paper properly: 
+     
 
-    #Guang-Bin Huang, Hongming Zhou, Xiaojian Ding, and Rui Zhang, "Extreme Learning Machine for Regression and Multi-Class Classification," submitted to IEEE Transactions on Pattern Analysis and Machine Intelligence, October 2010. 
+      
 
-    end_time_train = cputime
-    TrainingTime = end_time_train - start_time_train; 
-    print(TrainingTime) #   Calculate CPU time (seconds) spent for training ELM
 
-    #%%%%%%%%%% Calculate the training accuracy
-    Y = (H.cT * OutputWeight).cT#   Y: the actual output of the training data
-    if Elm_Type == REGRESSION:
-        TrainingAccuracy = sqrt(mse(T - Y)); 
-        print(TrainingAccuracy)    #   Calculate training accuracy (RMSE) for regression case
-    end
-    clear(mstring('H'))
 
-    #%%%%%%%%%% Calculate the output of testing input
-    start_time_test = cputime
-    tempH_test = InputWeight * TV.P
-    clear(mstring('TV.P'))#   Release input of testing data
-    ind = ones(1, NumberofTestingData)
-    BiasMatrix = BiasofHiddenNeurons(mslice[:], ind)#   Extend the bias matrix BiasofHiddenNeurons to match the demention of H
-    tempH_test = tempH_test + BiasMatrix
-    __switch_0__ = lower(ActivationFunction)
-    if 0:
-        pass
-    elif __switch_0__ == mcellarray([mstring('sig'), mstring('sigmoid')]):
-        #%%%%%%% Sigmoid 
-        H_test = 1 /eldiv/ (1 + exp(-tempH_test))
-    elif __switch_0__ == mcellarray([mstring('sin'), mstring('sine')]):
-        #%%%%%%% Sine
-        H_test = sin(tempH_test)
-    elif __switch_0__ == mcellarray([mstring('hardlim')]):
-        #%%%%%%% Hard Limit
-        H_test = hardlim(tempH_test)
-    elif __switch_0__ == mcellarray([mstring('tribas')]):
-        #%%%%%%% Triangular basis function
-        H_test = tribas(tempH_test)
-    elif __switch_0__ == mcellarray([mstring('radbas')]):
-        #%%%%%%% Radial basis function
-        H_test = radbas(tempH_test)
-        #%%%%%%% More activation functions can be added here        
-    end
-    TY = (H_test.cT * OutputWeight).cT#   TY: the actual output of the testing data
-    end_time_test = cputime
-    TestingTime = end_time_test - start_time_test; 
-    print(TestingTime)#   Calculate CPU time (seconds) spent by ELM predicting the whole testing data
 
-    if Elm_Type == REGRESSION:
-        TestingAccuracy = sqrt(mse(TV.T - TY));
-        print(TestingAccuracy)    #   Calculate testing accuracy (RMSE) for regression case
-    end
 
-    if Elm_Type == CLASSIFIER:
-        #%%%%%%%%% Calculate training & testing classification accuracy
-        MissClassificationRate_Training = 0
-        MissClassificationRate_Testing = 0
 
-        for i in mslice[1:size(T, 2)]:
-            [x, label_index_expected] = max(T(mslice[:], i))
-            [x, label_index_actual] = max(Y(mslice[:], i))
-            if label_index_actual != label_index_expected:
-                MissClassificationRate_Training = MissClassificationRate_Training + 1
-            end
-        end
-        TrainingAccuracy = 1 - MissClassificationRate_Training / size(T, 2); 
-        print(TrainingAccuracy)
-        for i in mslice[1:size(TV.T, 2)]:
-            [x, label_index_expected] = max(TV.T(mslice[:], i))
-            [x, label_index_actual] = max(TY(mslice[:], i))
-            if label_index_actual != label_index_expected:
-                MissClassificationRate_Testing = MissClassificationRate_Testing + 1
-            end
-        end
-        TestingAccuracy = 1 - MissClassificationRate_Testing / size(TV.T, 2); 
-        print(TestingAccuracy)
-    end
+

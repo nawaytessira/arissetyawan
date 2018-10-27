@@ -4,10 +4,10 @@ import sys
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
-sys.path.insert (0, '/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/experiment/')
+sys.path.insert (0, '/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/experiment2/')
 from elm_train import *
 
-DATA_DIR= '/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/experiment/'
+DATA_DIR= '/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/experiment2/'
 
 def read_csv(file, headers=None):
 	df= pd.io.parsers.read_csv(file, header=headers)

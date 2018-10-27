@@ -13,6 +13,8 @@ If you find some bug, please, e-mail me
 
 import numpy as np
 import matplotlib.pyplot as plt
+import os, errno
+from time import gmtime, strftime
 
 ''' This function convert mnist ubyte format to csv
 author: Aris Setyawan
@@ -21,6 +23,45 @@ convert("train-images-idx3-ubyte", "train-labels-idx1-ubyte",
 convert("t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte",
         "mnist_test.csv", 10000)
 '''
+def mkdir(directory):
+    try:
+        os.makedirs(directory)
+        return directory
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+        return directory
+
+def br():
+    return "\n"
+
+def line(l=50):
+    return br() + ("-" * l) + br()
+
+def line2(l=50):
+    return br() + ("=" * l) + br()
+
+def time_str():
+    return strftime("%Y%m%d-%H%M%S", gmtime())
+
+def log(filename, string):
+    f= open(filename, "+a")
+    f.write(str(string))
+    f.close
+    print("---LOGGED AS ", filename)
+
+def iter(iter):
+    return "ITER: " + str(iter) + br()
+
+def log_iter(filename, i, settings, string):
+    text= iter(i) + string + line()
+    filename= filename + "." + time_str()
+    filename= mkdir("log") + "/" + filename
+    if i==1:
+        header = line2() + str(settings) + line2()
+        text = header + text
+    log(filename, text)
+
 def convert(imgf, labelf, outf, n):
     f = open(imgf, "rb")
     o = open(outf, "w")

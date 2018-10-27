@@ -6,8 +6,7 @@
 
 from utilsClassification import *
 
-
-log_iter("test", 1, [[22,33],[3,2]], "halo log")
-
-log_iter("test", 3, [], "halo log")
-
+mkdir("log")
+log_iter("cobalog", 1, [[22,33],[3,2]], "halo log")
+log_iter("cobalog", 2, [[22,33],[3,2]], "halo ls3og")
+log_iter("cobalog", 3, [[22,33],[3,2]], "halo logxx")
