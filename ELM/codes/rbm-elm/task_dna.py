@@ -59,13 +59,13 @@ print('Loading the dataset...')
 print ( 'Loading test file...')  
 dnaTest = np.genfromtxt(DATA_PATH + 'dna/dna_test.csv', delimiter=',')
 # label ?
-print ( 'Loading label file...')  
+print ( 'Loading validation file...')  
 dnaVal = np.genfromtxt(DATA_PATH+ 'dna/dna_val.csv', delimiter=',')
 # train 
 print ( 'Loading train file...')  
 dnaTrain = np.genfromtxt(DATA_PATH+ 'dna/dna_train.csv', delimiter=',')
 
-dnaTrain = np.concatenate((dnaTrain,dnaVal))
+#dnaTrain = np.concatenate((dnaTrain,dnaVal))
 
 acc = list()
 tim = list()
@@ -76,7 +76,7 @@ tim2 = list()
 acc3 = list()
 tim3 = list()
 
-dna = data (train=dnaTrain, test=dnaTest, val=dnaVal, posOut='first')
+dna = data (train=dnaTrain, posOut='first')
 print (dna)
 
 normRBMELM = list()
