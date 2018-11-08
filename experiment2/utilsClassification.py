@@ -12,6 +12,8 @@ If you find some bug, please, e-mail me
 '''
 
 import numpy as np
+np.set_printoptions(threshold=np.inf)
+
 import matplotlib.pyplot as plt
 import os, errno
 from time import gmtime, strftime
@@ -23,6 +25,16 @@ convert("train-images-idx3-ubyte", "train-labels-idx1-ubyte",
 convert("t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte",
         "mnist_test.csv", 10000)
 '''
+def p(*x):
+    # return ""
+
+    print("\n[DEBUG] sta===========================")
+    print(*x, end =", ")
+    print("\n[DEBUG] fin===========================\n")
+
+def halt(something):
+    raise Exception(something)
+
 def mkdir(directory):
     try:
         os.makedirs(directory)
@@ -44,6 +56,13 @@ def line2(l=50):
 def time_str():
     return strftime("%Y%m%d-%H%M%S", gmtime())
 
+def log_uniq(filename, string):
+    filename= filename + "." + time_str()
+    f= open(filename, "+a")
+    f.write(str(string))
+    f.close
+    print("---LOGGED AS ", filename)
+
 def log(filename, string):
     f= open(filename, "+a")
     f.write(str(string))
@@ -55,7 +74,7 @@ def iter(iter):
 
 def log_iter(filename, i, settings, string):
     text= iter(i) + string + line()
-    filename= filename + "." + time_str()
+    filename= filename + "-" + str(i) + ".log"
     filename= mkdir("log") + "/" + filename
     if i==1:
         header = line2() + str(settings) + line2()
@@ -138,7 +157,6 @@ def cont_error (vreal, vclass):
             for j in range(n):
                   if dif[i,j] != 0:
                         flag = 1
-
             if flag == 1:
                   err = err + 1
 

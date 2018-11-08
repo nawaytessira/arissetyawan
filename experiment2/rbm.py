@@ -24,8 +24,8 @@ import sys
 
 # Insert the util's path
 sys.path.insert (0, '/media/arissetyawan/01D01F7DA71A34F0/__PASCA__/__THESIS___/ELM/codes/rbm-elm/')
-
-from utilsClassification import sigmoid, mse
+from utilsClassification import *
+# from utilsClassification import sigmoid, mse
 
 class RBM:
     # Atributes
@@ -39,13 +39,18 @@ class RBM:
     nSamples = None  # The samples' number on dataset
     dataIn = None    # The input data
     rbmType = None   # You can choose between either Gaussian-Bernoulli (GBRBM) RBM or 
-                     # Bernoulli-Bernoulli RBM (BBRBM). For more information about , check [1].
-                     # Default: GBRBM
-    
+                          # Bernoulli-Bernoulli RBM (BBRBM). For more information about , check [1].
+                          # Default: GBRBM
+    vis0 = None
+    vis1 = None
+
    # The constructor method
     def __init__ (self, dataIn=None, numHid=20, numVis=None, weights=None, visBias=None, hidBias=None, rbmType='GBRBM'):
+        self.rbmType= rbmType
+        if self.rbmType !="GBRBM":
+            print('ERROR: this <%s> type does not exist in this code.' % self.rbmType )
+            raise Exception('RBM type error')       
 
-        
         # If the weights and bias are set, we don't initialize them and use the values passed
         if weights is not None:
             self.weights = weights
@@ -64,7 +69,6 @@ class RBM:
             # initializing the bias and weights
             self.visBias = np.zeros([1,self.numVis])
             self.hidBias = np.zeros([1,self.numHid])
-#            self.weights = np.random.randn (self.numVis,self.numHid)*0.1
             self.weights = np.random.uniform(-1,1,[self.numVis,self.numHid])
             
             
@@ -72,14 +76,6 @@ class RBM:
         self.deltaVisBias = np.zeros_like(self.visBias)
         self.deltaHidBias = np.zeros_like (self.hidBias)   
                 
-        # Just checking the rbms names:
-        if rbmType == 'GBRBM' or rbmType == 'BBRBM':        
-            self.rbmType = rbmType
-        else:
-            print('ERROR: this <%s> type does not exist in this code.' % rbmType)
-            raise Exception('RBM type error')       
-            
-        
         
     # Just a method for print the rbm's atributtes
     def __str__(self):
@@ -104,17 +100,18 @@ class RBM:
                  # error will be printed. Default: 10
     # tol        # The convergence tolerance error for the weights. Default: 10e-5
     def train (self, maxIter=200, lr=0.01, wc=0.0002, iMom=0.5, fMom=0.9, cdIter=1, batchSize=100, verbose=False, freqPrint=10, tol=10e-5):
-        # Checkin the batch size. If it's 0, we use the whole dataset
+        p("training for iter", maxIter)
+
         if batchSize == 0:
             batchSize = self.nSamples
         else:
-            batchSize = batchSize    
+            batchSize = batchSize
     
         self.batchSize = batchSize
         # Initializing the deltas matrix. They will aux us to update the weights and bias
         deltaWeights = np.zeros_like(self.weights)        
         deltaVisBias = np.zeros_like(self.visBias)
-        deltaHidBias = np.zeros_like (self.hidBias)   
+        deltaHidBias = np.zeros_like(self.hidBias)   
         prevWeights = self.weights
         
         for it in range(maxIter):
@@ -124,50 +121,47 @@ class RBM:
                 mom = iMom
             else:
                 mom = fMom
-                
             
             # Shuffling the data. If you've already done it, you can comment the next line
             # and uncomment the next one
-            sData = np.random.permutation(self.dataIn)
-            #sData = self.dataIn
+            #sData = np.random.permutation(self.dataIn)
+            sData = self.dataIn
             
             # Starting the training for the mini-batches          
             nb = 0
-            for batch in range (0, self.nSamples, batchSize):                
+            for batch in range (0, self.nSamples, batchSize):
                 if batch + batchSize > self.nSamples:
                     break
                 
                 # Setting the input data on visible layers to start the Gibbs sampling
                 # Starting the contrastive divergence
-                vis0 = sData[batch : batch+batchSize]
+                self.vis0 = sData[batch : batch+batchSize]
          
                 # Computing the probabilities for the hidden layer
-                probHid0 = sigmoid(np.dot(vis0,self.weights)+self.hidBias)                 
+                probHid0 = sigmoid(np.dot(self.vis0,self.weights)+self.hidBias)                 
                 
                 # Sampling the hidden states
                 statHid = probHid0 > np.random.rand(1,self.numHid)         
-                
                 # Starting the Gibbs sampling
                 for n in range(cdIter):
                     # reconstruction the visible layer                    
                     if self.rbmType == 'GBRBM':
                         # WHITOUT NORMAL
-                        vis1 = np.dot(statHid, self.weights.T) + self.visBias                 
-                    
+                        self.vis1 = np.dot(statHid, self.weights.T) + self.visBias 
                         # WITH NORMAL
                         #vis1 = np.random.randn(vis1.shape[0], vis1.shape[1]) + vis1
                     else:
-                        vis1 = sigmoid(np.dot(statHid, self.weights.T) + self.visBias)                    
+                        self.vis1 = sigmoid(np.dot(statHid, self.weights.T) + self.visBias)                    
 
                     # Computing the probabilities for the hidden layer
-                    probHid1 = sigmoid(np.dot(vis1,self.weights)+self.hidBias)
+                    probHid1 = sigmoid(np.dot(self.vis1,self.weights)+self.hidBias)
                     
                     # Sampling the hidden states
                     statHid = probHid1 > np.random.rand(1,self.numHid)                
                 
                 # Computing the value to update rules
-                dw = np.dot(vis0.T,probHid0) - np.dot(vis1.T,probHid1)                
-                dv = np.sum(vis0, axis=0) - np.sum(vis1, axis=0)
+                dw = np.dot(self.vis0.T,probHid0) - np.dot(self.vis1.T,probHid1)                
+                dv = np.sum(self.vis0, axis=0) - np.sum(self.vis1, axis=0)
                 dv = dv[np.newaxis,:] # Just ajusting the numpy format
                 dh = np.sum(probHid0, axis=0) - np.sum(probHid1, axis=0)
                 dh = dh[np.newaxis,:] # Just ajusting the numpy format     
@@ -178,15 +172,13 @@ class RBM:
                 deltaVisBias = (mom*deltaVisBias) + (lr*dv/batchSize)
                 deltaHidBias = (mom*deltaHidBias) + (lr*dh/batchSize)                    
             
-            # Updating the weights and bias
-            self.weights = self.weights + deltaWeights
-            self.visBias = self.visBias + deltaVisBias
-            self.hidBias = self.hidBias + deltaHidBias
-            
-            # Batch error:
-            #error = error + np.sum( np.sum( np.power(vis0 - vis1,2) ) )
-            
-            error = error + mse(vis1,vis0)
+                # Updating the weights and bias
+                self.weights = self.weights + deltaWeights
+                self.visBias = self.visBias + deltaVisBias
+                self.hidBias = self.hidBias + deltaHidBias
+                
+            if self.vis0 is not None and self.vis1 is not None:
+                error = error + mse(self.vis1, self.vis0)
             nb = nb + 1
            
             error = error/nb
@@ -194,12 +186,12 @@ class RBM:
             diff = mse(self.weights,prevWeights)
             prevWeights = self.weights         
            
-            if verbose == True and it % freqPrint == 0:
-                print('Reconstruction error: ', error, 'Iter: ', it, '  Diff: ', diff)            
+            # if verbose == True and it % freqPrint == 0:
+            #     print('Reconstruction error: ', error, 'Iter: ', it, '  Diff: ', diff)            
                 
             if it > 300 and diff <= tol:
                 break
-        
+            
     def train_batch (self, X, lr=0.001, wc=0.0002, mom=0.9, cdIter=1, batchSize=100, verbose=True, tol=10e-5):
 
         self.batchSize = batchSize
@@ -250,7 +242,7 @@ class RBM:
         self.hidBias = self.hidBias + self.deltaHidBias        
                 
         # Reconstruction error:
-        error = mse(vis1,vis0)       
+        error = mse(vis1, vis0)       
         
         # Weights tolerance
         diff = mse(self.weights,prevWeights)        

@@ -122,11 +122,9 @@ class ELMRandom(MLTools):
         self.default_param_c = 2 ** -6
         self.default_param_l = 500
         self.default_param_opt = False
-
-        self.input_weight = params[4]
+        self.input_weight = []
         self.output_weight = []
         self.bias_of_hidden_neurons = []
-
         # Initialized parameters values
         if not params:
             self.param_function = self.default_param_function
@@ -138,6 +136,8 @@ class ELMRandom(MLTools):
             self.param_c = params[1]
             self.param_l = params[2]
             self.param_opt = params[3]
+            if len(params)==5:
+                self.input_weight = params[4]
 
     # ########################
     # Private Methods

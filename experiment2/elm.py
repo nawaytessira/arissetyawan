@@ -30,7 +30,8 @@ import sys
 MAIN_DIR= '/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/__THESIS___/experiment2/'
 sys.path.insert (0, MAIN_DIR)
 
-from utilsClassification import sigmoid, cont_error
+from utilsClassification import *
+# from utilsClassification import sigmoid, cont_error
 from sklearn.decomposition import PCA
 from rbm import RBM
 
@@ -46,53 +47,51 @@ class ELM:
     
     # The constructor method. If you intend to train de ELM, you must fill all parameters.
     # If you already have the weights and wanna only execute the net, just fill W and beta.
-    def __init__ (self, neurons=20, inTrain=None, outTrain=None, W=None, beta=None, init='uniform', batchSize=None):
-        print("Initialize parameters:", neurons, inTrain, outTrain, W, beta, init, batchSize)
+    def __init__ (self, neurons=20, inTrain=None, outTrain=None, inputW='uniform', beta=None, batchSize=None):
+        # print("Initialize parameters:", neurons, inTrain, outTrain, W, beta, init, batchSize)
         # Setting the neuron's number on the hidden layer        
         self.neurons = neurons
-        
         # Here we add 1 into the input's matrices to vectorize the bias computation
         self.inTrain = np.concatenate ((inTrain, np.ones([inTrain.shape[0],1])), axis = 1)
         self.outTrain = outTrain
-        self.batchSize = batchSize
-        
+
+        if str(inputW) == 'uniform' or inputW is None or str(inputW)=='RO':
+            p("inputW: ", inputW)
+        else:
+            p("inputW: ", 'RBM')
+
         if inTrain is not None and outTrain is not None:          
             # If you wanna initialize the weights W, you just set it up as a parameter. If don't,
             # let the W=None and the code will initialize it here with random values
-            if W is not None:
-                self.W = W
+            p("inTrain OK, outTrain OK")
+            if str(inputW) == 'uniform' or inputW is None:
+                self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])             
+            elif str(inputW) == 'RO':                    
+                if neurons >= inTrain.shape[1]:
+                    self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])
+                    self.W,_ = np.linalg.qr(self.W.T)
+                    self.W = self.W.T
+                else:   
+                    print('Starting PCA...')
+                    A = np.random.uniform(-1,1,[neurons,neurons])
+                    A,_ = np.linalg.qr(A.T)
+                    A = A.T
+                    pca = PCA(n_components=neurons)                    
+                    wpca = pca.fit_transform(inTrain.T).T
+
+                    self.W = np.dot(A,wpca).T                        
+                    # including the bias
+                    b = np.random.uniform(-1,1,[1,self.W.shape[1]])                        
+                    self.W = np.vstack((self.W,b))   
             else:
-                # The last row is the hidden layer's bias. Because this we added 1 in the training
-                # data above.               
-                if init == 'uniform':
-                    self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])             
-                elif init == 'RO':                    
-                    if neurons >= inTrain.shape[1]:
-                        self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])
-                        self.W,_ = np.linalg.qr(self.W.T)
-                        self.W = self.W.T
-                    else:   
-                        print('Starting PCA...')
-                        A = np.random.uniform(-1,1,[neurons,neurons])
-                        A,_ = np.linalg.qr(A.T)
-                        A = A.T
-                        pca = PCA(n_components=neurons)                    
-                        wpca = pca.fit_transform(inTrain.T).T
-                        print(wpca.shape)
-                        self.W = np.dot(A,wpca).T                        
-                        # including the bias
-                        b = np.random.uniform(-1,1,[1,self.W.shape[1]])                        
-                        self.W = np.vstack((self.W,b))   
-                      
-#                        self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])
-#                        self.W,_ = np.linalg.qr(self.W)
-#                        self.W = self.W    
-#                        print 'W: ', self.W.shape
-        else:            
+                self.W = inputW
+
+        else:
+            p("inTrain NO, outTrain NO")
             # In this case, there is no traning. So, you just to fill the weights W and beta
-            if beta is not None and W is not None:
+            if beta is not None and inputW is not None:
                 self.beta = beta
-                self.W = W
+                self.W = inputW
             else:
                 print('ERROR: you set up the input training as None, but you did no initialize the weights')
                 raise Exception('ELM initialize error')   
@@ -101,12 +100,11 @@ class ELM:
             
     # This method just trains the ELM. If you wanna check the training error, set aval=True
     def train (self, aval=False):
-        # Computing the matrix H
-        H = sigmoid(np.dot(self.inTrain,self.W))
-                      
+        p("Running training...")
+        p("Computing the matrix H penroose")
+        H = sigmoid(np.dot(self.inTrain, self.W))
         # Computing the weights beta
         self.beta = np.dot(np.linalg.pinv(H),self.outTrain)    
-        
         #print '\nCONDITION NUMBER:', np.linalg.cond(self.beta), '\n'
         
         if aval == True:            
@@ -114,8 +112,10 @@ class ELM:
             outNet = np.dot (H,self.beta)
             miss = float(cont_error (self.outTrain, outNet))
             si = float(self.outTrain.shape[0])
-            print('Miss classification on the training: ', miss, ' of ', si, ' - Accuracy: ', (1-miss/si)*100, '%')
-            
+            acc= (1-miss/si)*100
+            print('Miss classification on the training: ', miss, ' of ', si, ' - Accuracy: ', acc, '%')
+            return outNet, acc
+
     def ostrain (self, nInit=5, epc=1, reg=None, aval=False):
         nSam = self.inTrain.shape[0]
         I = np.identity(self.batchSize)
@@ -221,7 +221,6 @@ class ELM:
             
         self.beta = beta        
             
-            
 
     # This method executes the ELM, according to the weights and the data passed as parameter
     def getResultByBatch (self, data, batchSize=100, realOutput=None, aval=False, verbose=False):
@@ -253,7 +252,7 @@ class ELM:
                 si = float(netOutput.shape[0])
                 acc = (1-miss/si)*100
                 if verbose:
-                    print('\nMiss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')      
+                    print('Miss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')      
                 #return netOutput, acc
                 allNetOut.append(netOutput)
                 allAcc.append(acc)
@@ -265,16 +264,15 @@ class ELM:
     def getResult (self, data, realOutput=None, aval=False):
         # including 1 because the bias
         dataTest = np.concatenate ((data, np.ones([data.shape[0],1])), axis = 1)       
-        
         # Getting the H matrix
         H = sigmoid (np.dot(dataTest, self.W))
-        netOutput = np.dot (H,self.beta)
+        netOutput = np.dot (H, self.beta)
 
-        if aval:        
+        if aval:
             miss = float(cont_error (realOutput, netOutput))
             si = float(netOutput.shape[0])
             acc = (1-miss/si)*100
-            print('\nMiss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')       
+            print('Miss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')       
             return netOutput, acc
             
         return netOutput, None
@@ -285,7 +283,7 @@ class ELM:
         np.savetxt('weightBeta'+nameFile+'.csv', self.beta)
         
     # This method computes the norm for input and output weights
-    def getNorm (self, verbose=True):
+    def getNorm (self, verbose=False):
         wNorm = np.linalg.norm(self.W)
         betaNorm = np.linalg.norm(self.beta)
         if verbose:
