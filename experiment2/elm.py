@@ -61,8 +61,10 @@ class ELM:
             # let the W=None and the code will initialize it here with random values
             p("inTrain OK, outTrain OK")
             if str(inputW) == 'uniform' or inputW is None:
+                p("uniform !!!!!!!!!!!!!!!!!")
                 self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])             
-            elif str(inputW) == 'RO':                    
+            elif str(inputW) == 'RO':            
+                p("RO !!!!!!!!!!!!!!!!!")        
                 if neurons >= inTrain.shape[1]:
                     self.W = np.random.uniform(-1,1,[inTrain.shape[1]+1,neurons])
                     self.W,_ = np.linalg.qr(self.W.T)
@@ -80,6 +82,7 @@ class ELM:
                     b = np.random.uniform(-1,1,[1,self.W.shape[1]])                        
                     self.W = np.vstack((self.W,b))   
             else:
+                p("RRRRRRRRRRRBM !!!!!!!!!!!!!!!!!")        
                 self.W = inputW
 
         else:
