@@ -32,7 +32,7 @@ from rbm_tensorflow import *
 from plotly.tools import FigureFactory as FF
 
 
-it = 100
+it = 10
 hidNeurons = 300
 maxIterRbm = 100
  
