@@ -29,7 +29,7 @@ def p(*x):
     # return ""
 
     print("\n[DEBUG] sta===========================")
-    print(*x, end =", ")
+    print(*x, end =" ")
     print("\n[DEBUG] fin===========================\n")
 
 def halt(something):

@@ -44,7 +44,7 @@ class ELM:
     beta = None
     P = None
     batchSize = None
-    
+    inputW= None
     # The constructor method. If you intend to train de ELM, you must fill all parameters.
     # If you already have the weights and wanna only execute the net, just fill W and beta.
     def __init__ (self, neurons=20, inTrain=None, outTrain=None, inputW='uniform', beta=None, batchSize=None):
@@ -54,11 +54,7 @@ class ELM:
         # Here we add 1 into the input's matrices to vectorize the bias computation
         self.inTrain = np.concatenate ((inTrain, np.ones([inTrain.shape[0],1])), axis = 1)
         self.outTrain = outTrain
-
-        if str(inputW) == 'uniform' or inputW is None or str(inputW)=='RO':
-            p("inputW: ", inputW)
-        else:
-            p("inputW: ", 'RBM')
+        self.inputW= inputW
 
         if inTrain is not None and outTrain is not None:          
             # If you wanna initialize the weights W, you just set it up as a parameter. If don't,
@@ -96,17 +92,21 @@ class ELM:
                 print('ERROR: you set up the input training as None, but you did no initialize the weights')
                 raise Exception('ELM initialize error')   
                 
-
-            
+                    
     # This method just trains the ELM. If you wanna check the training error, set aval=True
     def train (self, aval=False):
         p("Running training...")
         p("Computing the matrix H penroose")
         H = sigmoid(np.dot(self.inTrain, self.W))
         # Computing the weights beta
-        self.beta = np.dot(np.linalg.pinv(H),self.outTrain)    
+        self.beta = np.dot(np.linalg.pinv(H),self.outTrain)
         #print '\nCONDITION NUMBER:', np.linalg.cond(self.beta), '\n'
-        
+
+        if str(self.inputW) == 'uniform' or self.inputW is None or str(self.inputW)=='RO':
+            print("inputW: ", self.inputW)
+        else:
+            print("inputW: ", 'RBM')
+
         if aval == True:            
             H = sigmoid (np.dot(self.inTrain, self.W))
             outNet = np.dot (H,self.beta)
@@ -267,7 +267,6 @@ class ELM:
         # Getting the H matrix
         H = sigmoid (np.dot(dataTest, self.W))
         netOutput = np.dot (H, self.beta)
-
         if aval:
             miss = float(cont_error (realOutput, netOutput))
             si = float(netOutput.shape[0])

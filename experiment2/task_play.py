@@ -96,7 +96,7 @@ for j in range(it):
     normRBMELM.append(nor)  
     acc1.append(a1)
     tim1.append(end-init)
-    elmNet1.saveELM()
+    # elmNet1.saveELM()
 
     ###########################################################################
     print(line())
@@ -126,7 +126,7 @@ for j in range(it):
     
     
     ###########################################################################   
-    print ('\nIteration time: ', end3-init, ' sec', 'Predict to end: ', (end3-init)*(it-i)/60, ' min')
+    # print ('\nIteration time: ', end3-init, ' sec', 'Predict to end: ', (end3-init)*(it-i)/60, ' min')
     
     # text= line2() + "ELM settings\nhidNeurons:" + str(hidNeurons)
     # text+= line() + "Weight RBM: " + br() + elmNet1.W
@@ -135,11 +135,11 @@ for j in range(it):
     # text+= line2()
     # log_iter("data", i, text)
   
-    del(rbmNet)
-    del(W)
-    del(elmNet1)
-    del(elmNet2)
-    del(elmNet3)
+    # del(rbmNet)
+    # del(W)
+    # del(elmNet1)
+    # del(elmNet2)
+    # del(elmNet3)
     gc.collect()
     
 print ('######### RESULT ############' )
