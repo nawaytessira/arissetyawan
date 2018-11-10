@@ -66,7 +66,7 @@ class data:
             
             # Shuffling
             if shuf:
-               p("shuffling")
+               p("Shuffling............")
                dataset = np.random.permutation(dataset)             
             else:
                p("not shuffling")
@@ -76,11 +76,7 @@ class data:
             # Getting the number of samples for each partition
             nSTrain = int(round(self.nSamples*percTrain))
             nSVal = int(round(self.nSamples*percVal))
-            nSTest = self.nSamples - nSTrain - nSVal    
-            
-            p("number samples for training: ", nSTrain)
-            p("number samples for validation: ", nSVal)
-            p("number samples for testing: " , nSTest)
+            nSTest = self.nSamples - nSTrain - nSVal
             # Splitting
             self.split (dataset, posOut, nSTrain, nSVal, nSTest)
             
@@ -98,7 +94,7 @@ class data:
             else:
                 # Shuffling
                 if shuf:
-                    p("shuffling")
+                    p("shuffling......")
                     if train is not None:
                         train = np.random.permutation(train)
                     if val is not None:

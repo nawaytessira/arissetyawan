@@ -32,7 +32,7 @@ from rbm_tensorflow import *
 from plotly.tools import FigureFactory as FF
 
 
-it = 10
+it = 9
 hidNeurons = 300
 maxIterRbm = 100
  
@@ -55,9 +55,11 @@ print('Loading the dataset...')
 
 #mydata= data(nul, dataset=None, percTrain=0.7, percVal=0.1, percTest=0.2, normType='max', shuf=True, posOut='last', outBin=True)
 
-print ( 'Loading train file...')
+# print ( 'Loading train file...')
 # mydataset = np.genfromtxt(DATA_PATH+ 'isolet1+2+3+4.csv', delimiter=',')
 # mydataset = np.genfromtxt(DATA_PATH+ 'iris_play.csv', delimiter=',')
+# mydataset = np.genfromtxt(DATA_PATH+ 'australian.csv', delimiter=',')
+# mydataset = np.genfromtxt(DATA_PATH+ 'iris.csv', delimiter=',')
 mydataset = np.genfromtxt(DATA_PATH+ 'spambase.csv', delimiter=',')
 
 acc1 = list()
@@ -69,60 +71,84 @@ tim2 = list()
 acc3 = list()
 tim3 = list()
 
-mydata= data(dataset=mydataset, train=None, val=None, test=None, percTrain=0.7, percVal=0, percTest=0.3, normType='maxmin', shuf=True, posOut='last', outBin=False)
-
 normRBMELM = list()
 normELM = list()
 normELMRO = list()
 
-
 for j in range(it):
     i= j+1
-    
+    percTrain= 0.1 * i
+    percTest= 1 - percTrain  
+    mydata= data(dataset=mydataset, train=None, val=None, test=None, 
+                percTrain=percTrain, percVal=0.0, percTest=percTest, 
+                normType=None, shuf=True, posOut='last', outBin=False)
+    mydata.save("datasets/spambase")
+    mydata.load()
     ###########################################################################
     print(line2())
-
     print (i, 'Start training RBM ...')  
     init = time.time() # getting the start time
     rbmNet = RBM (dataIn=mydata.trainIn, numHid=400, rbmType='GBRBM')
-    #rbmNet.train (maxIter=maxIterRbm, lr=0.001, wc=0.0002, iMom=0.5, fMom=0.9, cdIter=1, batchSize=150, freqPrint=10)
-    rbmNet.train (maxIter=maxIterRbm, lr=0.01, wc=0.01, iMom=0.5, fMom=0.9, cdIter=1, batchSize=150, freqPrint=10)
+    rbmNet.train (maxIter=maxIterRbm, lr=0.001, wc=0.0002, iMom=0.5, fMom=0.9, cdIter=1, batchSize=150, freqPrint=10)
     W = np.concatenate ((rbmNet.getWeights(), rbmNet.getHidBias()), axis = 0)
-    elmNet1 = ELM (neurons=hidNeurons, inTrain=mydata.trainIn, outTrain=mydata.trainOut, inputW=W, beta=None, batchSize=None)
+    elmNet1 = ELM (neurons=hidNeurons,
+                    inTrain=mydata.trainIn, 
+                    outTrain=mydata.trainOut,
+                    inputW=W,
+                    beta=None,
+                    batchSize=None)
     elmNet1.train(aval=True)
-    end = time.time() # getting the end time     
-    res, a1 = elmNet1.getResult (mydata.testIn,mydata.testOut,True)
+    end = time.time() # getting the end time
+    res, a1 = elmNet1.getResult(mydata.testIn, mydata.testOut, True)
     nor,_ = elmNet1.getNorm()
+    w1= elmNet1.getWeight()
     normRBMELM.append(nor)  
     acc1.append(a1)
     tim1.append(end-init)
-    # elmNet1.saveELM()
+    elmNet1.saveELM("datasets/spambase-rbm" + str(i))
+    del(elmNet1)
 
     ###########################################################################
     print(line())
     print (i, 'Start training ELM ...')  
     init2 = time.time()
-    elmNet2 = ELM (neurons=hidNeurons, inTrain=mydata.trainIn, outTrain=mydata.trainOut, inputW='uniform', beta=None, batchSize=None)
+    elmNet2 = ELM (neurons=hidNeurons,
+                    inTrain=mydata.trainIn,
+                    outTrain=mydata.trainOut,
+                    inputW='uniform',
+                    beta=None,
+                    batchSize=None)
     elmNet2.train(aval=True)    
     end2 = time.time() # getting the end time     
-    res, a2 = elmNet2.getResult (mydata.testIn,mydata.testOut,True)   
+    res, a2 = elmNet2.getResult(mydata.testIn,realOutput=mydata.testOut, aval=True)   
     nor,_ = elmNet2.getNorm()
+    w2= elmNet2.getWeight()
     normELM.append(nor)
     acc2.append(a2)
     tim2.append(end2-init2)    
-
+    elmNet2.saveELM("datasets/spambase-rnd" + str(i))
+    del(elmNet2)
+ 
     ###########################################################################
     print(line())
     print (i, 'Start training ELM-RO ...')  
     init3 = time.time()
-    elmNet3 = ELM (neurons=hidNeurons, inTrain=mydata.trainIn, outTrain=mydata.trainOut, inputW='RO', beta=None, batchSize=None)
+
+    elmNet3 = ELM (neurons=hidNeurons,
+                    inTrain=mydata.trainIn,
+                    outTrain=mydata.trainOut,
+                    inputW='RO',
+                    beta=None,
+                    batchSize=None)    
     elmNet3.train(aval=True)
     end3 = time.time()    
-    res, a3 = elmNet3.getResult (mydata.testIn, mydata.testOut,True) 
+    res, a3 = elmNet3.getResult (mydata.testIn, realOutput=mydata.testOut,aval=True) 
     nor,_ = elmNet3.getNorm()
     normELMRO.append(nor)
     acc3.append(a3)
     tim3.append(end3-init3)
+    elmNet3.saveELM("datasets/spambase-ro" + str(i))
+    del(elmNet3)
     
     
     ###########################################################################   
@@ -148,7 +174,7 @@ print ('RBM-ELM:')
 acc1= np.asarray(acc1)
 tim1 = np.asarray(tim1)
 normRBMELM = np.asarray(normRBMELM)
-p(acc1)
+# p(acc1)
 print ('Accuracy - Mean: ', acc1.mean(), ' | Std: ', acc1.std())
 print ('Time - Mean ', tim1.mean(), ' | Std: ', tim1.std())
 print ('Norm - Mean ', normRBMELM.mean(), ' | Std: ', normRBMELM.std())
@@ -159,7 +185,7 @@ print ('\nOnly ELM:')
 acc2 = np.asarray(acc2)
 tim2 = np.asarray(tim2)
 normELM = np.asarray(normELM)
-p(acc2)
+# p(acc2)
 print ('Accuracy -  mean: ', acc2.mean(), '| Std: ', acc2.std())
 print ('Time - mean: ', tim2.mean(), ' | Std: ', tim2.std())
 print ('Norm - Mean ', normELM.mean(), ' | Std: ', normELM.std())
@@ -170,7 +196,7 @@ print ('\nELM-RO:')
 acc3 = np.asarray(acc3)
 tim3 = np.asarray(tim3)
 normELMRO = np.asarray(normELMRO)
-p(acc3)
+# p(acc3)
 print ('Accuracy -  mean: ', acc3.mean(), '| Std: ', acc3.std())
 print ('Time - mean: ', tim3.mean(), ' | Std: ', tim3.std())
 print ('Norm - Mean ', normELMRO.mean(), ' | Std: ', normELMRO.std())

@@ -105,163 +105,20 @@ class ELM:
         self.beta = np.dot(np.linalg.pinv(H),self.outTrain)
         #print '\nCONDITION NUMBER:', np.linalg.cond(self.beta), '\n'
 
-        if str(self.inputW) == 'uniform' or self.inputW is None or str(self.inputW)=='RO':
-            print("inputW: ", self.inputW)
-        else:
-            print("inputW: ", 'RBM')
-
-        if aval == True:            
-            H = sigmoid (np.dot(self.inTrain, self.W))
+        if aval == True:
             outNet = np.dot (H,self.beta)
+            if str(self.inputW) == 'uniform' or self.inputW is None or str(self.inputW)=='RO':
+                print("inputW: ", self.inputW)
+                log(self.inputW, outNet)
+            else:
+                print("inputW: ", 'RBM')
+                log("rbm", outNet)
+
             miss = float(cont_error (self.outTrain, outNet))
             si = float(self.outTrain.shape[0])
             acc= (1-miss/si)*100
             print('Miss classification on the training: ', miss, ' of ', si, ' - Accuracy: ', acc, '%')
             return outNet, acc
-
-    def ostrain (self, nInit=5, epc=1, reg=None, aval=False):
-        nSam = self.inTrain.shape[0]
-        I = np.identity(self.batchSize)
-        Ix = np.identity(self.neurons)
-        
-        # Initialization phase        
-        X0 = self.inTrain[0:self.batchSize*nInit]
-        Y0 = self.outTrain[0:self.batchSize*nInit]
-        H = sigmoid (np.dot(X0, self.W))
-        
-        if reg is not None:
-            P_prev = np.linalg.inv(np.dot(H.T,H) - Ix*reg)
-        else:
-            P_prev = np.linalg.inv(np.dot(H.T,H))
-            
-        beta_prev = np.dot(np.dot(P_prev,H.T),Y0)        
-               
-        for e in range(epc): 
-            print('\n### epc {} of {} ####'.format(e,epc))
-            # Sequential phase
-            for offset in xrange(0,nSam,self.batchSize):
-                end = offset + self.batchSize
-                
-                if end > nSam:
-                    break
-                
-                xBatch, yBatch = self.inTrain[offset:end], self.outTrain[offset:end] 
-                
-                H = sigmoid (np.dot(xBatch, self.W))
-                
-                paux1 = np.linalg.inv ((I + np.dot(np.dot(H,P_prev),H.T)))
-                paux2 = np.dot(np.dot(P_prev,H.T), paux1) 
-                P = P_prev - np.dot(np.dot(paux2,H),P_prev)           
-    #            P = P_prev - np.dot (np.dot( np.dot(P_prev,H.T), np.linalg.inv ( (I + np.dot(np.dot(H,P_prev),H.T)) ) ), np.dot(H,P_prev))
-                
-                beta = beta_prev + np.dot (np.dot(P, H.T), (yBatch - np.dot(H,beta_prev) ))
-                
-                P_prev = P
-                beta_prev = beta
-                
-                if aval:                
-                    outNet = np.dot (H,beta)
-                    miss = float(cont_error (yBatch, outNet))
-                    si = float(yBatch.shape[0])
-                    print('Miss classification on batch {}/{}: {} of {} - Accuracy: {} %'.format(end,nSam, miss, si, (1-miss/si)*100))          
-            
-        self.beta = beta
-        
-        
-    def os_rbm_train (self, nInit=5, epc=1, reg=None, aval=False, rbmType='GBRBM',lr=0.001, wc=0.0002, momInit=0.5, momFinal=0.9, cdIter=1, rbmVerbose=True):
-        
-        rbmNet = RBM (numVis=self.inTrain.shape[1]-1, numHid=self.neurons, rbmType=rbmType)          
-        
-        nSam = self.inTrain.shape[0]
-        I = np.identity(self.batchSize)
-        Ix = np.identity(self.neurons)
-        
-        # Initialization phase        
-        X0 = self.inTrain[0:self.batchSize*nInit]
-        Y0 = self.outTrain[0:self.batchSize*nInit]        
-                
-        rbmNet.train_batch (X0[:,0:-1], lr=lr, wc=wc, mom=momInit, cdIter=cdIter, batchSize=self.batchSize, verbose=rbmVerbose, tol=10e-5)        
-        self.W = rbmNet.getInputWeights ()        
-        
-        H = sigmoid (np.dot(X0, self.W))
-        if reg is not None:
-            P_prev = np.linalg.inv(np.dot(H.T,H) - Ix*reg)
-        else:
-            P_prev = np.linalg.inv(np.dot(H.T,H))
-            
-        beta_prev = np.dot(np.dot(P_prev,H.T),Y0)
-        
-        for e in range(epc):
-            print('\n### epc {} of {} ####'.format(e,epc))
-            # Sequential phase
-            for offset in xrange(0,nSam,self.batchSize):
-                end = offset + self.batchSize            
-                if end > nSam:
-                    break
-                
-                xBatch, yBatch = self.inTrain[offset:end], self.outTrain[offset:end]
-                
-                rbmNet.train_batch (xBatch[:,0:-1], lr=lr, wc=wc, mom=momFinal, cdIter=cdIter, batchSize=self.batchSize, verbose=rbmVerbose, tol=10e-5)        
-                self.W = rbmNet.getInputWeights () 
-                
-                H = sigmoid (np.dot(xBatch, self.W))            
-                
-                paux1 = np.linalg.inv ((I + np.dot(np.dot(H,P_prev),H.T)))
-                paux2 = np.dot(np.dot(P_prev,H.T), paux1) 
-                P = P_prev - np.dot(np.dot(paux2,H),P_prev)           
-                
-                beta = beta_prev + np.dot (np.dot(P, H.T), (yBatch - np.dot(H,beta_prev) ))
-                
-                P_prev = P
-                beta_prev = beta
-                
-                if aval:                
-                    outNet = np.dot (H,beta)
-                    miss = float(cont_error (yBatch, outNet))
-                    si = float(yBatch.shape[0])
-                    print('Miss classification on batch {}/{}: {} of {} - Accuracy: {} %'.format(end,nSam, miss, si, (1-miss/si)*100))
-                    
-            
-        self.beta = beta        
-            
-
-    # This method executes the ELM, according to the weights and the data passed as parameter
-    def getResultByBatch (self, data, batchSize=100, realOutput=None, aval=False, verbose=False):
-        # including 1 because the bias
-        dataTest = np.concatenate ((data, np.ones([data.shape[0],1])), axis = 1)       
-        nSam = dataTest.shape[0]
-        allNetOut = list()
-        allAcc = list()
-        
-        for offset in xrange(0,nSam,batchSize):
-            if verbose:
-                print('Testing batch {} of {}'.format(offset,nSam/batchSize))
-                
-            end = offset + batchSize            
-            if end > nSam:
-                end = nSam         
-            
-            if aval:
-                xBatch, yBatch = dataTest[offset:end], realOutput[offset:end]        
-            else:
-                xBatch = dataTest[offset:end]       
-        
-            # Getting the H matrix
-            H = sigmoid (np.dot(xBatch, self.W))            
-            netOutput = np.dot (H,self.beta)
-
-            if aval:        
-                miss = float(cont_error (yBatch, netOutput))
-                si = float(netOutput.shape[0])
-                acc = (1-miss/si)*100
-                if verbose:
-                    print('Miss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')      
-                #return netOutput, acc
-                allNetOut.append(netOutput)
-                allAcc.append(acc)
-        
-        allAcc = np.asarray(allAcc)
-        return netOutput, allAcc.mean()        
             
     # This method executes the ELM, according to the weights and the data passed as parameter
     def getResult (self, data, realOutput=None, aval=False):
@@ -271,7 +128,7 @@ class ELM:
         H = sigmoid (np.dot(dataTest, self.W))
         netOutput = np.dot (H, self.beta)
         if aval:
-            miss = float(cont_error (realOutput, netOutput))
+            miss = float(cont_error(realOutput, netOutput))
             si = float(netOutput.shape[0])
             acc = (1-miss/si)*100
             print('Miss classification on the test: ', miss, ' of ', si, ' - Accuracy: ',acc , '%')       
@@ -279,10 +136,13 @@ class ELM:
             
         return netOutput, None
         
+    def getWeight(self):
+        return self.W
+
     # This method saves the trained weights as a .csv file
-    def saveELM (self, nameFile='T1'):
-        np.savetxt('weightW'+nameFile+'.csv', self.W)
-        np.savetxt('weightBeta'+nameFile+'.csv', self.beta)
+    def saveELM (self, nameFile='ELM'):
+        np.savetxt(nameFile+'-weightW.csv', self.W)
+        np.savetxt(nameFile+'-weightBeta.csv', self.beta)
         
     # This method computes the norm for input and output weights
     def getNorm (self, verbose=False):

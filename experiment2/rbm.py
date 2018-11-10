@@ -115,6 +115,7 @@ class RBM:
         prevWeights = self.weights
         
         for it in range(maxIter):
+            # p("training iter: ", it)
             error = 0
             # Setting the momentum
             if it < 5:

@@ -77,7 +77,6 @@ for i in range(it):
     normRBMELM.append(nor)  
     acc.append(a)
     tim.append(end-init)
-    elmNet.saveELM 
     del(elmNet)
     
     ###########################################################################
