@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://s.pubmine.com/passback.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>passback</title>
+        <script type="text/javascript">
+            (function passback() {
+                var next = window; 
+                while (next = next.parent) {
+                    next.postMessage('passback', '*');
+                    if (next === window.top) {
+                        break;
+                    }
+                }
+            }());
+        </script>
+    </head>
+<body marginwidth="0" marginheight="0"></body></html>
