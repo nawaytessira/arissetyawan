@@ -189,7 +189,7 @@ log("log/" + dname + "/elmrbm-acc", acc1)
 log("log/" + dname + "/elmrbm-tim", tim1)
 log("log/" + dname + "/elmrbm-norm", normRBMELM)
 log("log/" + dname + "/elmrbm-std", str(acc1.std()))
-text += "\nRBM-ELM:\n"
+text += "\nRBM-ELM:"
 text += "\nAccuracy - Mean: " + str(acc1.mean()) + " | Std: "  + str(acc1.std())
 text += "\nTime - Mean "  + str(tim1.mean()) + " | Std: " + str(tim1.std())
 text += "\nNorm - Mean " + str(normRBMELM.mean()) + " | Std: "  + str(normRBMELM.std())
@@ -202,7 +202,7 @@ log("log/" + dname + "/elmrnd-acc", acc2)
 log("log/" + dname + "/elmrnd-tim", tim2)
 log("log/" + dname + "/elmrnd-norm", normELM)
 log("log/" + dname + "/elmrnd-std", str(acc2.std()))
-text += "\nELM-RND:\n"
+text += "\nELM-RND:"
 text += "\nAccuracy - Mean: " + str(acc2.mean()) + " | Std: " + str(acc2.std())
 text += "\nTime - Mean "  + str(tim2.mean()) + " | Std: " + str(tim2.std())
 text += "\nNorm - Mean " + str(normELM.mean()) + " | Std: "  + str(normELM.std())
@@ -215,7 +215,7 @@ log("log/" + dname + "/elmro-acc", acc2)
 log("log/" + dname + "/elmro-tim", tim2)
 log("log/" + dname + "/elmro-norm", normELM)
 log("log/" + dname + "/elmro-std", str(acc3.std()))
-text += "\nELM-RO:\n"
+text += "\nELM-RO:"
 text += "\nAccuracy - Mean: " + str(acc3.mean()) + " | Std: "  + str(acc3.std())
 text += "\nTime - Mean "  + str(tim3.mean()) + " | Std: " + str(tim3.std())
 text += "\nNorm - Mean " + str(normELMRO.mean()) + " | Std: "  + str(normELMRO.std())
