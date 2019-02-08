@@ -61,7 +61,7 @@ print("Loading the dataset...")
 dname= "spambase"
 df= pd.read_csv(DATA_PATH+ dname +".csv")
 mydataset= df.reset_index().values
-print(mydataset)
+# print(mydataset)
 
 acc1 = list()
 tim1 = list()
