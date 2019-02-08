@@ -58,16 +58,16 @@ def time_str():
 
 def log_uniq(filename, string):
     filename= filename + "." + time_str()
-    f= open(filename, "+a")
+    f= open(filename, "w") #a+
     f.write(str(string))
     f.close
-    print("---LOGGED AS ", filename)
+    print("(log uniq)", filename)
 
 def log(filename, string):
-    f= open(filename, "+a")
+    f= open(filename, "w")
     f.write(str(string))
     f.close
-    print("---LOGGED AS ", filename)
+    print("(log)", filename)
 
 def iter(iter):
     return "ITER: " + str(iter) + br()

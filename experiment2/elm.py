@@ -45,9 +45,10 @@ class ELM:
     P = None
     batchSize = None
     inputW= None
+    dataName= None
     # The constructor method. If you intend to train de ELM, you must fill all parameters.
     # If you already have the weights and wanna only execute the net, just fill W and beta.
-    def __init__ (self, neurons=20, inTrain=None, outTrain=None, inputW='uniform', beta=None, batchSize=None):
+    def __init__ (self, neurons=20, inTrain=None, outTrain=None, inputW='uniform', beta=None, batchSize=None, dataName=None):
         # print("Initialize parameters:", neurons, inTrain, outTrain, W, beta, init, batchSize)
         # Setting the neuron's number on the hidden layer        
         self.neurons = neurons
@@ -55,6 +56,7 @@ class ELM:
         self.inTrain = np.concatenate ((inTrain, np.ones([inTrain.shape[0],1])), axis = 1)
         self.outTrain = outTrain
         self.inputW= inputW
+        self.dataName= dataName
         p(self.inTrain)
         p(self.outTrain)
         if inTrain is not None and outTrain is not None:          
@@ -98,7 +100,7 @@ class ELM:
                 
                     
     # This method just trains the ELM. If you wanna check the training error, set aval=True
-    def train (self, aval=False):
+    def train (self, aval=False, dataName= None):
         p("Running training...")
         p("Computing the matrix H penroose")
         H = sigmoid(np.dot(self.inTrain, self.W))
@@ -111,11 +113,11 @@ class ELM:
         if aval == True:
             outNet = np.dot (H,self.beta)
             if str(self.inputW) == 'uniform' or self.inputW is None or str(self.inputW)=='RO':
-                print("inputW: ", self.inputW)
-                log(self.inputW, outNet)
+                print("inputW:", self.inputW)
+                log("log/" + self.dataName + "/" + self.inputW + '.log', outNet)
             else:
-                print("inputW: ", 'RBM')
-                log("rbm", outNet)
+                print("inputW:", 'RBM')
+                log("log/" + self.dataName + "/rbm.log" , outNet)
 
             miss = float(cont_error (self.outTrain, outNet))
             si = float(self.outTrain.shape[0])
@@ -144,8 +146,20 @@ class ELM:
 
     # This method saves the trained weights as a .csv file
     def saveELM (self, nameFile='ELM'):
-        np.savetxt(nameFile+'-weightW.csv', self.W)
-        np.savetxt(nameFile+'-weightBeta.csv', self.beta)
+        filename= nameFile + '-weightW.log'
+        f= open(filename, "w")
+        f.write(str(self.W))
+        f.close
+        print("(log)", filename)
+
+        filename= nameFile + '-weightBeta.log'
+        f= open(filename, "w")
+        f.write(str(self.beta))
+        f.close
+        print("(log)", filename)
+
+        # np.savetxt(nameFile+'-weightW.csv', self.W)
+        # np.savetxt(nameFile+'-weightBeta.csv', self.beta)
         
     # This method computes the norm for input and output weights
     def getNorm (self, verbose=False):
