@@ -19,7 +19,7 @@ import sys
 sys.path.insert (0, MAIN_DIR)
 sys.path.insert (0, "/usr/local/lib/python3.6/site-packages/")
 
-dataName= 'spambase'
+dataName= 'isolet1+2+3+4'
 dname1= 'log/' + dataName + '/elmrbm-acc'
 dname2= 'log/' + dataName + '/elmrnd-acc'
 dname3= 'log/' + dataName + '/elmro-acc'
@@ -53,8 +53,7 @@ print('------------------------')
 print("FRIEDMAN")
 # compare samples
 stat, p = friedmanchisquare(data1, data2, data3)
-p= round(p, 2)
-print('Statistics=%.3f, p=%.2f' % (stat, p))
+print('Statistics=%.3f, p=%.3f' % (stat, p))
 # interpret
 alpha = 0.05
 if p > alpha:
@@ -69,8 +68,7 @@ print('------------------------')
 print("WILCOXON")
 # compare samples
 stat, p = wilcoxon(data1, data2)
-p= round(p, 2)
-print('Statistics=%.6f, p=%.2f' % (stat, p))
+print('Statistics=%.6f, p=%.6f' % (stat, p))
 # interpret
 alpha = 0.05
 if p > alpha:
@@ -79,8 +77,7 @@ else:
 	print('RBM vs RND: Different distribution (reject H0)')
 
 stat, p = wilcoxon(data1, data3)
-p= round(p, 2)
-print('Statistics=%.3f, p=%.2f' % (stat, p))
+print('Statistics=%.3f, p=%.3f' % (stat, p))
 # interpret
 alpha = 0.05
 if p > alpha:
@@ -95,8 +92,7 @@ print('------------------------')
 print("MANNWHITNEYU")
 # compare samples
 stat, p = mannwhitneyu(data1, data2)
-p= round(p, 2)
-print('Statistics=%.6f, p=%.2f' % (stat, p))
+print('Statistics=%.6f, p=%.6f' % (stat, p))
 # interpret
 alpha = 0.05
 if p > alpha:
@@ -105,7 +101,7 @@ else:
 	print('RBM vs RND: Different distribution (reject H0)')
 
 stat, p = mannwhitneyu(data1, data3)
-print('Statistics=%.3f, p=%.2f' % (stat, p))
+print('Statistics=%.3f, p=%.3f' % (stat, p))
 # interpret
 alpha = 0.05
 if p > alpha:
@@ -118,7 +114,6 @@ from scipy import stats
 print('------------------------')
 print("T-Test")
 t, p = stats.ttest_ind(data1, data2)
-p= round(p, 2)
 # print("t = ", round(t2, 6))
 # interpret
 alpha = 0.05
@@ -128,7 +123,6 @@ else:
 	print('RBM vs RND: Different distribution (reject H0)')
 
 t, p = stats.ttest_ind(data1, data3)
-p= round(p, 2)
 # interpret
 alpha = 0.05
 if p > alpha:
