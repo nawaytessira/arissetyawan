@@ -48,6 +48,15 @@ data3= re.sub("\s+", ",", data3.strip())
 data3= literal_eval(data3)
 
 # ----------------------------------------------------
+import numpy as np
+print('RBM', str(data1))
+print('AVG', np.average(data1))
+print('RND', str(data2))
+print('AVG', np.average(data2))
+print('RO', str(data3))
+print('AVG', np.average(data3))
+
+# ----------------------------------------------------
 from scipy.stats import friedmanchisquare
 print('------------------------')
 print("FRIEDMAN")
