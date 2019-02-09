@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://plot.ly/python/t-test/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+
+      <!-- Media query magic - http://stackoverflow.com/questions/19945658/my-iphone-thinks-its-980px-wide -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+      
+
+      <!--
+      //// Stylesheets
+      -->
+
+      <!-- Fonts -->
+      <link href="./T-Test in Python. _ plotly_files/css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="./T-Test in Python. _ plotly_files/font-awesome.min.css">
+
+      <!-- code highlighting -->
+      <link rel="stylesheet" href="./T-Test in Python. _ plotly_files/tomorrow.css">
+      <link rel="stylesheet" type="text/css" href="./T-Test in Python. _ plotly_files/js-splash-highlight.css">
+
+      <!-- Main Stylesheets -->
+      <link rel="stylesheet" type="text/css" href="./T-Test in Python. _ plotly_files/normalize.css">
+      <link rel="stylesheet" type="text/css" href="./T-Test in Python. _ plotly_files/main.css">
+
+      <!-- LOCAL DEV STYLESHEET -->
+      <!--<link rel="stylesheet" type="text/css" href="http://api.plotly.dev/all_static/css/main.css">-->
+
+      <!-- Icon -->
+      <link rel="shortcut icon" href="https://plot.ly/images/plotly-ico.png" type="image/x-icon">
+
+      <!-- Google Tags-->
+      <!-- Google Tag Manager Tag -->
+<script type="text/javascript" async="" src="./T-Test in Python. _ plotly_files/analytics.js"></script><script async="" src="./T-Test in Python. _ plotly_files/analytics.js"></script><script type="text/javascript" async="" src="./T-Test in Python. _ plotly_files/4t5t45cv8ey2.js"></script><script async="" src="./T-Test in Python. _ plotly_files/gtm.js"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N6T2RXG');</script>
+
+      <script id="drift">
+  !(function() {
+    var t = (window.driftt = window.drift = window.driftt || []);
+    if (!t.init) {
+      if (t.invoked)
+        return void (
+          window.console &&
+          console.error &&
+          console.error("Drift snippet included twice.")
+        );
+      (t.invoked = !0),
+        (t.methods = [
+          "identify",
+          "config",
+          "track",
+          "reset",
+          "debug",
+          "show",
+          "ping",
+          "page",
+          "hide",
+          "off",
+          "on"
+        ]),
+        (t.factory = function(e) {
+          return function() {
+            var n = Array.prototype.slice.call(arguments);
+            return n.unshift(e), t.push(n), t;
+          };
+        }),
+        t.methods.forEach(function(e) {
+          t[e] = t.factory(e);
+        }),
+        (t.load = function(t) {
+          var e = 3e5,
+            n = Math.ceil(new Date() / e) * e,
+            o = document.createElement("script");
+          (o.type = "text/javascript"),
+            (o.async = !0),
+            (o.crossorigin = "anonymous"),
+            (o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js");
+          var i = document.getElementsByTagName("script")[0];
+          i.parentNode.insertBefore(o, i);
+        });
+    }
+  })();
+  drift.SNIPPET_VERSION = "0.3.1";
+  drift.load("4t5t45cv8ey2");
+</script>
+
+
+
+    <!-- META TAGS -->
+    <!-- SEO Tags - title, meta_description -->
+    <title>T-Test in Python. | plotly</title>
+    <meta name="description" content="Learn how to perform a one sample and two sample t-test using Python.">
+
+<!-- Bing tags -->
+    <meta name="msvalidate.01" content="D319859A832F9F1D15A7646E2A42150A">
+<!-- Facebook tags -->
+    <meta property="og:title" content="T-Test">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.plot.ly/plotly-documentation//images/static-image">
+    <meta property="og:description" content="Learn how to perform a one sample and two sample t-test using Python.">
+    <meta property="og:url">
+    <meta property="fb:admins" content="1123751525">
+    <meta property="fb:admins" content="22418">
+
+<!-- twitter tags -->
+    <meta name="twitter:card" content="photo">
+    <meta name="twitter:title" content="T-Test">
+    <meta name="twitter:url" content="https://help.plot.lypython/t-test/">
+    <meta name="twitter:description" content="Learn how to perform a one sample and two sample t-test using Python.">
+    <meta name="twitter:image" content="https://images.plot.ly/plotly-documentation//images/static-image">
+    <meta name="twitter:site" content="@plotlygraphs">
+
+<!-- Favicon -->
+    <link rel="shortcut icon" href="https://plot.ly/gh-pages/documentation/static//images/plotly-ico.png?v=2">
+
+
+    
+
+    <script src="./T-Test in Python. _ plotly_files/jquery.min.js"></script>
+    <script src="./T-Test in Python. _ plotly_files/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none; box-sizing: content-box}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_test {font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.MathJax_test.mjx-test-display {display: table!important}
+.MathJax_test.mjx-test-inline {display: inline!important; margin-right: -1px}
+.MathJax_test.mjx-test-default {display: block!important; clear: both}
+.MathJax_ex_box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60ex}
+.MathJax_em_box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60em}
+.mjx-test-inline .MathJax_left_box {display: inline-block; width: 0; float: left}
+.mjx-test-inline .MathJax_right_box {display: inline-block; width: 0; float: right}
+.mjx-test-display .MathJax_right_box {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Main-bold; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Main-italic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Math-italic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Caligraphic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf?V=2.7.5') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff?V=2.7.5') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf?V=2.7.5') format('opentype')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body data-spy="scroll" data-target=".watch" style="position:relative;"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+<!-- Google Tag Manager (noscript) -->
+<noscript>&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6T2RXG"
+    height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+<!--[if lt IE 10]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+	your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="header-large--wrap">
+    <div class="header--blue-bg">
+
+
+        <div class="--image"></div>
+        <div class="header--meta-content">
+            
+
+            
+        </div>
+    </div>
+</div>
+
+
+<header data-spy="affix" data-offset-top="80" class="header-main --default affix">
+    <div class="--wrap">
+        <div class="--wrap-left"><a href="https://plot.ly/feed/" target="_blank" class="-identity">
+            <div class="-identity">
+                <div class="logo">
+                    <svg width="50px" height="50px" viewBox="0 0 66 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Asset-Exporting" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Artboard-3" transform="translate(-50.000000, -123.000000)">
+                                <g id="Group" transform="translate(50.000000, 123.000000)">
+                                    <path d="M3,66 L63,66 C64.6565,66 66,64.6565 66,63 L66,3 C66,1.3435 64.6565,0 63,0 L3,0 C1.3435,0 0,1.3435 0,3 L0,63 C0,64.6565 1.3435,66 3,66" id="background" fill="#119DFF"></path>
+                                    <g id="chart" transform="translate(12.000000, 12.000000)">
+                                        <path d="M30,15 C30,16.6565 28.6565,18 27,18 C25.3435,18 24,16.6565 24,15 C24,13.3435 25.3435,12 27,12 C28.6565,12 30,13.3435 30,15" id="Fill-17" fill="#09FFFF"></path>
+                                        <path d="M42,3 C42,4.6565 40.6565,6 39,6 C37.3435,6 36,4.6565 36,3 C36,1.3435 37.3435,0 39,0 C40.6565,0 42,1.3435 42,3" id="Fill-19" fill="#09FFFF"></path>
+                                        <path d="M30,3 C30,4.6565 28.6565,6 27,6 C25.3435,6 24,4.6565 24,3 C24,1.3435 25.3435,0 27,0 C28.6565,0 30,1.3435 30,3" id="Fill-21" fill="#09FFFF"></path>
+                                        <path d="M18,3 C18,4.6565 16.6565,6 15,6 C13.3435,6 12,4.6565 12,3 C12,1.3435 13.3435,0 15,0 C16.6565,0 18,1.3435 18,3" id="Fill-23" fill="#09FFFF"></path>
+                                        <path d="M6,3 C6,4.6565 4.6565,6 3,6 C1.3435,6 5.55111512e-17,4.6565 5.55111512e-17,3 C5.55111512e-17,1.3435 1.3435,0 3,0 C4.6565,0 6,1.3435 6,3" id="Fill-25" fill="#09FFFF"></path>
+                                        <path d="M6,15 C6,16.6565 4.6565,18 3,18 C1.3435,18 5.55111512e-17,16.6565 5.55111512e-17,15 C5.55111512e-17,13.3435 1.3435,12 3,12 C4.6565,12 6,13.3435 6,15" id="Fill-27" fill="#09FFFF"></path>
+                                        <path d="M3,24 C1.343,24 5.55111512e-17,25.3435 5.55111512e-17,27 L5.55111512e-17,39 C5.55111512e-17,40.6565 1.343,42 3,42 C4.6565,42 6,40.6565 6,39 L6,27 C6,25.3435 4.6565,24 3,24" id="Fill-29" fill="#FFFFFF"></path>
+                                        <path d="M27,24 C25.343,24 24,25.3435 24,27 L24,39 C24,40.6565 25.343,42 27,42 C28.6565,42 30,40.6565 30,39 L30,27 C30,25.3435 28.6565,24 27,24" id="Fill-31" fill="#FFFFFF"></path>
+                                        <path d="M15,12 C13.343,12 12,13.3435 12,15 L12,39 C12,40.6565 13.343,42 15,42 C16.6565,42 18,40.6565 18,39 L18,15 C18,13.3435 16.6565,12 15,12" id="Fill-33" fill="#FFFFFF"></path>
+                                        <path d="M39,12 C37.343,12 36,13.3435 36,15 L36,39 C36,40.6565 37.343,42 39,42 C40.6565,42 42,40.6565 42,39 L42,15 C42,13.3435 40.6565,12 39,12" id="Fill-35" fill="#FFFFFF"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <h1 class="--name">plotly</h1>
+            </div></a>
+            <nav class="--nav-site">
+                <ul>
+                    <li><a href="https://dash.plot.ly/" target="_blank"><span class="--item">Dash</span></a></li>
+                    <li><a href="https://plot.ly/products/consulting-and-oem/" target="_blank"><span class="--item">Consulting</span></a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="--wrap-right">
+            <nav class="--nav-meta" role="navigation">
+                <ul>
+                    <li><a id="toolsignin" href="https://plot.ly/settings" target="_self" class="button --enterprise-quaternary">SIGN IN</a></li>
+                    <li><a id="signup" href="https://plot.ly/settings" target="_self" class="button --enterprise-quaternary">SIGN UP</a></li>
+                    <li><a href="https://plotly.typeform.com/to/seG7Vb" data-mode="1" target="_blank" onclick="window.mixpanel.track(&#39;Typeform demo request&#39;);" class="typeform-share button --enterprise-quaternary">REQUEST DEMO</a></li>
+                    <!-- Adding product dropdown here -->
+                    <!-- <li><a href="https://plot.ly/create/" class="button">PRODUCTS</a></li> -->
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn" ng-click="mobile = !mobile" ng-class="{&#39;active&#39;: mobile}" style="cursor: pointer;">
+
+
+                <div href="#" class="menu"><span></span></div>
+
+            </div>
+            <nav class="--nav-mobile">
+                <ul>
+                    <li><a href="https://plot.ly/feed/" target="_blank"><span class="--item">Feed</span></a></li>
+                    <li><a href="https://plot.ly/products/cloud/" target="_blank"><span class="--item">Pricing</span></a></li>
+                    <li><a href="https://plot.ly/api/" onmouseover="dropDownMenu(&#39;api-menu&#39;)" onmouseout="hideDropDownMenu(&#39;api-menu&#39;)" target="_self"><span class="--item">API
+                    <div class="icon">
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24"></svg>
+                        <path fill="#000000" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path>
+                    </div></span></a></li>
+                    <li class="tablet"><a id="toolsignin" href="https://plot.ly/settings" target="_self" class="headerbar-nav-item --product-header">
+                        Sign
+                        In</a></li>
+                    <li class="tablet"><a id="signup" href="https://plot.ly/settings" target="_self" class="button --enterprise-quaternary">SIGN UP</a></li>
+                    <li class="tablet"><a href="https://plot.ly/products/cloud/" class="button">UPGRADE</a></li>
+                    <li class="tablet"><a href="https://plotly.typeform.com/to/seG7Vb" data-mode="1" target="_blank" onclick="window.mixpanel.track(&#39;Typeform demo request&#39;);" class="typeform-share button --enterprise-quaternary">
+                        REQUEST
+                        DEMO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+
+<section class="--breadcrumb-container affix" data-spy="affix" data-offset-top="435">
+    <div class="--wrap">
+        <!--
+            Show this if page is too thin (hides breadcrumb list)
+            Toggles sidebar slide in/out (see main.js)
+        -->
+        <a class="toggle-sidebar">
+            <div class="icon">
+                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                    <path fill="#000000" d="M5,13L9,17L7.6,18.42L1.18,12L7.6,5.58L9,7L5,11H21V13H5M21,6V8H11V6H21M21,16V18H11V16H21Z"></path>
+                </svg>
+            </div>
+            <span class="show">Show Sidebar</span>
+            <span class="hide">Hide Sidebar</span>
+        </a>
+
+        <!--
+            Breadcrumb List
+        -->
+        <ul class="--breadcrumb-list">
+            <li class="--breadcrumb-item">
+                <div class="icon">
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></path>
+                    </svg>
+                </div>
+                <a href="https://help.plot.ly/"><span>Help</span></a>
+            </li>
+            <li class="--breadcrumb-item"><a href="https://plot.ly/api/"><span>Open Source Graphing Libraries</span></a></li>
+            
+            <li class="--breadcrumb-item">
+                <a href="https://plot.ly/python"><span>Python</span></a>
+            </li>
+            
+
+            
+            
+	    
+	    
+            <li class="--breadcrumb-item">
+		<a href="https://plot.ly/python/#statistics">
+                <span>Statistics</span>
+		</a>
+            </li>
+
+            
+
+            
+            
+
+            <li class="--breadcrumb-item">
+                <span>T-Test</span>
+            </li>
+            
+            
+        </ul>
+
+        <!--
+            Fork on Github :)
+        -->
+    
+     <div class="--fork">
+	    <a id="forklink" href="https://github.com/plotly/documentation/tree/source-design-merge/_posts/python/statistics/t-test/">
+                <div class="icon">
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M2.6,10.59L8.38,4.8L10.07,6.5C9.83,7.35 10.22,8.28 11,8.73V14.27C10.4,14.61 10,15.26 10,16A2,2 0 0,0 12,18A2,2 0 0,0 14,16C14,15.26 13.6,14.61 13,14.27V9.41L15.07,11.5C15,11.65 15,11.82 15,12A2,2 0 0,0 17,14A2,2 0 0,0 19,12A2,2 0 0,0 17,10C16.82,10 16.65,10 16.5,10.07L13.93,7.5C14.19,6.57 13.71,5.55 12.78,5.16C12.35,5 11.9,4.96 11.5,5.07L9.8,3.38L10.59,2.6C11.37,1.81 12.63,1.81 13.41,2.6L21.4,10.59C22.19,11.37 22.19,12.63 21.4,13.41L13.41,21.4C12.63,22.19 11.37,22.19 10.59,21.4L2.6,13.41C1.81,12.63 1.81,11.37 2.6,10.59Z"></path>
+                    </svg>
+                </div>
+                <span>Fork on Github</span>
+            </a>
+    </div>
+</div></section>
+
+
+
+<main class="--page page--single --index">
+
+	<div class="--wrap">
+		<!-- aside - Main Sidebar-->
+		<aside class="--sidebar-container">
+			<div class="--sidebar-fixed reference affix" data-spy="affix" data-offset-top="435" data-offset-bottom="610" id="where">
+				<header class="--sidebar-header">Navigation</header>
+				<nav class="--sidebar-body watch" id="where">
+					<ul class="--sidebar-list"><li class="--sidebar-item"><a href="https://plot.ly/python/t-test/#new-to-plotly">New to Plotly</a></li><li class="--sidebar-item"><a href="https://plot.ly/python/t-test/#imports">Imports</a></li><li class="--sidebar-item"><a href="https://plot.ly/python/t-test/#generate-data">Generate Data</a></li><li class="--sidebar-item"><a href="https://plot.ly/python/t-test/#one-sample-t-test">One Sample T Test</a></li><li class="--sidebar-item"><a href="https://plot.ly/python/t-test/#two-sample-t-test">Two Sample T Test</a></li></ul>
+					
+					<button class="--btn back">
+						<div>
+							<img class="--icon-notebook" src="./T-Test in Python. _ plotly_files/notebook@2x.png" alt="notebook">
+						</div>
+						<span><a href="https://plot.ly/~notebook_demo/115/">Download <b>THIS</b> Notebook!</a></span>
+					</button>
+					
+					<button class="--btn back">
+						<div class="icon">
+							<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+								<path fill="#000000" d="M20,10V14H11L14.5,17.5L12.08,19.92L4.16,12L12.08,4.08L14.5,6.5L11,10H20Z"></path>
+							</svg>
+						</div>
+						<span><a href="https://plot.ly/python/">Back to Python
+                        </a></span>
+					</button>
+				</nav>
+			</div>
+		</aside>
+		<!-- Main-->
+		<section class="--page-body --tutorial-index --base">
+			<header class="--welcome">
+				<div class="--welcome-body">
+					<!--div.--wrap-inner-->
+					<div class="--title">
+						<div class="--category-img">
+
+							
+							
+							<img src="./T-Test in Python. _ plotly_files/python-logo.png" alt="">
+							
+							
+							
+							
+							
+							
+							
+							
+							
+
+						</div>
+						<div class="--body">
+							
+							
+							<h1>
+								T-Test in Python
+							</h1>
+							<p>Learn how to perform a one sample and two sample t-test using Python. </p>
+
+							
+								<nav class="lang-nav">
+		<ul class="lang-nav--list"><li class="lang-nav--item">
+                <a class="lang_nav_button current" href="https://plot.ly/python/t-test/">
+                    <div><img src="./T-Test in Python. _ plotly_files/python-small.png" alt="python" class="lang_nav_thum"></div>
+                    Python
+                </a>
+            </li></ul>
+		</nav>
+
+							
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<!-- Start Plotly Basics Section -->
+			<section class="tutorial-content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="new-to-plotly">New to Plotly?<a class="anchor-link" href="https://plot.ly/python/t-test/#New-to-Plotly?">¶</a><div class="icon copy" data-tooltip="Click to copy direct link"><svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z"></path> </svg> </div></h4><p>Plotly's Python library is free and open source! <a href="https://plot.ly/python/getting-started/">Get started</a> by dowloading the client and <a href="https://plot.ly/python/getting-started/">reading the primer</a>.
+<br>You can set up Plotly to work in <a href="https://plot.ly/python/getting-started/#initialization-for-online-plotting">online</a> or <a href="https://plot.ly/python/getting-started/#initialization-for-offline-plotting">offline</a> mode, or in <a href="https://plot.ly/python/getting-started/#start-plotting-online">jupyter notebooks</a>.
+<br>We also have a quick-reference <a href="https://images.plot.ly/plotly-documentation/images/python_cheat_sheet.pdf">cheatsheet</a> (new!) to help you get started!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="imports">Imports<a class="anchor-link" href="https://plot.ly/python/t-test/#Imports">¶</a><div class="icon copy" data-tooltip="Click to copy direct link"><svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z"></path> </svg> </div></h4><p>The tutorial below imports <a href="http://www.numpy.org/">NumPy</a>, <a href="https://plot.ly/pandas/intro-to-pandas-tutorial/">Pandas</a>, and <a href="https://www.scipy.org/">SciPy</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="kn">as</span> <span class="nn">py</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="kn">as</span> <span class="nn">go</span>
+<span class="kn">from</span> <span class="nn">plotly.tools</span> <span class="kn">import</span> <span class="n">FigureFactory</span> <span class="k">as</span> <span class="n">FF</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="generate-data">Generate Data<a class="anchor-link" href="https://plot.ly/python/t-test/#Generate-Data">¶</a><div class="icon copy" data-tooltip="Click to copy direct link"><svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z"></path> </svg> </div></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us generate some random data from the <code>Normal Distriubtion</code>. We will sample 50 points from a normal distribution with mean <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;&amp;#x03BC;&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 3.062em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.45em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.504em 1002.39em 2.728em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math-italic;">μ</span><span class="mo" id="MathJax-Span-4" style="font-family: MathJax_Main; padding-left: 0.281em;">=</span><span class="mn" id="MathJax-Span-5" style="font-family: MathJax_Main; padding-left: 0.281em;">0</span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.341em; border-left: 0px solid; width: 0px; height: 1.245em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>μ</mi><mo>=</mo><mn>0</mn></math></span></span><script type="math/tex" id="MathJax-Element-1">\mu = 0</script> and variance <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msup&gt;&lt;mi&gt;&amp;#x03C3;&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-6" style="width: 3.618em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.895em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.338em 1002.84em 2.506em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-7"><span class="msubsup" id="MathJax-Span-8"><span style="display: inline-block; position: relative; width: 1.06em; height: 0px;"><span style="position: absolute; clip: rect(3.395em 1000.56em 4.174em -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-9" style="font-family: MathJax_Math-italic;">σ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; top: -4.391em; left: 0.615em;"><span class="mn" id="MathJax-Span-10" style="font-size: 70.7%; font-family: MathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span><span class="mo" id="MathJax-Span-11" style="font-family: MathJax_Main; padding-left: 0.281em;">=</span><span class="mn" id="MathJax-Span-12" style="font-family: MathJax_Main; padding-left: 0.281em;">1</span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.066em; border-left: 0px solid; width: 0px; height: 1.176em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn></math></span></span><script type="math/tex" id="MathJax-Element-2">\sigma^2 = 1</script> and from another with mean <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-3-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;&amp;#x03BC;&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-13" style="width: 3.062em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.45em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.504em 1002.39em 2.728em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-14"><span class="mi" id="MathJax-Span-15" style="font-family: MathJax_Math-italic;">μ</span><span class="mo" id="MathJax-Span-16" style="font-family: MathJax_Main; padding-left: 0.281em;">=</span><span class="mn" id="MathJax-Span-17" style="font-family: MathJax_Main; padding-left: 0.281em;">2</span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.341em; border-left: 0px solid; width: 0px; height: 1.245em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>μ</mi><mo>=</mo><mn>2</mn></math></span></span><script type="math/tex" id="MathJax-Element-3">\mu = 2</script> and variance <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-4-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msup&gt;&lt;mi&gt;&amp;#x03C3;&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-18" style="width: 3.618em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.895em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.338em 1002.84em 2.506em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-19"><span class="msubsup" id="MathJax-Span-20"><span style="display: inline-block; position: relative; width: 1.06em; height: 0px;"><span style="position: absolute; clip: rect(3.395em 1000.56em 4.174em -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-21" style="font-family: MathJax_Math-italic;">σ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; top: -4.391em; left: 0.615em;"><span class="mn" id="MathJax-Span-22" style="font-size: 70.7%; font-family: MathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span><span class="mo" id="MathJax-Span-23" style="font-family: MathJax_Main; padding-left: 0.281em;">=</span><span class="mn" id="MathJax-Span-24" style="font-family: MathJax_Main; padding-left: 0.281em;">1</span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.066em; border-left: 0px solid; width: 0px; height: 1.176em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn></math></span></span><script type="math/tex" id="MathJax-Element-4">\sigma^2 = 1</script>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">data1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The two normal probability distribution functions (p.d.f) stacked on top of each other look like this:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">160</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">trace1</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y1</span><span class="p">,</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s1">'lines+markers'</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'Mean of 0'</span>
+<span class="p">)</span>
+
+<span class="n">trace2</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y2</span><span class="p">,</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s1">'lines+markers'</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'Mean of 2'</span>
+<span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
+
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'normal-dists-plot'</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="./T-Test in Python. _ plotly_files/675.html" height="525px" width="100%"></iframe>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="one-sample-t-test">One Sample T Test<a class="anchor-link" href="https://plot.ly/python/t-test/#One-Sample-T-Test">¶</a><div class="icon copy" data-tooltip="Click to copy direct link"><svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z"></path> </svg> </div></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A <code>One Sample T-Test</code> is a statistical test used to evaluate the null hypothesis that the mean <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-5-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-25" style="width: 1.115em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.893em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.727em 1000.89em 2.506em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-26"><span class="mi" id="MathJax-Span-27" style="font-family: MathJax_Math-italic;">m</span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.066em; border-left: 0px solid; width: 0px; height: 0.693em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>m</mi></math></span></span><script type="math/tex" id="MathJax-Element-5">m</script> of a 1D sample dataset of independant observations is equal to the true mean <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-6-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;&amp;#x03BC;&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-28" style="width: 0.781em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.615em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.727em 1000.62em 2.728em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-29"><span class="mi" id="MathJax-Span-30" style="font-family: MathJax_Math-italic;">μ</span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.341em; border-left: 0px solid; width: 0px; height: 0.969em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>μ</mi></math></span></span><script type="math/tex" id="MathJax-Element-6">\mu</script> of the population from which the data is sampled. In other words, our null hypothesis is that</p>
+<span class="MathJax_Preview" style="color: inherit;"></span><div class="MathJax_Display" style="text-align: center;"><span class="MathJax" id="MathJax-Element-7-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;mtable columnalign=&quot;right left right left right left right left right left right left&quot; rowspacing=&quot;3pt&quot; columnspacing=&quot;0em 2em 0em 2em 0em 2em 0em 2em 0em 2em 0em&quot; displaystyle=&quot;true&quot;&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;&amp;#x03BC;&lt;/mi&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;/mtable&gt;&lt;/math&gt;" role="presentation" style="text-align: center; position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-31" style="width: 3.952em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.173em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.393em 1003.17em 2.784em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-32"><span class="mtable" id="MathJax-Span-33"><span style="display: inline-block; position: relative; width: 2.839em; height: 0px; margin-right: 0.17em; margin-left: 0.17em;"><span style="position: absolute; clip: rect(3.451em 1002.78em 4.452em -999.997em); top: -4.002em; left: 0em;"><span style="display: inline-block; position: relative; width: 2.839em; height: 0px;"><span style="position: absolute; clip: rect(3.395em 1002.78em 4.397em -999.997em); top: -3.946em; right: 0em;"><span class="mtd" id="MathJax-Span-34"><span class="mrow" id="MathJax-Span-35"><span class="mi" id="MathJax-Span-36" style="font-family: MathJax_Math-italic;">m</span><span class="mo" id="MathJax-Span-37" style="font-family: MathJax_Main; padding-left: 0.281em;">=</span><span class="mi" id="MathJax-Span-38" style="font-family: MathJax_Math-italic; padding-left: 0.281em;">μ</span></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.41em; border-left: 0px solid; width: 0px; height: 1.383em;"></span></span></nobr><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mtable columnalign="right left right left right left right left right left right left" rowspacing="3pt" columnspacing="0em 2em 0em 2em 0em 2em 0em 2em 0em 2em 0em" displaystyle="true"><mtr><mtd><mi>m</mi><mo>=</mo><mi>μ</mi></mtd></mtr></mtable></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-7">
+\begin{align*}
+m = \mu
+\end{align*}
+</script><p>For our T-test, we will be using a significance level of <code>0.05</code>. On the matter of doing ethical science, it is good practice to always state the chosen significance level for a given test <em>before</em> actually conducting the test. This is meant to ensure that the analyst does not modify the significance level for the purpose of achieving a desired outcome.</p>
+<p>For more information on the choice of 0.05 for a significance level, check out <a href="http://www.investopedia.com/exam-guide/cfa-level-1/quantitative-methods/hypothesis-testing.asp">this page</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">true_mu</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">onesample_results</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">true_mu</span><span class="p">)</span>
+
+<span class="n">matrix_onesample</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">''</span><span class="p">,</span> <span class="s1">'Test Statistic'</span><span class="p">,</span> <span class="s1">'p-value'</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'Sample Data'</span><span class="p">,</span> <span class="n">onesample_results</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">onesample_results</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="p">]</span>
+
+<span class="n">onesample_table</span> <span class="o">=</span> <span class="n">FF</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="n">matrix_onesample</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">onesample_table</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'onesample-table'</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="./T-Test in Python. _ plotly_files/671.html" height="110px" width="100%"></iframe>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since our p-value is greater than our Test-Statistic, we have good evidence to not reject the null-hypothesis at the <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-8-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;0.05&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-39" style="width: 2.227em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.783em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.504em 1001.73em 2.506em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-40"><span class="mn" id="MathJax-Span-41" style="font-family: MathJax_Main;">0.05</span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.066em; border-left: 0px solid; width: 0px; height: 0.969em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>0.05</mn></math></span></span><script type="math/tex" id="MathJax-Element-8">0.05</script> significance level. This is our expected result because the data was collected from a normal distribution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="two-sample-t-test">Two Sample T Test<a class="anchor-link" href="https://plot.ly/python/t-test/#Two-Sample-T-Test">¶</a><div class="icon copy" data-tooltip="Click to copy direct link"><svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z"></path> </svg> </div></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we have two independently sampled datasets (with equal variance) and are interested in exploring the question of whether the true means <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-9-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;&amp;#x03BC;&lt;/mi&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/msub&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-42" style="width: 1.338em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.06em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.727em 1001.06em 2.728em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-43"><span class="msubsup" id="MathJax-Span-44"><span style="display: inline-block; position: relative; width: 1.06em; height: 0px;"><span style="position: absolute; clip: rect(3.395em 1000.56em 4.397em -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-45" style="font-family: MathJax_Math-italic;">μ</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; top: -3.835em; left: 0.615em;"><span class="mn" id="MathJax-Span-46" style="font-size: 70.7%; font-family: MathJax_Main;">1</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.341em; border-left: 0px solid; width: 0px; height: 0.969em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>μ</mi><mn>1</mn></msub></math></span></span><script type="math/tex" id="MathJax-Element-9">\mu_1</script> and <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-10-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;&amp;#x03BC;&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-47" style="width: 1.338em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.06em; height: 0px; font-size: 124%;"><span style="position: absolute; clip: rect(1.727em 1001.06em 2.728em -999.997em); top: -2.333em; left: 0em;"><span class="mrow" id="MathJax-Span-48"><span class="msubsup" id="MathJax-Span-49"><span style="display: inline-block; position: relative; width: 1.06em; height: 0px;"><span style="position: absolute; clip: rect(3.395em 1000.56em 4.397em -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-50" style="font-family: MathJax_Math-italic;">μ</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; top: -3.835em; left: 0.615em;"><span class="mn" id="MathJax-Span-51" style="font-size: 70.7%; font-family: MathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.339em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.341em; border-left: 0px solid; width: 0px; height: 0.969em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>μ</mi><mn>2</mn></msub></math></span></span><script type="math/tex" id="MathJax-Element-10">\mu_2</script> are identical, that is, if the data were sampled from the same population, we would use a <code>Two Sample T-Test</code>.</p>
+<p>Typically when a researcher in a field is interested in the affect of a given test variable between two populations, they will take one sample from each population and will note them as the experimental group and the control group. The experimental group is the sample which will receive the variable being tested, while the control group will not.</p>
+<p>This test variable is observed (eg. blood pressure) for all the subjects and a two sided t-test can be used to investigate if the two groups of subjects were sampled from populations with the same true mean, i.e. "Does the drug have an effect?"</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">twosample_results</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+
+<span class="n">matrix_twosample</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">''</span><span class="p">,</span> <span class="s1">'Test Statistic'</span><span class="p">,</span> <span class="s1">'p-value'</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'Sample Data'</span><span class="p">,</span> <span class="n">twosample_results</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">twosample_results</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="p">]</span>
+
+<span class="n">twosample_table</span> <span class="o">=</span> <span class="n">FF</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="n">matrix_twosample</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">twosample_table</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'twosample-table'</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="./T-Test in Python. _ plotly_files/677.html" height="110px" width="100%"></iframe>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since our p-value is much less than our Test Statistic, then with great evidence we can reject our null hypothesis of identical means. This is in alignment with our setup, since we sampled from two different normal pdfs with different means.</p>
+
+</div>
+</div>
+</div>
+			</section>
+			<!--End Plotly Basics Section-->
+		</section>
+	</div>
+
+</main>
+
+<section class="--help-box">
+  <a href="https://dash.plot.ly/getting-started"><div class="--wrap">
+      <div class="--body">
+        <img height="50%" width="50%" src="./T-Test in Python. _ plotly_files/dash-ad.png">
+      </div>
+    </div>
+  </a>
+</section>
+
+
+<script>
+
+    var array = [];
+
+    $('.tutorial-content :header:not(h6)').each(function (i, e) {
+
+        var item = $(e);
+        var itemText = item.text();
+
+
+        var hash = itemText.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
+        console.log(hash);
+        item.attr("id", hash);
+
+        array.push(itemText);
+
+    });
+
+    $(".--sidebar-list").html(array.map(function(value) {
+        var hash = value.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
+        return('<li class="--sidebar-item"><a href="#' + hash + '">' + value.replace(/[^a-z0-9\s\.:]/gi, '') + '</a></li>');
+    }).join(""));
+
+
+    $(".tutorial-content :header:not(h6)").append( "\<div class=\"icon copy\" data-tooltip=\"Click to copy direct link\"><svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\"><path fill=\"#000000\" d=\"M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z\"/> </svg> </div>");
+
+</script>
+
+
+<footer class="--footer-main">
+        <section class="--footer-top">
+            <div class="--wrap">
+                <ul class="--footer-body">
+                    <li class="--footer-column">
+                        <h6 style="color:#e763fa" class="--footer-heading">DASH</h6>			
+                        <ul>
+                            <li><a href="https://plot.ly/products/dash/" target="_self">Overview</a></li>
+                            				
+                            <li><a href="https://www.dashdaq.io/" target="_self">Dash DAQ</a></li>
+                            				
+                            <li><a href="https://plot.ly/dash/pricing/" target="_self">Dash Deployment Server</a></li>
+                        </ul>
+                    </li>
+                    		
+                    <li class="--footer-column">
+                        <h6 style="color:#636efa" class="--footer-heading">COMPANY</h6>			
+                        <ul>
+                            <li><a href="https://plot.ly/company/careers/" target="_self">Careers</a></li>
+                            				
+                            <li><a href="https://plotly.typeform.com/to/r4OilH" target="_blank">Customer Contact</a></li>
+                            				
+                            <li><a href="https://www.instagram.com/plotly/?hl=en" target="_blank">#plotlylife</a></li>
+                            				
+                            <li><a href="https://twitter.com/plotlygraphs" target="_blank">Twitter</a></li>
+                            				
+                            <li><a href="https://github.com/plotly" target="_blank">GitHub</a></li>
+                        </ul>
+                    </li>
+                    		
+                    <li class="--footer-column">
+                        <h6 style="color:#00cc96" class="--footer-heading">RESOURCES</h6>			
+                        <ul>
+                            <li><a href="https://support.plot.ly/" target="_self">Developer Support</a></li>
+                            				
+                            <li><a href="https://community.plot.ly/" target="_self">Community Support</a></li>
+                            				
+                            <li><a href="http://help.plot.ly/" target="_self">Documentation</a></li>
+                        </ul>
+                    </li>
+                    		
+                    <li class="--footer-column">
+                        <h6 style="color:#EF553B" class="--footer-heading">GRAPHING LIBRARIES</h6>			
+                        <ul>
+                            <li><a href="https://plot.ly/dash/" target="_self">Dash</a></li>
+                            				
+                            <li><a href="https://plot.ly/plotly-js-scientific-d3-charting-library/" target="_self">Plotly.js</a></li>
+                            				
+                            <li><a href="https://plot.ly/d3-js-for-python-and-pandas-charts/" target="_self">Plotly.py</a>
+                            </li>
+                            				
+                            <li><a href="https://plot.ly/d3-js-for-r-and-shiny-charts/" target="_self">Plotly.R</a></li>
+                        </ul>
+                    </li>
+                    		
+                    <li class="--footer-column">
+                        <h6 style="color:#19d3f3" class="--footer-heading">EMBEDDED BI/OEM</h6>			
+                        <ul>
+                            <li><a href="https://plot.ly/online-chart-maker/" target="_self">Chart Studio</a></li>
+                            				
+                            <li><a href="https://plot.ly/dashboards/" target="_self">Dashboards</a></li>
+                        </ul>
+                    </li>
+                    		
+                    <li class="--footer-column">
+                        <h6 style="color:#119dff" class="--footer-heading">JOIN THE DASH CLUB</h6>			
+                        <ul>
+                            				
+                            <li><form action="https://plot.us12.list-manage.com/subscribe/post" method="POST" target="_blank" novalidate="">
+                                <input type="hidden" name="u" value="28d7f8f0685d044fb51f0d4ee">
+                                <input type="hidden" name="id" value="0c1cb734d7">
+
+                                <label htmlfor="MERGE0">
+                                  <p class="mailchimp-footer-text"> Dash Club is a no-fluff, twice-a-month email with links and notes on the latest Dash developments and community happenings.</p>
+                                  <input type="email" name="EMAIL" id="MERGE0" placeholder="Your Email Address" autocapitalize="off" autocorrect="off" class="mc-input">
+                              </label>
+                              <input type="submit" value="Subscribe" name="subscribe" class="mc-embedded-subscribe">
+                            </form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="--footer-meta">
+            <div class="--wrap">
+                <div class="left">
+                    <article class="--copyright">Copyright © 2018 Plotly. All rights reserved.</article>
+                </div>
+                <div class="right">
+                    <article class="--tos"><a href="https://plot.ly/terms-of-service/" target="_blank">Terms of Service</a>
+                    </article>
+                    <article class="--privacy"><a href="https://plot.ly/privacy/" target="_blank">Privacy Policy</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+
+<!-- Mathjax -->
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}});</script>
+<script type="text/javascript" src="./T-Test in Python. _ plotly_files/MathJax.js"></script>
+
+ 
+ <!-- Hash offset Script -->
+<script src="./T-Test in Python. _ plotly_files/hash_offset.js"></script>
+ <!-- Image Hover Script -->
+<script src="./T-Test in Python. _ plotly_files/imghover.js"></script>
+ 
+ <!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-39373211-1', 'auto');
+    ga('send', 'pageview');
+</script>
+ <!-- Copy to Clipboard Assets -->
+ <!-- <script src="//images.plot.ly/assets/js/ZeroClipboard.min.js"></script> -->
+<!-- <script src="//images.plot.ly/assets/js/main.js"></script> -->
+ <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-563d60eba90f0f45" async="async"></script>
+ <script type="text/javascript">
+ $('div.output_subarea').each(function() {
+    var hasScrollbar = $(this).get(0).scrollHeight>$(this).get(0).clientHeight;
+    if($(this).height()>=300 && hasScrollbar == false){
+        $(this).after('<a href="https://goo.gl/2wUZYZ" target="_blank" style="position:absolute;right:20px;z-index:99;cursor:pointer;" class="pre-cta-go-pro">Support our open-source mission: <span style="color:darkviolet">Go Pro</span></a>')
+    }
+});
+ </script>
+
+
+
+</body>
+
+</html>
+--><div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; min-width: 0px; max-width: none; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Main, sans-serif;"></div></div><div id="drift-widget-container" style="position: absolute; z-index: 2147483647;"><iframe id="drift-widget" src="./T-Test in Python. _ plotly_files/index.html" title="Drift Messenger" role="complementary" tabindex="-1" class="drift-widget-slider" style="border: none; display: block; height: 92px !important; width: 456px !important; position: fixed; top: auto; left: auto; bottom: 24px; right: 24px; visibility: visible; z-index: 2147483647; max-height: 100vh; max-width: 100%; transition: none; background: none transparent; opacity: 1;"></iframe></div></body></html>

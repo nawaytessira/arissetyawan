@@ -1,0 +1,10 @@
+Database RBM-ELM parameters
+Credit Australia k = 35, it = 25, η = 0.1, ρ = 0.1, α = 0.5/0.9 and bs = 150
+k = 50, it = 50, η = 0.01, ρ = 0.001, α = 0.5/0.9 and bs = 100
+DNA k = 250, it = 50, η = 0.0001, ρ = 0.01, α = 0.5/0.9 and bs = 250
+Gisette k = 850, it = 50, η = 0.001, ρ = 0.01, α = 0.5/0.9 and bs = 250
+Diabetic Isolet k = 1250, it = 25, η = 0.01, ρ = 0.01, α = 0.5/0.9 and bs = 250
+Madelon k = 250, it = 50, η = 0.001, ρ = 0.001, α = 0.5/0.9 and bs = 50
+k = 700, it = 25, η = 0.01, ρ = 0.001, α = 0.5/0.9 and bs = 100
+Spam k = 150, it = 50, η = 0.001, ρ = 0.0001, α = 0.5/0.9 and bs = 100
+Urban land cover k = 200, it = 25, η = 0.01, ρ = 0.01, α = 0.5/0.9 and bs = 20
