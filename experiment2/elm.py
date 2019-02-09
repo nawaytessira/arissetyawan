@@ -100,9 +100,7 @@ class ELM:
                 
                     
     # This method just trains the ELM. If you wanna check the training error, set aval=True
-    def train (self, aval=False, iteration=''):
-        if iteration != '':
-            iteration= str(iteration)
+    def train (self, aval=False):
         p("Running training...")
         p("Computing the matrix H penroose")
         H = sigmoid(np.dot(self.inTrain, self.W))
@@ -116,10 +114,10 @@ class ELM:
             outNet = np.dot (H,self.beta)
             if str(self.inputW) == 'uniform' or self.inputW is None or str(self.inputW)=='RO':
                 print("inputW:", self.inputW)
-                log("log/" + self.dataName + "/" + iteration + self.inputW + '.log', outNet)
+                log("log/" + self.dataName + "/" + str(self.neurons) + self.inputW + '.log', outNet)
             else:
                 print("inputW:", 'RBM')
-                log("log/" + self.dataName + "/" + iteration + "rbm.log" , outNet)
+                log("log/" + self.dataName + "/" + str(self.neurons) + "rbm.log" , outNet)
 
             miss = float(cont_error (self.outTrain, outNet))
             si = float(self.outTrain.shape[0])
