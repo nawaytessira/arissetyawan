@@ -58,9 +58,9 @@ print("Loading the dataset...")
 
 # print ( "Loading train file...")
 # mydataset = np.genfromtxt(DATA_PATH+ "iris.csv", skip_header=1, usemask=True, delimiter=",", dtype=None, encoding=None)
-dname= "isolet1+2+3+4"
+dname= "mnist_train"
 df= pd.read_csv(DATA_PATH+ dname +".csv")
-mydataset= df.reset_index().values
+mydataset= df.values
 # print(mydataset)
 
 acc1 = list()
@@ -211,8 +211,8 @@ print ("\nELM-RO:")
 acc3 = np.asarray(acc3)
 tim3 = np.asarray(tim3)
 normELMRO = np.asarray(normELMRO)
-log("log/" + dname + "/elmro-acc", acc2)
-log("log/" + dname + "/elmro-tim", tim2)
+log("log/" + dname + "/elmro-acc", acc3)
+log("log/" + dname + "/elmro-tim", tim3)
 log("log/" + dname + "/elmro-norm", normELM)
 log("log/" + dname + "/elmro-std", str(acc3.std()))
 text += "\nELM-RO:"
