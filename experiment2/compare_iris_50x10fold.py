@@ -1,4 +1,6 @@
-
+# log/spambaseelmrnd-acc.20190121-113539
+# log/spambaseelmro-acc.20190121-113539
+# log/spambaseelmrbm-acc.20190121-113539
 # -*- coding: utf-8 -*-
 """
 
@@ -17,8 +19,8 @@ import sys
 sys.path.insert (0, MAIN_DIR)
 sys.path.insert (0, "/usr/local/lib/python3.6/site-packages/")
 
-trials= '10_'
-dataName= 'isolet1+2+3+4'
+trials= '50_'
+dataName= 'iris'
 dname1= 'log/' + dataName + '/'+trials+'elmrbm-acc'
 dname2= 'log/' + dataName + '/'+trials+'elmrnd-acc'
 dname3= 'log/' + dataName + '/'+trials+'elmro-acc'
@@ -137,3 +139,13 @@ if p > alpha:
 	print('RBM vs RO: Same distribution (failed to reject H0, sample equal)')
 else:
 	print('RBM vs RO: Different distribution (reject H0)')
+
+
+print('------------------------')
+print("T-Test")
+import numpy as np
+from sklearn import metrics
+y = np.array([1, 1, 2, 2])
+pred = np.array([0.1, 0.4, 0.35, 0.8])
+fpr, tpr, thresholds = metrics.roc_curve(y, pred, pos_label=2)
+metrics.auc(fpr, tpr)
