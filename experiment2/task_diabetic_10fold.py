@@ -53,7 +53,7 @@ else:
         # If the dataset has already been splitted, you can upload all the partitions using
         # train, val and test. 
 
-    dname= "iris"
+    dname= "diabetic"
     df= pd.read_csv(DATA_PATH+ dname +".csv")
     mydataset= df.reset_index().values
     K = 10

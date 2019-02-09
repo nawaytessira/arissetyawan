@@ -32,7 +32,7 @@ from rbm_tensorflow import *
 from sklearn.preprocessing import LabelEncoder
 from plotly.tools import FigureFactory as FF
 
-trials = 10
+neurons = [100, 200, 300, 400, 500]
 total_fold= 10
 hidNeurons = 250
 maxIterRbm = 500
@@ -76,8 +76,8 @@ normRBMELM = list()
 normELM = list()
 normELMRO = list()
 
-for trial in range(trials):
-    t= str(trial + 1) + '_'
+for neuron in neurons:
+    neuron= 'N'+ str(neuron) + "-"
     for fold in range(total_fold-1):
         # split data in training and testing sets
         # use % training % testng and shuffle data before splitting
@@ -85,7 +85,7 @@ for trial in range(trials):
         percTest= round(1-percTrain, 1)
         fold_string= str(percTrain) + "_" + str(percTest)
         print(line2())
-        print('TRIAL >>>>>>>>>>>>>>>> ', t)
+        print('ELM neuron >>>>>>>>>>>>>>>> ', neuron)
         print("\nK-Fold; Training:", percTrain, "Testing:", percTest)
 
         mydata= data(dataset=mydataset, train=None, val=None, test=None, 
@@ -101,14 +101,14 @@ for trial in range(trials):
         # k = 150, it = 50, η = 0.001, ρ = 0.0001, α = 0.5/0.9 and bs = 100
         rbmNet.train (maxIter=maxIterRbm, lr=0.001, wc=0.0002, iMom=0.5, fMom=0.9, cdIter=1, batchSize=150, freqPrint=10)
         W = np.concatenate ((rbmNet.getWeights(), rbmNet.getHidBias()), axis = 0)
-        elmNet1 = ELM (neurons=hidNeurons,
+        elmNet1 = ELM (neurons=neuron,
                         inTrain=mydata.trainIn, 
                         outTrain=mydata.trainOut,
                         inputW=W,
                         beta=None,
                         batchSize=None,
                         dataName=dname)
-        elmNet1.train(aval=True, iteration=t)
+        elmNet1.train(aval=True)
         end = time.time() # getting the end time
         res, a1 = elmNet1.getResult(mydata.testIn, mydata.testOut, True)
         nor,_ = elmNet1.getNorm()
@@ -116,7 +116,7 @@ for trial in range(trials):
         normRBMELM.append(nor)  
         acc1.append(a1)
         tim1.append(end-init)
-        elmNet1.saveELM("log/"+ dname + "/" + t  + "rbm_" + fold_string)
+        elmNet1.saveELM("log/"+ dname + "/" + neuron  + "rbm_" + fold_string)
         del(elmNet1)
 
         ###########################################################################
@@ -130,7 +130,7 @@ for trial in range(trials):
                         beta=None,
                         batchSize=None,
                         dataName=dname)
-        elmNet2.train(aval=True, iteration=t)    
+        elmNet2.train(aval=True)
         end2 = time.time() # getting the end time     
         res, a2 = elmNet2.getResult(mydata.testIn,realOutput=mydata.testOut, aval=True)   
         nor,_ = elmNet2.getNorm()
@@ -138,7 +138,7 @@ for trial in range(trials):
         normELM.append(nor)
         acc2.append(a2)
         tim2.append(end2-init2)
-        elmNet2.saveELM("log/"+ dname  + "/" + t  + "rnd_" + fold_string)
+        elmNet2.saveELM("log/"+ dname  + "/" + neuron  + "rnd_" + fold_string)
         del(elmNet2)
      
         ###########################################################################
@@ -152,15 +152,15 @@ for trial in range(trials):
                         inputW="RO",
                         beta=None,
                         batchSize=None,
-                        dataName=dname)    
-        elmNet3.train(aval=True, iteration=t)
-        end3 = time.time()    
+                        dataName=dname)
+        elmNet3.train(aval=True)
+        end3 = time.time()
         res, a3 = elmNet3.getResult (mydata.testIn, realOutput=mydata.testOut,aval=True) 
         nor,_ = elmNet3.getNorm()
         normELMRO.append(nor)
         acc3.append(a3)
         tim3.append(end3-init3)
-        elmNet3.saveELM("log/"+ dname + "/" + t  + "ro_" + fold_string)
+        elmNet3.saveELM("log/"+ dname + "/" + neuron + "ro_" + fold_string)
         del(elmNet3)
         
         
@@ -188,10 +188,10 @@ acc1= np.asarray(acc1)
 tim1 = np.asarray(tim1)
 normRBMELM = np.asarray(normRBMELM)
 print ("\nRBM-ELM::")
-log("log/" + dname + "/" + str(trials) + "_elmrbm-acc", acc1)
-log("log/" + dname + "/" + str(trials) + "_elmrbm-tim", tim1)
-log("log/" + dname + "/" + str(trials) + "_elmrbm-norm", normRBMELM)
-log("log/" + dname + "/" + str(trials) + "_elmrbm-std", str(acc1.std()))
+log("log/" + dname + "/elmrbm-acc", acc1)
+log("log/" + dname + "/elmrbm-tim", tim1)
+log("log/" + dname + "/elmrbm-norm", normRBMELM)
+log("log/" + dname + "/elmrbm-std", str(acc1.std()))
 text += "\nRBM-ELM:"
 text += "\nAccuracy - Mean: " + str(acc1.mean()) + " | Std: "  + str(acc1.std())
 text += "\nTime - Mean "  + str(tim1.mean()) + " | Std: " + str(tim1.std())
@@ -201,10 +201,10 @@ print ("\nOnly ELM:")
 acc2 = np.asarray(acc2)
 tim2 = np.asarray(tim2)
 normELM = np.asarray(normELM)
-log("log/" + dname + "/" + str(trials) + "_elmrnd-acc", acc2)
-log("log/" + dname + "/" + str(trials) + "_elmrnd-tim", tim2)
-log("log/" + dname + "/" + str(trials) + "_elmrnd-norm", normELM)
-log("log/" + dname + "/" + str(trials) + "_elmrnd-std", str(acc2.std()))
+log("log/" + dname + "/elmrnd-acc", acc2)
+log("log/" + dname + "/elmrnd-tim", tim2)
+log("log/" + dname + "/elmrnd-norm", normELM)
+log("log/" + dname + "/elmrnd-std", str(acc2.std()))
 text += "\nELM-RND:"
 text += "\nAccuracy - Mean: " + str(acc2.mean()) + " | Std: " + str(acc2.std())
 text += "\nTime - Mean "  + str(tim2.mean()) + " | Std: " + str(tim2.std())
@@ -214,10 +214,10 @@ print ("\nELM-RO:")
 acc3 = np.asarray(acc3)
 tim3 = np.asarray(tim3)
 normELMRO = np.asarray(normELMRO)
-log("log/" + dname + "/" + str(trials) + "_elmro-acc", acc3)
-log("log/" + dname + "/" + str(trials) + "_elmro-tim", tim3)
-log("log/" + dname + "/" + str(trials) + "_elmro-norm", normELM)
-log("log/" + dname + "/" + str(trials) + "_elmro-std", str(acc3.std()))
+log("log/" + dname + "/elmro-acc", acc3)
+log("log/" + dname + "/elmro-tim", tim3)
+log("log/" + dname + "/elmro-norm", normELM)
+log("log/" + dname + "/elmro-std", str(acc3.std()))
 text += "\nELM-RO:"
 text += "\nAccuracy - Mean: " + str(acc3.mean()) + " | Std: "  + str(acc3.std())
 text += "\nTime - Mean "  + str(tim3.mean()) + " | Std: " + str(tim3.std())
@@ -225,8 +225,8 @@ text += "\nNorm - Mean " + str(normELMRO.mean()) + " | Std: "  + str(normELMRO.s
 
 print ("\nALL RESULT:")
 data = [acc1, acc2, acc3]
-log("log/" + dname + "/" + str(trials) + "_acc-all", data)
-log("log/" + dname + "/" + str(trials) + "_result", text)
+log("log/" + dname + "/acc-all", data)
+log("log/" + dname + "/result", text)
 
 plt.boxplot(data, labels=["RBM-ELM", "ELM", "ELM-RO"])
 
