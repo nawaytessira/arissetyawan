@@ -20,6 +20,8 @@ warnings.filterwarnings('ignore')
 import sys
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import StratifiedKFold
+
 sys.path.insert (0, MAIN_DIR)
 sys.path.insert (0, "/usr/local/lib/python3.6/site-packages/")
 
@@ -27,37 +29,49 @@ class Fold:
     K = None
     dataset= None
     train_file= None
+    postOut= None
     fold_file= None
     test_file= None
 
-    def __init__(self, dataset, K):
+    def __init__(self, dataset, K, postOut):
         print("Fold initialising...", dataset, K)
         self.df= pd.read_csv(DATA_PATH+ dataset +".csv", header=None)
         self.dataset=  dataset
         self.K= K
+        self.postOut=postOut
 
-    def stratified(self, postOut='last'):
+    def stratified(self):
         label= []
-        nCols= data.values.shape[1]
-        hsplitted= np.array_split(data.values,nCols,axis=1)
+        nCols= self.df.values.shape[1]
+        hsplitted= np.array_split(self.df.values,nCols,axis=1)
         restCols= []
-        if postOut='last':
+        if self.postOut=='last':
             label= hsplitted[nCols-1]
-            for i in nCols-2:
+            for i in range(nCols-2):
                 restCols.append(hsplitted[i])
         else: #first
             label= hsplitted[0]
-            for i in nCols-2:
+            for i in range(nCols-2):
                 restCols.append(hsplitted[i+1])
 
         data= np.hstack(restCols)
-
-        skf= StratifiedKFold(n_split=self.K)
-        for train_index, test_index in skf
+        skf= StratifiedKFold(n_splits=self.K)
+        i= 1
+        for train_index, test_index in skf.split(data, label):
             x_train, y_train = data[train_index], label[train_index]
             x_test, y_test = data[test_index], label[test_index]
-        training= np.hstack((x_train, y_train))
-        testing= np.hstack((x_test, y_test))
+            train= np.hstack((x_train, y_train))
+            test= np.hstack((x_test, y_test))
+            self.train_file= DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtrain_" + str(i) + ".csv"
+            self.test_file= DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtest_" + str(i) + ".csv"
+
+            np.savetxt(self.train_file, train, delimiter=",", fmt='%10.2f')
+            np.savetxt(self.test_file, test, delimiter=",", fmt='%10.2f')
+
+            self.remove_tab(self.train_file)
+            self.remove_tab(self.test_file)
+
+            i+= 1
 
     def remove_tab(self, file):
         f = open(file, "r")
