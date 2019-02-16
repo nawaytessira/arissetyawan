@@ -25,6 +25,39 @@ from sklearn.model_selection import StratifiedKFold
 sys.path.insert (0, MAIN_DIR)
 sys.path.insert (0, "/usr/local/lib/python3.6/site-packages/")
 
+class Stratified:
+
+    def __init__(self, dataset, data, labels, K):
+        self.K= K
+        self.data= data
+        self.labels= labels
+        self.dataset= dataset
+
+    def loadTest(self, fold_number):
+      return np.genfromtxt( DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtest_" + str(fold_number) + ".csv", delimiter=',')
+
+    def loadTrain(self, fold_number):
+      return np.genfromtxt( DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtrain_" + str(fold_number) + ".csv", delimiter=',')
+
+    def load(self):
+        skf= StratifiedKFold(n_splits=self.K)
+        i= 1
+        for train_index, test_index in skf.split(self.data, self.labels):
+            x_train, y_train = data[train_index], label[train_index]
+            x_test, y_test = data[test_index], label[test_index]
+            train= np.hstack((x_train, y_train))
+            test= np.hstack((x_test, y_test))
+            self.train_file= DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtrain_" + str(i) + ".csv"
+            self.test_file= DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtest_" + str(i) + ".csv"
+
+            np.savetxt(self.train_file, train, delimiter=",", fmt='%10.2f')
+            np.savetxt(self.test_file, test, delimiter=",", fmt='%10.2f')
+
+            self.remove_tab(self.train_file)
+            self.remove_tab(self.test_file)
+
+            i+= 1
+
 class Fold:
     K = None
     dataset= None
@@ -40,7 +73,17 @@ class Fold:
         self.K= K
         self.postOut=postOut
 
-    def stratified(self):
+    def remove_tab(self, file):
+        f = open(file, "r")
+        out= f.read().replace(" ","")
+        # print(out)
+        f.close
+        f = open(file, "w")
+        f.write(out)
+        f.close
+
+
+    def Stratified(self):
         label= []
         nCols= self.df.values.shape[1]
         hsplitted= np.array_split(self.df.values,nCols,axis=1)
@@ -104,6 +147,7 @@ class Fold:
 
     def loadTrain(self, fold_number):
       return np.genfromtxt( DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtrain_" + str(fold_number) + ".csv", delimiter=',')
+
 
     def KFold(self):
         result= []
