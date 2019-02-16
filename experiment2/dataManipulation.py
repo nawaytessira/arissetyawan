@@ -3,13 +3,99 @@
 Author: André Pacheco
 E-mail: pacheco.comp@gmail.com
 
-Revised: Aris Setyawan
+Improved: Aris Setyawan
 E-mail: arissetyawan.email@gmail.com
 
 This class just implements a data class to ease the dataset manipulation.
 If you find some bug, plese e-mail me =)
 
 """
+
+
+MAIN_DIR= "/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/experiment2/"
+DATA_PATH= MAIN_DIR + "datasets/"
+
+import sys
+import pandas as pd
+import numpy as np
+sys.path.insert (0, MAIN_DIR)
+sys.path.insert (0, "/usr/local/lib/python3.6/site-packages/")
+
+class Fold:
+    K = None
+    dataset= None
+    train_file= None
+    fold_file= None
+    test_file= None
+
+    def __init__(self, dataset, K):
+        print("Fold initialising...", dataset, K)
+        self.df= pd.read_csv(DATA_PATH+ dataset +".csv", header=None)
+        self.dataset=  dataset
+        self.K= K
+
+    def remove_tab(self, file):
+        f = open(file, "r")
+        out= f.read().replace(" ","")
+        # print(out)
+        f.close
+        f = open(file, "w")
+        f.write(out)
+        f.close
+
+    def split(self):
+        if K < 2:
+            print("Please pass argument for split at least: 2")
+        else:
+            print("Splitting into n folds:  ", K)
+            folds= np.array_split(df, K)
+            i = 1
+            for fold in folds:
+                print(i)
+                self.fold_file= DATA_PATH+ self.dataset + "_fold_" + str(i) + ".csv"
+                np.savetxt(self.fold_file, fold, delimiter=",", fmt='%10.2f')
+                self.remove_tab(self.fold_file)
+                i += 1
+
+    def loadFold(self, fold_number):
+      return np.genfromtxt( DATA_PATH+ self.dataset + "_" + str(self.K) + "fold_" + str(fold_number) + ".csv", delimiter=',')
+
+    def loadTest(self, fold_number):
+      return np.genfromtxt( DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtest_" + str(fold_number) + ".csv", delimiter=',')
+
+    def loadTrain(self, fold_number):
+      return np.genfromtxt( DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtrain_" + str(fold_number) + ".csv", delimiter=',')
+
+    def KFold(self):
+        result= []
+        folds= np.array_split(self.df, self.K)
+        for i in range(self.K):
+            fold_number= i + 1
+            # print(' ------------- Fold: ', fold_number)
+            fold= folds[i]
+            test= fold
+            train= []
+            for j in range(self.K):
+                if i!= j:
+                    train.append(folds[j])
+            train= np.concatenate(train)
+            # print("TEST", test)
+            # print("TRAIN", train)
+            result.append([test, train])
+            self.fold_file= DATA_PATH+ self.dataset + "_" + str(self.K) + "fold_" + str(fold_number) + ".csv"
+            self.train_file= DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtrain_" + str(fold_number) + ".csv"
+            self.test_file= DATA_PATH+ self.dataset + "_" + str(self.K) + "foldtest_" + str(fold_number) + ".csv"
+
+            np.savetxt(self.fold_file, fold, delimiter=",", fmt='%10.2f')
+            np.savetxt(self.train_file, train, delimiter=",", fmt='%10.2f')
+            np.savetxt(self.test_file, test, delimiter=",", fmt='%10.2f')
+
+            self.remove_tab(self.fold_file)
+            self.remove_tab(self.train_file)
+            self.remove_tab(self.test_file)
+            i += 1
+        return result
+
 
 import numpy as np
 from utilsClassification import *
@@ -394,22 +480,22 @@ class data:
     def save (self,name='data', ext='.csv'):
         p("Saving all partition of datasets...")
         if self.trainIn is not None:     
-            np.savetxt(name+'-trainIn'+ext,self.trainIn)
+            np.savetxt(name+'-trainIn'+ext,self.trainIn, fmt='%10.2f')
 
         if self.trainOut is not None:
-            np.savetxt(name+'-trainOut'+ext,self.trainOut)
+            np.savetxt(name+'-trainOut'+ext,self.trainOut, fmt='%10.2f')
 
         if self.valIn is not None:
-            np.savetxt(name+'-valIn'+ext,self.valIn)
+            np.savetxt(name+'-valIn'+ext,self.valIn, fmt='%10.2f')
 
         if self.valOut is not None:
-            np.savetxt(name+'-valOut'+ext,self.valOut)
+            np.savetxt(name+'-valOut'+ext,self.valOut, fmt='%10.2f')
 
         if self.testIn is not None:       
-            np.savetxt(name+'-testIn'+ext,self.testIn)
+            np.savetxt(name+'-testIn'+ext,self.testIn, fmt='%10.2f')
 
         if self.testOut is not None:
-            np.savetxt(name+'-testOut'+ext,self.testOut)
+            np.savetxt(name+'-testOut'+ext,self.testOut, fmt='%10.2f')
     
     # loading the partitions saved previously with the method save
     def load (self, trainIn=None, trainOut=None, valIn=None, valOut=None, testIn=None, testOut=None):
