@@ -15,6 +15,8 @@ If you find some bug, plese e-mail me =)
 MAIN_DIR= "/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/experiment2/"
 DATA_PATH= MAIN_DIR + "datasets/"
 
+import warnings
+warnings.filterwarnings('ignore')
 import sys
 import pandas as pd
 import numpy as np
@@ -33,6 +35,29 @@ class Fold:
         self.df= pd.read_csv(DATA_PATH+ dataset +".csv", header=None)
         self.dataset=  dataset
         self.K= K
+
+    def stratified(self, postOut='last'):
+        label= []
+        nCols= data.values.shape[1]
+        hsplitted= np.array_split(data.values,nCols,axis=1)
+        restCols= []
+        if postOut='last':
+            label= hsplitted[nCols-1]
+            for i in nCols-2:
+                restCols.append(hsplitted[i])
+        else: #first
+            label= hsplitted[0]
+            for i in nCols-2:
+                restCols.append(hsplitted[i+1])
+
+        data= np.hstack(restCols)
+
+        skf= StratifiedKFold(n_split=self.K)
+        for train_index, test_index in skf
+            x_train, y_train = data[train_index], label[train_index]
+            x_test, y_test = data[test_index], label[test_index]
+        training= np.hstack((x_train, y_train))
+        testing= np.hstack((x_test, y_test))
 
     def remove_tab(self, file):
         f = open(file, "r")
