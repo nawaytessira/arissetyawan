@@ -63,7 +63,7 @@ print('------------------------')
 print("FRIEDMAN")
 # compare samples
 stat, p = friedmanchisquare(data1, data2, data3)
-print('Statistics=%.3f, p=%.3f' % (stat, p))
+print('Statistics=%.6f, p=%.6f' % (stat, p))
 # interpret
 alpha = 0.05
 if p > alpha:
@@ -87,55 +87,12 @@ else:
 	print('RBM vs RND: Different distribution (reject H0)')
 
 stat, p = wilcoxon(data1, data3)
-print('Statistics=%.3f, p=%.3f' % (stat, p))
-# interpret
-alpha = 0.05
-if p > alpha:
-	print('RBM vs RO: Same distribution (failed to reject H0, sample equal)')
-else:
-	print('RBM vs RO: Different distribution (reject H0)')
-
-# ----------------------------------------------------
-
-from scipy.stats import mannwhitneyu
-print('------------------------')
-print("MANNWHITNEYU")
-# compare samples
-stat, p = mannwhitneyu(data1, data2)
 print('Statistics=%.6f, p=%.6f' % (stat, p))
 # interpret
 alpha = 0.05
 if p > alpha:
-	print('RBM vs RND: Same distribution (failed to reject H0, sample equal)')
-else:
-	print('RBM vs RND: Different distribution (reject H0)')
-
-stat, p = mannwhitneyu(data1, data3)
-print('Statistics=%.3f, p=%.3f' % (stat, p))
-# interpret
-alpha = 0.05
-if p > alpha:
 	print('RBM vs RO: Same distribution (failed to reject H0, sample equal)')
 else:
 	print('RBM vs RO: Different distribution (reject H0)')
+
 # ----------------------------------------------------
-
-from scipy import stats
-print('------------------------')
-print("T-Test")
-t, p = stats.ttest_ind(data1, data2)
-# print("t = ", round(t2, 6))
-# interpret
-alpha = 0.05
-if p > alpha:
-	print('RBM vs RND: Same distribution (failed to reject H0, sample equal)')
-else:
-	print('RBM vs RND: Different distribution (reject H0)')
-
-t, p = stats.ttest_ind(data1, data3)
-# interpret
-alpha = 0.05
-if p > alpha:
-	print('RBM vs RO: Same distribution (failed to reject H0, sample equal)')
-else:
-	print('RBM vs RO: Different distribution (reject H0)')

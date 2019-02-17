@@ -32,7 +32,7 @@ from rbm_tensorflow import *
 from sklearn.preprocessing import LabelEncoder
 from plotly.tools import FigureFactory as FF
 
-neuron=None
+neuron=100
 if len(sys.argv)!= 2:
     print("Please pass argument for neuron number eg. 100")
 else:
@@ -53,10 +53,10 @@ else:
         # If the dataset has already been splitted, you can upload all the partitions using
         # train, val and test. 
 
-    dname= "iris"
+    dname= "mnist"
     df= pd.read_csv(DATA_PATH+ dname +".csv")
     mydataset= df.reset_index().values
-    K = 10
+    K = 1
     maxIterRbm = 10
 
     acc1 = list()
@@ -78,7 +78,8 @@ else:
     for fold in range(K):
         percTrain= 0.9
         percTest= 0.1
-        mydata= data(dataset=mydataset, percTrain=percTrain, percTest=percTest, percVal=0, normType="maxmin", shuf=True, posOut="first", outBin=True)
+        mydata= data(dataset=mydataset, percTrain=percTrain, percTest=percTest, percVal=0, 
+                    normType="maxmin", shuf=True, posOut="first", outBin=True)
         mydata.save("datasets/"+dname)
         mydata.load()
         ###########################################################################
