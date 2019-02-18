@@ -4,7 +4,8 @@ Repeated experiment for 50 times
 However, how to choose the optimum number of hidden nodes is still unknown, it is usually done by trial and error
 	p.1498(yang, 2012)
 ---------------------------------------------------------------------
-
+Choosing neurons using step 100 till 500
+	p.16(henriquez, 2016)
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------

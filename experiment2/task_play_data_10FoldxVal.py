@@ -13,10 +13,9 @@ MAIN_DIR= "/media/arissetyawan/01D01F7DA71A34F01/__PASCA__/_THESIS_/experiment2/
 DATA_PATH= MAIN_DIR + "datasets/"
 
 import sys
-sys.path.insert (0, MAIN_DIR)
-sys.path.insert (0, "/usr/local/lib/python3.6/site-packages/")
+sys.path.insert(0, MAIN_DIR)
+sys.path.insert(0, "/usr/local/lib/python3.6/site-packages/")
 
-import tensorflow as tf
 import numpy as np
 import time
 import gc
@@ -32,28 +31,34 @@ from rbm_tensorflow import *
 from sklearn.preprocessing import LabelEncoder
 from plotly.tools import FigureFactory as FF
 
-dataset='spambase'
+dataset='play_data'
+fold_number= 1
+K= 10
 neuron=None
 if len(sys.argv)!= 2:
     print("Please pass argument for neuron number eg. 100")
 else:
     neuron= int(sys.argv[1])
     print("Neurons: ", neuron)
-    # loading the data set
-        # The __init__ parameters:    
-        # dataset: the whole dataset. Default = None. You need to upload the split datasets with load method
-        # percTrain: the % of train data
-        # percVal: the % of validation data
-        # percTest: the % of test data
-        # Shuf: If you wanna shuffle the dataset set it as True, otherwise, False
-        # posOut: The output position in the dataset. You can choose: last, for the last column
-        # or first, for the first column. If there is no output, set it as None.    
-        # outBin: if it"s true, the output will rise one bit for each position. Ex: if the output
-        # is 3, the binary output will be an array [0, 0. 1].
-        # If the dataset has already been splitted, you can upload all the partitions using
-        # train, val and test. 
+    maxIterRbm = 200
+    print("Loading the dataset...")
+    objFold= Fold(dataset, K, 'last')
+    objFold.Stratified()
 
-    maxIterRbm = 10
+    # loading the data set
+    # The __init__ parameters:    
+    # dataset: the whole dataset. Default = None. You need to upload the split datasets with load method
+    # percTrain: the % of train data
+    # percVal: the % of validation data
+    # percTest: the % of test data
+    # Shuf: If you wanna shuffle the dataset set it as True, otherwise, False
+    # posOut: The output position in the dataset. You can choose: last, for the last column
+    # or first, for the first column. If there is no output, set it as None.    
+    # outBin: if it"s true, the output will rise one bit for each position. Ex: if the output
+    # is 3, the binary output will be an array [0, 0. 1].
+    # If the dataset has already been splitted, you can upload all the partitions using
+    # train, val and test. 
+
 
     acc1 = list()
     tim1 = list()
@@ -68,19 +73,11 @@ else:
     normELM = list()
     normELMRO = list()
  
-    fold_number= 1
-    K= 10
-    print("Loading the dataset...")
-    objFold= Fold(dataset, K)
-    objFold.KFold()
-
     for fold in range(K):
         train= objFold.loadTrain(fold_number)
         test= objFold.loadTest(fold_number)
-        # print(test)
         mydata= data(train=train, test=test, val=None, normType="maxmin", shuf=False, posOut="last", outBin=True)
         mydata.save("datasets/"+dataset+"_iterfold_"+ str(fold_number))
-        mydata.load()
 
         ###########################################################################
         print(line2())
