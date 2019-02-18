@@ -1,0 +1,10 @@
+1. semua style body harus times new roman 12 normal
+2. semua caption pake references include chapter
+3. glossary ?
+4. rm o1 refereence romi-theoriticical mdodel
+   :indicator(setup, tune parameters) - proposed method - objective - measurement
+5. bab 3 metode penelitian: romi-rm 04 penulisan dec2017, page 95.
+>> ikuti SLR of software defect 2015.pdf
+6. klik kanan tabel pilih template
+7. font times new roman semua
+8. tiap gambar harus ada narasi
